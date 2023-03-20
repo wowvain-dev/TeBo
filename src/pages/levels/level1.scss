@@ -1,0 +1,14 @@
+.level1 {
+    &.card-holder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+    }
+
+    .background-card {
+        background: #fefefe;
+        padding: 50px;
+        border-radius: 12px;
+    }
+}

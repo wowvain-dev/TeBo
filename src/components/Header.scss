@@ -1,0 +1,19 @@
+.header-container {
+    display: flex;
+    flex-direction: row;
+
+    .header-breadcrumbs {
+        display: flex;
+        flex-direction: row;
+        background: #fefefe;
+        border-radius: 12px;
+        padding: 10px 5px;
+        margin-left: 10px;
+        margin-top: 10px;
+    
+        .link {
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+    }
+}
