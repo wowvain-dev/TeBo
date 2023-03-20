@@ -45,6 +45,8 @@ async function createWindow() {
   win = new BrowserWindow({
     title: 'Lima - Culegere Interactivă',
     icon: join(process.env.PUBLIC, 'favicon.ico'),
+    minWidth: 1150,
+    minHeight: 700,
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production

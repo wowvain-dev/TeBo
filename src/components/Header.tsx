@@ -1,6 +1,7 @@
 import './Header.scss';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
-import { Link, Text } from '@nextui-org/react';
+import { Link, Progress, Text } from '@nextui-org/react';
+import { BiHomeAlt2 } from 'react-icons/bi';
 
 function Header() {
     const breadcrumbs = useBreadcrumbs();
@@ -9,11 +10,11 @@ function Header() {
         <div className="header-container">
             <div className="header-breadcrumbs">
                {breadcrumbs.map(({match, breadcrumb}, index) => 
-                   <div>
+                   <div key={match.pathname}>
                    <Link 
-                   key={match.pathname} className="link" 
+                   className="link" 
                    href={match.pathname === '/levels' ? '/' : match.pathname}>
-                        {breadcrumb}
+                        {breadcrumb === "Home" ? <BiHomeAlt2 /> : breadcrumb}
                     </Link>
                     {index !== breadcrumbs.length - 1 ? '/' : ''}
                     </div>
@@ -21,10 +22,11 @@ function Header() {
             </div>
 
             <div className="header-level">
+                <p>Învăţăcel</p>
             </div>
 
             <div className="header-progress">
-
+                <Progress value={90} color="gradient" />
             </div>
         </div>
     );    
