@@ -3,10 +3,11 @@ import { Card, Progress } from "@nextui-org/react";
 
 interface ProgressSubjectCardProps {
     subject: string,
-    progress: number,
+    current: number,
+    total: number
 }
 
-export function ProgressSubjectCard({subject, progress}: ProgressSubjectCardProps) {
+export function ProgressSubjectCard({subject, current, total}: ProgressSubjectCardProps) {
     return(
         <div className="progress-card progress-subject-card">
             <Card css={{height: "150px"}} isHoverable isPressable>
@@ -14,12 +15,12 @@ export function ProgressSubjectCard({subject, progress}: ProgressSubjectCardProp
                     {subject}
                 </Card.Header>
                 <Card.Body>
-                    <Progress value={progress} 
+                    <Progress value={current * 100 / total} 
                     size="lg" 
-                    color={
-                        progress > 70 ? "success"
-                        : progress > 30 ? "primary" : "secondary"
-                    } />
+                    color={current >= total ? 'success' : 'primary'} />
+                    <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+                        <p style={{fontFamily: "DM Sans"}}>{current} / {total}</p>
+                    </div>
                 </Card.Body>
             </Card>
         </div>

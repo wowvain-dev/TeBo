@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import './layout.scss';
-import background from "../assets/background.jpg";
+import background from "../assets/background-2.jpg";
 import Header from "../components/Header";
 
 function Footer() {

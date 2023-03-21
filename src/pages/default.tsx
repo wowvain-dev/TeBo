@@ -43,7 +43,12 @@ function DefaultPage() {
                             fontFamily: "DM Sans", fontSize: "$2xl", padding: "$10"
                         }}
                         className="difficulty-button"
-                        icon={<Book1 size="50" />}>
+                        icon={<Book1 size="50" />}
+                        onPress={() => {
+                            navigate("/levels/2");
+                            console.log("clicked");
+                        }}
+                        >
                         Cunoscător
                     </Button>
                     <Button
@@ -55,7 +60,12 @@ function DefaultPage() {
                             fontFamily: "DM Sans", fontSize: "$2xl", padding: "$10"
                         }}
                         className="difficulty-button"
-                        icon={<Medal size="50" />}>
+                        icon={<Medal size="50" />}
+                        onPress={() => {
+                            navigate("/levels/3");
+                            console.log("clicked");
+                        }}
+                        >
                         Expert
                     </Button>
                 </div>

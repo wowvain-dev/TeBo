@@ -1,0 +1,404 @@
+{
+  "stiati_ca": [
+    {
+      "string": "Oficial, cel mai mic deal din lume are o înălţime de 4,5m şi se află pe un teren de golf din Brunei.",
+      "audio_path": "assets/sounds/words/0_audio.mp3"
+    },
+    {
+      "string": "Nomazii din Sahara trăiesc în corturi făcute din ţesuturi de păr de capră.",
+      "audio_path": "assets/sounds/words/1_audio.mp3"
+    },
+    {
+      "string": "La vârsta de 75 ani, vei fi respirat de aproximativ 600 de milioane de ori, iar inima ta va fi pompat sânge de trei milioane de ori, adică aproximativ 200 de milioane de litri de sânge - suficient cât să umpli 70 de piscine.",
+      "audio_path": "assets/sounds/words/2_audio.mp3"
+    },
+    {
+      "string": "Cel mai lung tunel feroviar din lume are 58km în lungime şi trece pe sub Alpii elveţieni.",
+      "audio_path": "assets/sounds/words/3_audio.mp3"
+    },
+    {
+      "string": "Două treimi din populaţia de pe glob nu au atins sau văzut zăpadă vreodată.",
+      "audio_path": "assets/sounds/words/4_audio.mp3"
+    },
+    {
+      "string": "40% din presa zilnică scrisă este tipărită pe hârtia care provine din pădurile canadiene.",
+      "audio_path": "assets/sounds/words/5_audio.mp3"
+    },
+    {
+      "string": "Şarpele taipan trăieşte în nord-estul Australiei şi în Noua Guinee şi este cel mai veninos şarpe de pe glob. Taipanul ar putea ucide 125.000 de şoricei cu veninul său.",
+      "audio_path": "assets/sounds/words/6_audio.mp3"
+    },
+    {
+      "string": "În corpul uman, durerea „călătoreşte” foarte rapid către creier. Viteza sa este de 106m/s.",
+      "audio_path": "assets/sounds/words/7_audio.mp3"
+    },
+    {
+      "string": "Finlanda are peste 187.000 de lacuri.",
+      "audio_path": "assets/sounds/words/8_audio.mp3"
+    },
+    {
+      "string": "Biblioteca Congresului Statelor Unite ale Americii din Washington este cea mai mare bibliotecă din lume, având aproximativ 32 de milioane de cărţi în mai mult de 470 de limbi.",
+      "audio_path": "assets/sounds/words/9_audio.mp3"
+    },
+    {
+      "string": "În China Antică se credea că furtunile sunt provocate de luptele între dragonii cereşti.",
+      "audio_path": "assets/sounds/words/10_audio.mp3"
+    },
+    {
+      "string": "Cel mai puternic cutremur din istorie a avut loc în 1960 în apropiere de coasta statului Chile. A avut o magnitudine de 9,6 grade pe scara Richter şi a afectat locuri aflate chiar şi la 1600km distanţă de epicentru.",
+      "audio_path": "assets/sounds/words/11_audio.mp3"
+    },
+    {
+      "string": "Numărul 17 este considerat număr cu ghinion în Italia. În Japonia, 4 aduce ghinion, iar la noi 13 este numărul cu ghinion.",
+      "audio_path": "assets/sounds/words/12_audio.mp3"
+    },
+    {
+      "string": "Biblioteca principală a Universităţii din Indiana se înclină cu 2,5cm pe an. Atunci când a fost construită, inginerii nu au luat în calcul greutatea cărţilor ce aveau să fie puse în bibliotecă.",
+      "audio_path": "assets/sounds/words/13_audio.mp3"
+    },
+    {
+      "string": "Suma numerelor de pe oricare două feţe opuse ale unui zar este întotdeauna 7.",
+      "audio_path": "assets/sounds/words/14_audio.mp3"
+    },
+    {
+      "string": "A durat 22 de ani ca Taj Mahal, grandiosul palat din India, să fie construit, aproximativ 22.000 de muncitori fiind incluşi în proces. Palatul are 73 de metri în înălţime.",
+      "audio_path": "assets/sounds/words/15_audio.mp3"
+    },
+    {
+      "string": "Sunetul pe care îl auzim când punem o scoică la ureche nu este al mării, ci al sângelui care circulă în interiorul urechii.",
+      "audio_path": "assets/sounds/words/16_audio.mp3"
+    },
+    {
+      "string": "3 ţări din Europa sunt principate, ceea ce înseamnă că sunt conduse de prinţi şi prinţese. Acestea sunt Andorra, Lichtenstein şi Monaco.",
+      "audio_path": "assets/sounds/words/17_audio.mp3"
+    },
+    {
+      "string": "Peste 40 de milioane de mingi de fotbal sunt vândute în lume în fiecare zi.",
+      "audio_path": "assets/sounds/words/18_audio.mp3"
+    },
+    {
+      "string": "În Franţa este interzis să dai numele Napoleon unui porc.",
+      "audio_path": "assets/sounds/words/19_audio.mp3"
+    },
+    {
+      "string": "Grăsimea protejează pinguinii de frig atât de bine încât aceştia câteodată se încălzesc prea tare când merg. Atunci ei trebuie să stea cu ciocurile deschise pentru a se răcori.",
+      "audio_path": "assets/sounds/words/20_audio.mp3"
+    },
+    {
+      "string": "Broaştele închid ochii atunci când sar.",
+      "audio_path": "assets/sounds/words/21_audio.mp3"
+    },
+    {
+      "string": "Datorită gravitaţiei mici de pe Lună, un om care în mod normal cântăreşte 100kg pe Pământ ar cântări doar 38kg pe Lună.",
+      "audio_path": "assets/sounds/words/22_audio.mp3"
+    },
+    {
+      "string": "Pe 18 iulie 1976, Nadia Comăneci a obţinut prima notă de 10 din istoria Jocurilor Olimpice, la gimnastică.",
+      "audio_path": "assets/sounds/words/23_audio.mp3"
+    },
+    {
+      "string": "Eschimoşii au 100 de cuvinte diferinte pentru „gheaţă” dar niciunul pentru „bună” /„salut”.",
+      "audio_path": "assets/sounds/words/24_audio.mp3"
+    },
+    {
+      "string": "Culoarea albastră are efect de calmare.",
+      "audio_path": "assets/sounds/words/25_audio.mp3"
+    },
+    {
+      "string": "Alfabetul japonez nu conţine litera L.",
+      "audio_path": "assets/sounds/words/26_audio.mp3"
+    },
+    {
+      "string": "Senzaţia de foame dispare după 21 de minute de la prima înghiţitură.",
+      "audio_path": "assets/sounds/words/27_audio.mp3"
+    },
+    {
+      "string": "Cel mai mare vulcan din lume este Mauna Loa din Hawaii. Se extinde pe o lungime de 15,2 km.",
+      "audio_path": "assets/sounds/words/28_audio.mp3"
+    },
+    {
+      "string": "Popa de cupă (inimă roșie) este singurul popă din cărţile de joc care nu are mustaţă.",
+      "audio_path": "assets/sounds/words/29_audio.mp3"
+    },
+    {
+      "string": "Lui Walter Disney îi era frică de şoareci.",
+      "audio_path": "assets/sounds/words/30_audio.mp3"
+    },
+    {
+      "string": "În Danemarca trăiesc de două ori mai mulţi porci decât oameni.",
+      "audio_path": "assets/sounds/words/31_audio.mp3"
+    },
+    {
+      "string": "Femela cerb se numește ciută.",
+      "audio_path": "assets/sounds/words/32_audio.mp3"
+    },
+    {
+      "string": "Cel mai greu dovleac din lume a cântărit 681.3 kg. Cu ocazia Halloween-ului, din el a fost sculptat un cap imens.",
+      "audio_path": "assets/sounds/words/33_audio.mp3"
+    },
+    {
+      "string": "În Scoţia plouă atât de des încât ciobanii cumpără pelerine de ploaie pentru oile lor.",
+      "audio_path": "assets/sounds/words/34_audio.mp3"
+    },
+    {
+      "string": "În Africa se vorbesc 1000 de limbi diferite.",
+      "audio_path": "assets/sounds/words/35_audio.mp3"
+    },
+  {
+    "string": "Tradiţia schimbului de verighete la căsătorie datează din Roma antică.",
+      "audio_path": "assets/sounds/words/36_audio.mp3"
+  },
+  {
+    "string": "Păsările Flamingo au penele şi pielea roz de la crustaceele (crabi, creveţi, purici de apă) pe care le mănâncă.",
+      "audio_path": "assets/sounds/words/37_audio.mp3"
+  },
+  {
+    "string": "Aproximativ 20-30 de vulcani erup anual - în majoritatea cazurilor, aceştia sunt vulcani submarini.",
+      "audio_path": "assets/sounds/words/38_audio.mp3"
+  },
+  {
+    "string": "Primul diamant a fost găsit de nişte copii care se jucau pe malul unui râu în Africa de Sud.",
+      "audio_path": "assets/sounds/words/39_audio.mp3"
+  },
+  {
+    "string": "Pâmântul este a cincea planetă că mărime din sistemul nostru solar. În comparaţie cu Soarele, mărimea sa este neglijabilă. Dacă Soarele ar fi un balon umflat, atunci Pământul ar fi cât un bob de mazăre.",
+      "audio_path": "assets/sounds/words/40_audio.mp3"
+  },
+  {
+    "string": "Supersaurus era unul din cei mai mari dinozauri. Avea aproximativ 30m în lungime şi cântărea cât 10 elefanţi.",
+      "audio_path": "assets/sounds/words/41_audio.mp3"
+  },
+  {
+    "string": "Celebrul turn înclinat din Pisa, Italia, nu a fost niciodată drept. În anul 117 s-a descoperit că baza turnului nu a fost pusă drept. Construcţia turnului a fost oprită şi reluată după 100 de ani.",
+      "audio_path": "assets/sounds/words/42_audio.mp3"
+  },
+  {
+    "string": "Lupii au două straturi de blană. Stratul de suprafaţă ajută la înlăturarea apei, noroiului şi prafului, iar stratul de interior ajută lupul să supravieţuiască la temperaturi de până la -40°C.",
+      "audio_path": "assets/sounds/words/43_audio.mp3"
+  },
+  {
+    "string": "Unele broaşte ţestoase pot trăi până la 200 de ani.",
+      "audio_path": "assets/sounds/words/44_audio.mp3"
+  },
+  {
+    "string": "Peştera Scărişoara, din munţii Bihor, judeţul Alba, adăposteşte cel mai mare gheţar subteran din România şi al doilea gheţar subteran ca mărime din Europa, după cel din peştera Eisriesenwelt din Austria.",
+      "audio_path": "assets/sounds/words/45_audio.mp3"
+  },
+  {
+    "string": "Ochiul uman poate distinge aproximativ 500 de nuanţe de gri.",
+      "audio_path": "assets/sounds/words/46_audio.mp3"
+  },
+  {
+    "string": "Biserica Neagră din Braşov este cea mai mare biserică gotică între Viena şi Istanbul.",
+      "audio_path": "assets/sounds/words/47_audio.mp3"
+  },
+  {
+    "string": "În Statele Unite ale Americii se formează cele mai multe tornade din lume, aproximativ 1200 pe an.",
+      "audio_path": "assets/sounds/words/48_audio.mp3"
+  },
+  {
+    "string": "Turnul Eiffel din Paris cântăreşte aproximativ 10.100 tone, echivalentul greutăţii a aproximativ 1058 de elefanţi.",
+      "audio_path": "assets/sounds/words/49_audio.mp3"
+  },
+  {
+    "string": "Căpşunile conţin mai multă vitamina C decât portocalele.",
+      "audio_path": "assets/sounds/words/50_audio.mp3"
+  },
+  {
+    "string": "Pasărea Colibri, cea mai mică pasăre din lume, este la fel de mare ca ochiul unui struţ.",
+      "audio_path": "assets/sounds/words/51_audio.mp3"
+  },
+  {
+    "string": "Cea mai scăzută temperatură înregistrată vreodată pe Pământ a fost de -89,2°C la Staţia Vostok din Antarctica, pe 21 iulie 1983.",
+      "audio_path": "assets/sounds/words/52_audio.mp3"
+  },
+  {
+    "string": "Doar 5% din oameni îşi pot atinge antebraţul cu degetul mare de la aceeaşi mână.",
+      "audio_path": "assets/sounds/words/53_audio.mp3"
+  },
+  {
+    "string": "Rechinii au un excelent simţ al auzului. Ei pot auzi mişcările peştilor în apă de la peste 500m distanţă.",
+      "audio_path": "assets/sounds/words/54_audio.mp3"
+  },
+  {
+    "string": "13% din populaţia lumii este stângace.",
+      "audio_path": "assets/sounds/words/55_audio.mp3"
+  },
+  {
+    "string": "Casa Poporului (sau Palatul Parlamentului) din Bucureşti este cea mai mare clădire administrativă ca suprafaţă din Europa şi pe locul 2 în lume, după clădirea Pentagonului (SUA).",
+      "audio_path": "assets/sounds/words/56_audio.mp3"
+  },
+  {
+    "string": "Rechini nu au nici măcar un os în corpul lor. În schimb, au un schelet format din cartilagii, un ţesut la fel de ferm şi de elastic precum urechile şi nasul de la om.",
+      "audio_path": "assets/sounds/words/57_audio.mp3"
+  },
+  {
+    "string": "Istanbul (cel mai mare oraş din Turcia) este singurul oraş din lume situat pe 2 continente - Asia şi Europa.",
+      "audio_path": "assets/sounds/words/58_audio.mp3"
+  },
+  {
+    "string": "Fiecare persoană are o amprentă unică a limbii.",
+      "audio_path": "assets/sounds/words/59_audio.mp3"
+  },
+  {
+    "string": "Canada este un cuvând indian care înseamnă „sat mare“.",
+      "audio_path": "assets/sounds/words/60_audio.mp3"
+  },
+  {
+    "string": "Pinguinii nu pot zbura, dar pot înota perfect.",
+      "audio_path": "assets/sounds/words/61_audio.mp3"
+  },
+  {
+    "string": "Imnul Greciei are 158 de strofe.",
+      "audio_path": "assets/sounds/words/62_audio.mp3"
+  },
+  {
+    "string": "Cămilele au 3 rânduri de pleoape care le protejează ochii de nisipul din deşert.",
+      "audio_path": "assets/sounds/words/63_audio.mp3"
+  },
+  {
+    "string": "Pe timpul întregii vieţi, oamenii mănâncă aproximativ 27.000 kg de mâncare, echivalentul greutăţii a 6 elefanţi.",
+      "audio_path": "assets/sounds/words/64_audio.mp3"
+  },
+  {
+    "string": "Cetăţenii Egiptului antic dormeau pe perne din piatră.",
+      "audio_path": "assets/sounds/words/65_audio.mp3"
+  },
+  {
+    "string": "95% din corpul unei meduze este alcătuit din apă.",
+      "audio_path": "assets/sounds/words/66_audio.mp3"
+  },
+  {
+    "string": "Oasele din corpul uman nu sunt albe, ci bej sau maronii. Oasele din muzee sunt albe pentru că au fost fierte în apă şi curăţate.",
+      "audio_path": "assets/sounds/words/67_audio.mp3"
+  },
+  {
+    "string": "Muştele din Alaska şi gândacii din Arctica sunt capabili să supravieţuiască unor temperaturi de până la -60 de grade Celsius.",
+      "audio_path": "assets/sounds/words/68_audio.mp3"
+  },
+  {
+    "string": "Primele semafoare nu au avut lumina portocalie.",
+      "audio_path": "assets/sounds/words/69_audio.mp3"
+  },
+  {
+    "string": "Guma de mestecat Wrigley's a fost primul produs care a avut cod de bare.",
+      "audio_path": "assets/sounds/words/70_audio.mp3"
+  },
+  {
+    "string": "Războiul de 100 de ani, între Franţa şi Anglia, a fost cel mai lung război vreodată. În realitate, a durat 116 ani.",
+      "audio_path": "assets/sounds/words/71_audio.mp3"
+  },
+  {
+      "string": "Chinezii folosesc anual 45 de miliarde beţişoare pentru mâncat. Din acest motiv, ei taie 25 de milioane de copaci în fiecare an.",
+      "audio_path": "assets/sounds/words/72_audio.mp3"
+    },
+    {
+      "string": "În limba engleză, numele tuturor continentelor încep şi se termină cu aceeaşi literă.",
+      "audio_path": "assets/sounds/words/73_audio.mp3"
+    },
+    {
+      "string": "Râul Roe, cel mai scurt râu din lume, are doar 60 metri în lungime.",
+      "audio_path": "assets/sounds/words/74_audio.mp3"
+    },
+    {
+      "string": "Londra a fost primul oraş din lume să aibă mai mult de 1 milion de locuitori.",
+      "audio_path": "assets/sounds/words/75_audio.mp3"
+    },
+    {
+      "string": "Înainte de sec. al XIX-lea, pantofii nu erau făcuţi special pentru piciorul drept sau stâng. Pantofii dintr-o pereche erau identici.",
+      "audio_path": "assets/sounds/words/76_audio.mp3"
+    },
+    {
+      "string": "Balena cu cocoaşă scoate nişte sunete care pot fi auzite de la 850 km distanţă.",
+      "audio_path": "assets/sounds/words/77_audio.mp3"
+    },
+    {
+      "string": "Lacurile aflate la cea mai mare altitudine sunt în Muntii Himalaya.",
+      "audio_path": "assets/sounds/words/78_audio.mp3"
+    },
+    {
+      "string": "Mănăstirea Peri din Maramureş este cea mai înaltă biserică de lemn din lume.",
+      "audio_path": "assets/sounds/words/79_audio.mp3"
+    },
+    {
+      "string": "Pădurea Pietrificată din Arizona este cea mai mare pădure pietrificată din lume.",
+      "audio_path": "assets/sounds/words/80_audio.mp3"
+    },
+    {
+      "string": "Vanilia este polenizată numai de albinele mexicane și de păsările colibri.",
+      "audio_path": "assets/sounds/words/81_audio.mp3"
+    },
+    {
+      "string": "Prima transformare a strugurilor în vin a avut loc în Mesopotamia.",
+      "audio_path": "assets/sounds/words/82_audio.mp3"
+    },
+    {
+      "string": "Vitamina D mai este numită şi “vitamina fericirii”.",
+      "audio_path": "assets/sounds/words/83_audio.mp3"
+    },
+    {
+      "string": "Corpul uman are 206 de oase.",
+      "audio_path": "assets/sounds/words/84_audio.mp3"
+    },
+    {
+      "string": "Arcul de Triumf din Paris a fost construit in onoarea victoriilor lui Napoleon.",
+      "audio_path": "assets/sounds/words/85_audio.mp3"
+    },
+    {
+      "string": "Prima cartelă SIM a fost produsă în Germania.",
+      "audio_path": "assets/sounds/words/86_audio.mp3"
+    },
+    {
+      "string": "Indonezia este țara cu cei mai mulți vulcani activi din lume.",
+      "audio_path": "assets/sounds/words/87_audio.mp3"
+    },
+    {
+      "string": "Munţii reprezintă aproximativ 85% din suprafaţa Japoniei",
+      "audio_path": "assets/sounds/words/88_audio.mp3"
+    },
+    {
+      "string": "Polul Nord nu are pământ ci doar gheaţă.",
+      "audio_path": "assets/sounds/words/89_audio.mp3"
+    },
+    {
+      "string": "Marea Moartă este cel mai sărat lac din lume.",
+      "audio_path": "assets/sounds/words/90_audio.mp3"
+    },
+    {
+      "string": "Pe glob se vorbesc aproximativ 5.000 de limbi.",
+      "audio_path": "assets/sounds/words/91_audio.mp3"
+    },
+    {
+      "string": "Strugurii sunt pe locul 3 in topul celor mai cultivate fructe din lume, după banane și portocale.",
+      "audio_path": "assets/sounds/words/92_audio.mp3"
+    },
+    {
+      "string": "Ceaiul este a doua bautură consumată in lume, cantitativ, după apa.",
+      "audio_path": "assets/sounds/words/93_audio.mp3"
+    },
+    {
+      "string": "În Indonezia se vorbesc peste 365 de limbi diferite.",
+      "audio_path": "assets/sounds/words/94_audio.mp3"
+    },
+    {
+      "string": "Anzii sunt cel mai lung lanţ muntos din lume. Sunt situaţi în America de Sud şi se întind pe o lungime de peste 7.200 de kilometri.",
+      "audio_path": "assets/sounds/words/95_audio.mp3"
+    },
+    {
+      "string": "O girafă are şapte oase în gât, precum oamenii, dar sunt mult mai mari.",
+      "audio_path": "assets/sounds/words/96_audio.mp3"
+    },
+    {
+      "string": "Limba unui cameleon are cel puţin lungimea corpului lui și poate apuca prada într-o fracţiune de secundă.",
+      "audio_path": "assets/sounds/words/97_audio.mp3"
+    },
+    {
+      "string": "Un câine husky poate alerga cu viteze de aproximativ 31 de kilometri pe oră, dar abilitatea lor cheie este rezistenţa.",
+      "audio_path": "assets/sounds/words/98_audio.mp3"
+    },
+    {
+      "string": "Un jaguar poate vedea în întuneric de şase ori mai bine decât un om.",
+      "audio_path": "assets/sounds/words/99_audio.mp3"
+    }
+  ]
+}

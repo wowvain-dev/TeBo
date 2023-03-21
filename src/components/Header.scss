@@ -44,6 +44,7 @@
             font-weight: bold;
             font-size: calc(max(1.4vw, 25px));
         }
+
     }
 
     .header-progress {
@@ -66,4 +67,9 @@
     width: 50px;
     border-radius: 12px;
     background: #000;
+}
+
+.dropdown-link {
+    width: 100%;
+    text-align: center;
 }
