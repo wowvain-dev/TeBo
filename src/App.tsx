@@ -9,6 +9,7 @@ import Level2 from './pages/levels/level2';
 import Level3 from './pages/levels/level3';
 import { ProgressContext, ProgressManager } from './helpers/context';
 import { useState } from 'react';
+import { AritmeticaPanel } from './pages/exercises/matematica/aritmetica/aritmetica_panel';
 
 function App() {
   const [progressValue, setProgressValue] = useState(
@@ -27,6 +28,9 @@ function App() {
                 <Route path="levels" element={<PageLayout />}>
                   <Route path="1">
                     <Route index element={<Level1 />}/>   
+                    <Route path="geometrie" element={<div></div>}/>
+                    <Route path="aritmetica" element={<AritmeticaPanel />}/>
+                    <Route path="romana" element={<div></div>}/>
                   </Route> 
                   <Route path="2">
                     <Route index element={<Level2 />}/>

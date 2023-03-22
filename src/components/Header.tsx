@@ -5,7 +5,46 @@ import { BiHomeAlt2 } from 'react-icons/bi';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { ReactElement } from 'react';
 import AnimatedPage from '@/components/AnimatedPage';
+import { Book1, Medal, ShoppingBag } from 'iconsax-react';
 import { useProgressContext } from '../helpers/context';
+import { HomeOutlined } from '@ant-design/icons';
+import { RxSlash } from 'react-icons/rx';
+import { Breadcrumb } from 'antd';
+import type { ItemType } from 'antd/es/breadcrumb/Breadcrumb';
+import type { BreadcrumbItemProps } from 'antd/es/breadcrumb';
+
+export type CrumbPath = {
+    name: string,
+    icon?: JSX.Element | undefined,
+};
+
+const AllRoutes: Array<string> = [
+    "/", "/levels", 
+    '/levels/1',
+    '/levels/2',
+    '/levels/3',
+    '/levels/1/aritmetica',
+    '/levels/1/romana',
+    '/levels/1/geometrie',
+    '/levels/1/aritmetica/operatii',
+    '/levels/1/aritmetica/siruri',
+    '/levels/1/aritmetica/fractii',
+    '/levels/1/aritmetica/formare',
+];
+
+const PathNames: Map<string, CrumbPath> = new Map<string, CrumbPath>([
+    // ["/levels/1", {name: "Învăţăcel", icon: <ShoppingBag size={15} style={{marginRight: "5px"}}/>}],
+    ["/levels/1", { name: "Învăţăcel" }],
+    ["/levels/2", { name: "Cunoscător", icon: <Book1 /> }],
+    ["/levels/3", { name: "Expert", icon: <Medal /> }],
+    ["/levels/1/aritmetica", { name: "Aritmetică"}],
+    ["/levels/1/geometrie", { name: "Geometrie"}],
+    ["/levels/1/romana", { name: "Română"}],
+    ["/levels/1/aritmetica/operatii", { name: "Operaţii"}],
+    ["/levels/1/aritmetica/fractii", { name: "Fracţii"}],
+    ["/levels/1/aritmetica/formare", { name: "Formarea Numerelor"}],
+    ["/levels/1/aritmetica/siruri", { name: "Ordine de Şiruri"}],
+]);
 
 function Header() {
     const breadcrumbs = useBreadcrumbs();
@@ -13,65 +52,74 @@ function Header() {
     const navigate = useNavigate();
     const progress = useProgressContext();
 
-    const str = ">";
+    const str = <RxSlash />;
 
     const Breadcrumbs = () => {
-        let crumbs: Array<ReactElement> = new Array<JSX.Element>;
+        let crumbs: Array<ItemType> = new Array<ItemType>;
         for (let i = 0; i < breadcrumbs.length; i++) {
             if (breadcrumbs[i].match.pathname === '/') {
+                crumbs.push({
+                    title: <Link to='/'><HomeOutlined /></Link>,
+                    href: undefined,
+
+                });
+            } else if (breadcrumbs[i].match.pathname === '/levels') { continue; }
+            else {
+                var currentPath = breadcrumbs[i].match.pathname;
+                var countSlashes = (currentPath.match(/\//g) || []).length;
+                var matchyPath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+                console.log(`${countSlashes} in ${currentPath}, with a matchy of: ${matchyPath}`);
+                var menuItems = new Array;
+                PathNames.forEach((val, key) => {
+                    if ((key.match(/\//g) || []).length == countSlashes) {
+                        menuItems.push({
+                            key: `breadcrumb_dropdown_${key}`,
+                            label: <Link to={key}>
+                                <span>{val.name}</span>
+                            </Link>
+                        });
+                    }
+                });
+                if (i === breadcrumbs.length - 1) {
+                    crumbs.push({
+                        title: <div style={{display: 'inline-block'}}>
+                            {PathNames.get(breadcrumbs[i].match.pathname)?.icon}
+                            <span>{PathNames.get(breadcrumbs[i].match.pathname)?.name}</span>
+                        </div>,
+                        menu: {
+                            items: menuItems
+                        }
+                    })
+                    break;
+                }
                 crumbs.push(
-                <div>
-                    <Button light auto 
-                     
-                    size="xs" css={{display: 'inline-block'}}
-                        onPress={() => navigate('/')}
-                    >
-                    <BiHomeAlt2 />
-                    </Button>
-                    <span> {str} </span>
-                </div>
+                    {
+                        title: <Link to={breadcrumbs[i].match.pathname}>
+                            <div>
+                                {PathNames.get(breadcrumbs[i].match.pathname)?.icon}
+                                <span>{PathNames.get(breadcrumbs[i].match.pathname)?.name}</span>
+                            </div>
+                        </Link>,
+                        menu: {
+                            items: menuItems
+                        }
+                    }
                 );
-            } else if (breadcrumbs[i].match.pathname === '/levels/1') {
-                crumbs.push (
-                    <div>
-                        <Button light auto css={{fontFamily: "DM Sans"}} size='sm'
-                        >
-                            Învăţăcel
-                        </Button>
-                    </div>
-                );
-                if (i !== breadcrumbs.length - 1) crumbs.push(<span>{str}</span>);
-            } else if (breadcrumbs[i].match.pathname === '/levels/2') {
-                crumbs.push (
-                    <div>
-                        <Button light auto css={{fontFamily: "DM Sans"}} size='sm'
-                        >
-                            Cunoscător
-                        </Button>
-                    </div>
-                );
-                if (i !== breadcrumbs.length - 1) crumbs.push(<span>{str}</span>);
-            } else if (breadcrumbs[i].match.pathname === '/levels/3') {
-                crumbs.push (
-                    <div>
-                        <Button light auto css={{fontFamily: "DM Sans"}} size='sm'
-                        >
-                            Expert
-                        </Button>
-                    </div>
-                );
-                if (i !== breadcrumbs.length - 1) crumbs.push(<span>{str}</span>);
-            } 
+            }
         }
-        return(crumbs);
+        console.log(breadcrumbs[breadcrumbs.length - 1].match.params)
+        return (
+            <Breadcrumb items={crumbs} 
+                style={{marginTop: 'auto', marginBottom: 'auto'}}
+            />);
     };
 
 
     return (
         <AnimatedPage>
-        <div className="header-container">
-            <div className="header-breadcrumbs">
-               {/* {breadcrumbs.map(({match, breadcrumb}, index) => 
+            <div className="header-container">
+                <div className="header-breadcrumbs">
+                    {/* {breadcrumbs.map(({match, breadcrumb}, index) => 
                    <div key={match.pathname}>
                    <Link 
                    className="link" 
@@ -81,54 +129,54 @@ function Header() {
                     {index !== breadcrumbs.length - 1 ? '/' : ''}
                     </div>
                )}  */}
-               {/* @ts-ignore */}
-               <Breadcrumbs/>
-            </div>
+                    {/* @ts-ignore */}
+                    <Breadcrumbs />
+                </div>
 
-            <div className="header-level">
-                {/* <p>{location.pathname.includes('levels/1')
+                <div className="header-level">
+                    {/* <p>{location.pathname.includes('levels/1')
                     ? 'Învăţăcel'
                     : location.pathname.includes('levels/2')
                     ? 'Cunoscător'
                     : 'Expert'
                 }</p> */}
-                <Dropdown>
-                    <Dropdown.Button light
-                        css={{fontFamily: "DM Sans", fontSize: '20px'}}
-                    >
-                        {location.pathname.includes('levels/1')
-                            ? 'Învăţăcel'
-                            : location.pathname.includes('levels/2')
-                            ? 'Cunoscător'
-                            : 'Expert'
-                        }
-                    </Dropdown.Button>
-                    <Dropdown.Menu
-                        disabledKeys={
-                            [location.pathname.includes('levels/1') ? "level1"
-                            : location.pathname.includes('levels/2') ? "level2"
-                            : "level3"]
-                        }
-                        css={{fontFamily: "DM Sans"}}
-                    >
-                        <Dropdown.Item key="level1">
-                            <div className="dropdown-link" onClick={() => navigate('/levels/1')}>Învăţăcel</div></Dropdown.Item>
-                        <Dropdown.Item key="level2">
-                            <div className="dropdown-link" onClick={() => navigate('/levels/2')}>Cunoscător</div></Dropdown.Item>
-                        <Dropdown.Item key="level3">
-                            <div className="dropdown-link" onClick={() => navigate('/levels/3')}>Expert</div>
-                        </Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-            </div>
+                    <Dropdown>
+                        <Dropdown.Button light
+                            css={{ fontFamily: "DM Sans", fontSize: '20px' }}
+                        >
+                            {location.pathname.includes('levels/1')
+                                ? 'Învăţăcel'
+                                : location.pathname.includes('levels/2')
+                                    ? 'Cunoscător'
+                                    : 'Expert'
+                            }
+                        </Dropdown.Button>
+                        <Dropdown.Menu
+                            disabledKeys={
+                                [location.pathname.includes('levels/1') ? "level1"
+                                    : location.pathname.includes('levels/2') ? "level2"
+                                        : "level3"]
+                            }
+                            css={{ fontFamily: "DM Sans" }}
+                        >
+                            <Dropdown.Item key="level1">
+                                <div className="dropdown-link" onClick={() => navigate('/levels/1')}>Învăţăcel</div></Dropdown.Item>
+                            <Dropdown.Item key="level2">
+                                <div className="dropdown-link" onClick={() => navigate('/levels/2')}>Cunoscător</div></Dropdown.Item>
+                            <Dropdown.Item key="level3">
+                                <div className="dropdown-link" onClick={() => navigate('/levels/3')}>Expert</div>
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </div>
 
-            <div className="header-progress">
-                <Progress value=
-                {progress.value.level1.percentage()} color="gradient" />
+                <div className="header-progress">
+                    <Progress value=
+                        {progress.value.level1.percentage()} color="gradient" />
+                </div>
             </div>
-        </div>
         </AnimatedPage>
-    );    
+    );
 }
 
 export default Header;

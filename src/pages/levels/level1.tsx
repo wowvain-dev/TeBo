@@ -17,9 +17,12 @@ function Level1() {
         <AnimatedPage>
             <div className="card-holder level1">
                 <div className="background-card">
+                    <h3 style={{textAlign: 'center', 
+                    fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: "20px"}}>Materii</h3>
                     <Grid.Container gap={3}>
                         <Grid sm={6} justify='center'>
                             <ProgressSubjectCard 
+                                to="/levels/1/aritmetica"
                                 subject="Aritmetică"
                                 current={progress.value.level1.matematica.parts.get('aritmetica')?.current() as number}
                                 total={progress.value.level1.matematica.parts.get('aritmetica')?.total() as number}
@@ -27,6 +30,7 @@ function Level1() {
                         </Grid>
                         <Grid sm={6} justify='center'>
                             <ProgressSubjectCard 
+                                to="/levels/1/geometrie"
                                 subject="Geometrie"
                                 current={progress.value.level1.matematica.parts.get('geometrie')?.current() as number}
                                 total={progress.value.level1.matematica.parts.get('geometrie')?.total() as number}
@@ -34,6 +38,7 @@ function Level1() {
                         </Grid>
                         <Grid sm={12} justify='center'>
                             <ProgressSubjectCard 
+                                to="/levels/1/romana"
                                 subject="Limbă şi Comunicare"
                                 current={progress.value.level1.comunicare.parts.get('romana')?.current() as number}
                                 total={progress.value.level1.comunicare.parts.get('romana')?.total() as number}
@@ -41,28 +46,28 @@ function Level1() {
                         </Grid>
                     </Grid.Container>
                 
-                    <Button
+                    {/* <Button
                         /// TODO(wowvain-dev): simplify storage read/write access
-                        onPress={() => {
-                            let copy = {...progress.value};
-                            let newProgress: ExerciseProgress = 
-                                copy.level1.matematica.parts.get('aritmetica')
-                                    ?.parts.get('operatii') ?? new ExerciseProgress(
-                                        0, 0
-                                    );
-                            // @ts-ignore
-                            newProgress.current += 1;
+                        // onPress={() => {
+                        //     let copy = {...progress.value};
+                        //     let newProgress: ExerciseProgress = 
+                        //         copy.level1.matematica.parts.get('aritmetica')
+                        //             ?.parts.get('operatii') ?? new ExerciseProgress(
+                        //                 0, 0
+                        //             );
+                        //     // @ts-ignore
+                        //     newProgress.current += 1;
                             
-                            copy.level1.matematica.parts.get('aritmetica')
-                                ?.parts.set('operatii', newProgress);
+                        //     copy.level1.matematica.parts.get('aritmetica')
+                        //         ?.parts.set('operatii', newProgress);
 
-                            let newManager: ProgressManager = new ProgressManager();
-                            newManager.level1 = copy.level1;
-                            newManager.level2 = copy.level2;
-                            newManager.level3 = copy.level3;
-                            progress.setValue(newManager);
-                        }}
-                    >Add Progress</Button>
+                        //     let newManager: ProgressManager = new ProgressManager();
+                        //     newManager.level1 = copy.level1;
+                        //     newManager.level2 = copy.level2;
+                        //     newManager.level3 = copy.level3;
+                        //     progress.setValue(newManager);
+                        // }}
+                    >Add Progress</Button> */}
                 </div>
 
                 <FunFactCard />
