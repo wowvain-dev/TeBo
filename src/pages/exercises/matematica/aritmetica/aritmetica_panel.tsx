@@ -2,22 +2,23 @@ import './aritmetica_panel.scss';
 import { ProgressExerciseCard } from '@/components/ProgressExerciseCard';
 import { Button, Grid } from '@nextui-org/react';
 import AnimatedPage from '../../../../components/AnimatedPage';
-import { useProgressContext } from '../../../../helpers/context';
+import { useProgressContext } from '../../../../services/context';
 import { useNavigate } from 'react-router-dom';
 import { BsArrowLeft } from 'react-icons/bs';
+import { ExpressionNode, ExpressionTree, Operator } from '@/types/ExpressionTree';
+import { ArrowLeft } from 'iconsax-react';
 
 
 export function AritmeticaPanel() {
     const progress = useProgressContext();
     const navigate = useNavigate();
     
-    console.log()
 
     return (
     <AnimatedPage>
         <div className="card-holder aritmetica-panel">
             <div className="background-card">
-                <Button light auto size='xs' icon={<BsArrowLeft size="24"/>}
+                <Button light auto size='xs' icon={<ArrowLeft size="24"/>}
                     css={{width: "36px", height: "36px"}}
                     onPress={() => navigate(-1)}
                 />
@@ -47,7 +48,7 @@ export function AritmeticaPanel() {
                     </Grid>
                     <Grid sm={6} justify='center'>
                         <ProgressExerciseCard 
-                            to='/levels/1/aritmetica/siruri'
+                            to='/levels/1/aritmetica/ordine'
                             exercise="Şiruri de numere"
                             current={progress.value.level1.matematica.parts
                                 .get('aritmetica')?.parts.get('siruri')?.current as number}    

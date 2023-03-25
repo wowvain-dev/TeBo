@@ -1,4 +1,4 @@
-.operatii {
+.ordine {
     &.card-holder {
         display: flex;
         justify-content: center;
@@ -17,7 +17,7 @@
         margin-top: 5vh;
     }
 
-    .equation-card-holder {
+    .order-card-holder {
         display: flex;
         margin-top: 50px;
         margin-bottom: 50px;
@@ -31,5 +31,20 @@
         flex-direction: row;
         justify-content: center;
         margin-bottom: 20px;
+    }
+
+    .sortable-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 12px;
+        width: 60px;
+        height: 60px;
+        box-shadow: 0px 5px 20px -.5px rgba(0, 0, 0, .3);
+        background: #fefefe;
     }
 }

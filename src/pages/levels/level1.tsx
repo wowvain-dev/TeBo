@@ -7,11 +7,38 @@ import { GridLock } from 'iconsax-react';
 import { ProgressSubjectCard } from '@/components/ProgressSubjectCard';
 import { SlArrowLeft, SlArrowRight } from 'react-icons/all';
 import { FunFactCard } from '@/components/FunFactCard';
-import { ExerciseProgress, ProgressManager, useProgressContext } from '../../helpers/context';
+import { useProgressContext, useDifficultyContext } from '../../services/context';
+import { useState, useEffect } from 'react';
+import { DifficultyManager, Order } from '@/services/DifficultyManager';
+import { Operator } from '@/types/ExpressionTree';
+import { FormareType } from '../../services/DifficultyManager';
 
 function Level1() {
     const navigate = useNavigate();
     const progress = useProgressContext();
+    const difficulty = useDifficultyContext();
+
+    useEffect(() => {
+        let newDifficulty = new DifficultyManager();
+
+        newDifficulty.operatii.allowedOperators = [Operator.minus, Operator.plus, Operator.div];
+        newDifficulty.operatii.lowLimit = 1;
+        newDifficulty.operatii.maxLimit = 10;
+        newDifficulty.operatii.depth = 3;
+
+        newDifficulty.fractii.lowLimit = 2;
+        newDifficulty.fractii.maxLimit = 10;
+        newDifficulty.fractii.allowWholes = false;
+
+        newDifficulty.ordine.allowedOrders = [Order.descending, Order.ascending];
+        newDifficulty.ordine.length = 7;
+        newDifficulty.ordine.lowLimit = 0;
+        newDifficulty.ordine.maxLimit = 10;
+
+        newDifficulty.formare.formationType = FormareType.ZU;
+
+        difficulty.setValue(newDifficulty);
+    }, []);
 
     return (
         <AnimatedPage>

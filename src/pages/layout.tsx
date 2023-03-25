@@ -2,6 +2,9 @@ import { Outlet } from 'react-router-dom';
 import './layout.scss';
 import background from "../assets/background-2.jpg";
 import Header from "../components/Header";
+import { Button } from '@nextui-org/react';
+import { Candle2, MessageQuestion } from 'iconsax-react';
+import { motion } from 'framer-motion';
 
 function Footer() {
     return <div>
@@ -18,6 +21,38 @@ export function PageLayout() {
         >
             <Header />
             <Outlet />
+            <motion.div 
+            whileHover={{
+                scale: 1.1
+            }} 
+            style={{
+                position: 'absolute',
+                left: '15px',
+                bottom: '15px'
+            }}>
+                <Button 
+                auto size='xs' css={{
+                    background: '$normalWhite'
+                }}
+                style={{width: '40px', height: '40px'}}
+                >
+                    <Candle2 size="25" color="#2a2b2a"/>
+                </Button>
+            </motion.div>
+            <div style={{
+                position: 'absolute',
+                right: '15px',
+                bottom: '15px'
+            }}>
+                <Button
+                // ghost
+                auto size='xs' css={{
+                    background: '$normalWhite'
+                }}
+                style={{width: '40px', height: '40px'}}>
+                    <MessageQuestion size="25" color="#2a2b2a"/>
+                </Button>
+            </div>
             {/* <Footer /> */}
         </div>
     );

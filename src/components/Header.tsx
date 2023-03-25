@@ -6,7 +6,7 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { ReactElement } from 'react';
 import AnimatedPage from '@/components/AnimatedPage';
 import { Book1, Medal, ShoppingBag } from 'iconsax-react';
-import { useProgressContext } from '../helpers/context';
+import { useProgressContext } from '../services/context';
 import { HomeOutlined } from '@ant-design/icons';
 import { RxSlash } from 'react-icons/rx';
 import { Breadcrumb } from 'antd';
@@ -16,34 +16,22 @@ import type { BreadcrumbItemProps } from 'antd/es/breadcrumb';
 export type CrumbPath = {
     name: string,
     icon?: JSX.Element | undefined,
+    progress?: {current: number, total: number} | null
 };
 
-const AllRoutes: Array<string> = [
-    "/", "/levels", 
-    '/levels/1',
-    '/levels/2',
-    '/levels/3',
-    '/levels/1/aritmetica',
-    '/levels/1/romana',
-    '/levels/1/geometrie',
-    '/levels/1/aritmetica/operatii',
-    '/levels/1/aritmetica/siruri',
-    '/levels/1/aritmetica/fractii',
-    '/levels/1/aritmetica/formare',
-];
 
-const PathNames: Map<string, CrumbPath> = new Map<string, CrumbPath>([
+let PathNames: Map<string, CrumbPath> = new Map<string, CrumbPath>([
     // ["/levels/1", {name: "Învăţăcel", icon: <ShoppingBag size={15} style={{marginRight: "5px"}}/>}],
     ["/levels/1", { name: "Învăţăcel" }],
-    ["/levels/2", { name: "Cunoscător", icon: <Book1 /> }],
-    ["/levels/3", { name: "Expert", icon: <Medal /> }],
-    ["/levels/1/aritmetica", { name: "Aritmetică"}],
-    ["/levels/1/geometrie", { name: "Geometrie"}],
-    ["/levels/1/romana", { name: "Română"}],
-    ["/levels/1/aritmetica/operatii", { name: "Operaţii"}],
-    ["/levels/1/aritmetica/fractii", { name: "Fracţii"}],
-    ["/levels/1/aritmetica/formare", { name: "Formarea Numerelor"}],
-    ["/levels/1/aritmetica/siruri", { name: "Ordine de Şiruri"}],
+    ["/levels/2", { name: "Cunoscător" }],
+    ["/levels/3", { name: "Expert" }],
+    ["/levels/1/aritmetica", { name: "Aritmetică" }],
+    ["/levels/1/geometrie", { name: "Geometrie" }],
+    ["/levels/1/romana", { name: "Română" }],
+    ["/levels/1/aritmetica/operatii", { name: "Operaţii" }],
+    ["/levels/1/aritmetica/fractii", { name: "Fracţii" }],
+    ["/levels/1/aritmetica/formare", { name: "Formarea Numerelor" }],
+    ["/levels/1/aritmetica/ordine", { name: "Ordine de Şiruri" }],
 ]);
 
 function Header() {
@@ -52,7 +40,20 @@ function Header() {
     const navigate = useNavigate();
     const progress = useProgressContext();
 
-    const str = <RxSlash />;
+    PathNames.get('/levels/1')!.progress = {
+        current: progress.value.level1.current(),
+        total: progress.value.level1.total()
+    }
+    PathNames.get('/levels/1/aritmetica')!.progress = {
+        current: progress.value.level1.matematica.parts.get('aritmetica')?.current() ?? 0,
+        total: progress.value.level1.matematica.parts.get('aritmetica')?.total() ?? 0,
+    };
+    PathNames.get('/levels/1/aritmetica/operatii')!.progress = {
+        current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('operatii')?.current ?? 0,
+        total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('operatii')?.total ?? 0,
+    };
+
+    console.log(location.pathname);
 
     const Breadcrumbs = () => {
         let crumbs: Array<ItemType> = new Array<ItemType>;
@@ -110,13 +111,15 @@ function Header() {
         console.log(breadcrumbs[breadcrumbs.length - 1].match.params)
         return (
             <Breadcrumb items={crumbs} 
-                style={{marginTop: 'auto', marginBottom: 'auto'}}
+                style={{marginTop: 'auto', marginBottom: 'auto',
+                    maxWidth: "100%", whiteSpace: "nowrap",
+                }}
             />);
     };
 
 
     return (
-        <AnimatedPage>
+        // <AnimatedPage>
             <div className="header-container">
                 <div className="header-breadcrumbs">
                     {/* {breadcrumbs.map(({match, breadcrumb}, index) => 
@@ -172,10 +175,10 @@ function Header() {
 
                 <div className="header-progress">
                     <Progress value=
-                        {progress.value.level1.percentage()} color="gradient" />
+                        {(PathNames.get(location.pathname)?.progress?.current ?? 0) * 100 / (PathNames.get(location.pathname)?.progress?.total ?? 1)} color="gradient" />
                 </div>
             </div>
-        </AnimatedPage>
+        // </AnimatedPage>
     );
 }
 

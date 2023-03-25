@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+
 
 export class ExerciseProgress {
     total: number = 0;
@@ -172,19 +172,3 @@ export class ProgressManager {
             this.create();
         }
 };
-
-export type ProgressContainer = {
-    value: ProgressManager,
-    setValue: (val: ProgressManager) => void
-}
-
-
-
-export const ProgressContext = createContext<ProgressContainer>(
-    {
-        value: new ProgressManager(),
-        setValue: () => {}
-    }
-);
-
-export const useProgressContext = () => useContext(ProgressContext);

@@ -25,7 +25,7 @@ export function ProgressExerciseCard({to, exercise, current, total}: ProgressExe
                         size="lg"
                         color={current >= total ? 'success' : 'secondary'}/>
                     <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                        <p style={{fontFamily: 'DM Sans'}}>{current} / {total}</p>
+                        <p style={{fontFamily: 'DM Sans'}}>{current >= total ? total : current} / {total}</p>
                     </div>
                 </Card.Body>
             </Card>

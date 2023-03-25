@@ -46,8 +46,8 @@ async function createWindow() {
     title: 'Lima - Culegere Interactivă',
     icon: join(process.env.PUBLIC, 'favicon.ico'),
     minWidth: 1150,
-    minHeight: 700,
-    height: 700,
+    minHeight: 900,
+    height: 900,
     width: 1150,
     webPreferences: {
       preload,
