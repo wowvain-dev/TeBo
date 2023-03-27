@@ -45,9 +45,7 @@ export function Operatii() {
     return (
         <AnimatedPage>
             <div className="card-holder operatii">
-                <Modal open={tryAgainVisible} blur onClose={() => setTryAgainVisible(false)}
-                    
-                >
+                <Modal open={tryAgainVisible} blur onClose={() => setTryAgainVisible(false)}>
                     <Modal.Header>
                         <Warning2 color='#f31260'/>
                     </Modal.Header>
@@ -103,7 +101,46 @@ export function Operatii() {
                                                 fontFamily: 'DM Sans',
                                             }}
                                             value={inputValue}
+                                            autoFocus
                                             onChange={e => setInputValue(e.target.value)}
+                                            onKeyDown={e => {
+                                                if (e.key === 'Enter') {
+                                                    console.log(hasCheated);
+                                                    if (parseInt(inputValue) === ExpressionTree.evaluate(tree.root)) {
+                                                        console.log('CORRECT')
+                                                        setInputValue('');
+                                                        setTree(ExpressionTree.random(
+                                                            difficulty.value.operatii.allowedOperators, difficulty.value.ordine.lowLimit,
+                                                            difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth
+                                                        ));
+                                                        setSwap(!swap);
+                                                        if (hasCheated) {
+                                                            setHasCheated(false);
+                                                        } else {
+
+                                                            let copy = { ...progress.value };
+                                                            let newProgress: ExerciseProgress =
+                                                                copy.level1.matematica.parts.get('aritmetica')
+                                                                    ?.parts.get('operatii') ?? new ExerciseProgress(
+                                                                        0, 0
+                                                                    );
+                                                            // @ts-ignore
+                                                            newProgress.current += 1;
+
+                                                            copy.level1.matematica.parts.get('aritmetica')
+                                                                ?.parts.set('operatii', newProgress);
+
+                                                            let newManager: ProgressManager = new ProgressManager();
+                                                            newManager.level1 = copy.level1;
+                                                            newManager.level2 = copy.level2;
+                                                            newManager.level3 = copy.level3;
+                                                            progress.setValue(newManager);
+                                                        }
+                                                    } else {
+                                                        console.log('INCORRECT')
+                                                    }
+                                                }
+                                            }}
                                         />
 
                                     </Card.Body>

@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import './layout.scss';
-import background from "../assets/background-2.jpg";
 import Header from "../components/Header";
 import { Button } from '@nextui-org/react';
 import { Candle2, MessageQuestion } from 'iconsax-react';
+// @ts-ignore
 import { motion } from 'framer-motion';
 
 function Footer() {
@@ -15,9 +15,6 @@ function Footer() {
 export function PageLayout() {
     return(
         <div className="page-layout"
-            style={{
-                backgroundImage: background
-            }}
         >
             <Header />
             <Outlet />

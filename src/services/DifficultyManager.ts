@@ -1,8 +1,8 @@
 import { Operator } from '@/types/ExpressionTree';
 
 export enum Order {
-    ascending, 
-    descending
+    ascending = 'crescător', 
+    descending = 'descrescător'
 }
 
 export enum FormareType {

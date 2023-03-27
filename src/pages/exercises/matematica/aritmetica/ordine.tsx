@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import AnimatedPage from '@/components/AnimatedPage';
 import { ArrowLeft, Warning2 } from 'iconsax-react';
-import { Button, Card, Modal } from "@nextui-org/react";
+import { Button, Card, Modal, Spacer, Tooltip, NormalColors } from '@nextui-org/react';
 import { Order } from '../../../../services/DifficultyManager';
 import {
     DndContext,
@@ -23,6 +23,7 @@ import {
 } from '@dnd-kit/sortable';
 import { horizontalListSortingStrategy } from '@dnd-kit/sortable';
 import { SortableItem } from '@/components/SortableItem';
+import { ExerciseProgress, ProgressManager } from '@/services/ProgressManager';
 
 function generateArray(lowLimit: number, maxLimit: number, length: number): number[] {
     let array: number[] = [];
@@ -40,6 +41,51 @@ function generateArray(lowLimit: number, maxLimit: number, length: number): numb
     return array;
 }
 
+function checkOrder(array: number[], orderToCheck: Order): boolean {
+    if (orderToCheck === Order.ascending) {
+        for (let i = 0; i < array.length - 1; i++) {
+            if (array[i] > array[i + 1]) return false;
+        }
+    } else if (orderToCheck === Order.descending) {
+        for (let i = 0; i < array.length - 1; i++) {
+            if (array[i] < array[i + 1]) return false;
+        }
+    }
+
+    return true;
+}
+
+function reorderArray(array: number[], order: Order): number[] {
+    let isOrdered: boolean = false;
+    if (order === Order.ascending) {
+        while (!isOrdered) {
+            isOrdered = true;
+            for (let i = 0; i < array.length - 1; i++) {
+                if (array[i] > array[i + 1]) {
+                    let aux = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = aux;
+                    isOrdered = false;
+                }
+            }
+        }
+    } else {
+        while (!isOrdered) {
+            isOrdered = true;
+            for (let i = 0; i < array.length - 1; i++) {
+                if (array[i] < array[i + 1]) {
+                    let aux = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = aux;
+                    isOrdered = false;
+                }
+            }
+        }
+
+    }
+    return array;
+}
+
 export function Ordine() {
     const difficulty = useDifficultyContext();
     const navigate = useNavigate();
@@ -49,7 +95,7 @@ export function Ordine() {
     const [hasCheated, setHasCheated] = useState(false);
     const [tryAgainVisible, setTryAgainVisible] = useState(false);
     const [items, setItems] = useState<number[]>([]);
-    const [selectedOrder, setSelectedOrder] = useState<Order>();
+    const [selectedOrder, setSelectedOrder] = useState<Order>(Order.ascending);
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -59,7 +105,7 @@ export function Ordine() {
     );
 
     useEffect(() => {
-        setVerifColor('primar');
+        setVerifColor('primary');
         setHasCheated(false);
         setItems(generateArray(difficulty.value.ordine.lowLimit, difficulty.value.ordine.maxLimit,
             difficulty.value.ordine.length));
@@ -80,6 +126,7 @@ export function Ordine() {
         }
     };
 
+    if (selectedOrder === Order.ascending) console.log("ascending"); else console.log("descending");
     return (
         <AnimatedPage>
             <div className="card-holder ordine">
@@ -101,7 +148,7 @@ export function Ordine() {
                         textAlign: 'center',
                         fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: "20px"
                     }}>
-                        Operaţii
+                        Ordine de Şiruri
                     </h3>
                     {swap && (
                         <AnimatedPage>
@@ -153,7 +200,7 @@ export function Ordine() {
                                         css={{
                                             fontFamily: 'DM Sans',
                                             borderBottom: '1px solid #ccc'
-                                        }}>Ordonaţi crescător
+                                        }}>Ordonaţi {selectedOrder === Order.ascending ? 'crescător' : 'descrescător'}
                                     </Card.Header>
                                     <Card.Body css={{
                                         fontFamily: 'DM Sans',
@@ -193,6 +240,76 @@ export function Ordine() {
                                 setSwap(!swap);
                             }}
                         >Treci Peste</Button>
+                        <Spacer x={2} />
+                        <Tooltip contentColor='warning'
+                            placement='top'
+                            shadow
+                            content={
+                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Warning2 color='#f5a524' />
+                                    <Spacer x={1} />
+                                    <span>Nu vei mai primi puncte de progres pentru acest exercitiu.</span>
+                                </div>
+                            }
+                        >
+                            <Button size='sm' flat color="warning"
+                                css={{ fontFamily: 'DM Sans' }}
+                                onPress={() => {
+                                    setHasCheated(true);
+                                    setItems(reorderArray(items, selectedOrder ?? Order.ascending));
+                                }}
+                            >Arată Răspunsul</Button>
+                        </Tooltip>
+                        <Spacer x={2} />
+                        <Button size='sm' color={verifColor as NormalColors}
+                            css={{ fontFamily: 'DM Sans' }}
+                            onPress={() => {
+                                console.log(hasCheated);
+                                if (checkOrder(items, selectedOrder ?? Order.ascending)) {
+                                    setVerifColor('success');
+                                    setTimeout(() => {
+                                        setVerifColor('primary');
+                                    }, 500);
+                                    setItems(generateArray(difficulty.value.ordine.lowLimit, difficulty.value.ordine.maxLimit,
+                                        difficulty.value.ordine.length));
+                                    setSelectedOrder(difficulty.value.ordine.allowedOrders[
+                                        Math.floor(Math.random() * difficulty.value.ordine.allowedOrders.length)]);
+                                    setSwap(!swap);
+                                    console.log('CORRECT');
+                                    if (hasCheated) {
+                                        setHasCheated(false);
+                                    } else {
+                                        let copy = { ...progress.value };
+                                        let newProgress: ExerciseProgress =
+                                            copy.level1.matematica.parts.get('aritmetica')
+                                                ?.parts.get('siruri') ?? new ExerciseProgress(
+                                                    0, 0
+                                                );
+                                        // @ts-ignore
+                                        newProgress.current += 1;
+
+                                        copy.level1.matematica.parts.get('aritmetica')
+                                            ?.parts.set('siruri', newProgress);
+
+                                        let newManager: ProgressManager = new ProgressManager();
+                                        newManager.level1 = copy.level1;
+                                        newManager.level2 = copy.level2;
+                                        newManager.level3 = copy.level3;
+                                        progress.setValue(newManager);
+                                    }
+                                } else {
+                                    console.log('INCORRECT');
+                                    setTryAgainVisible(true);
+                                    setTimeout(() => {
+                                        setTryAgainVisible(false);
+                                    }, 1500);
+                                    setVerifColor('error');
+                                    setTimeout(() => {
+                                        setVerifColor('primary');
+                                    }, 500);
+                                }
+                            }}
+                        >Verifică</Button>
                     </div>
                 </div>
             </div>

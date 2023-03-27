@@ -52,6 +52,10 @@ function Header() {
         current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('operatii')?.current ?? 0,
         total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('operatii')?.total ?? 0,
     };
+    PathNames.get('/levels/1/aritmetica/ordine')!.progress = {
+        current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('siruri')?.current ?? 0,
+        total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('siruri')?.total ?? 0,
+    };
 
     console.log(location.pathname);
 

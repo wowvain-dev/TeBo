@@ -32,7 +32,7 @@ function Level1() {
 
         newDifficulty.ordine.allowedOrders = [Order.descending, Order.ascending];
         newDifficulty.ordine.length = 7;
-        newDifficulty.ordine.lowLimit = 0;
+        newDifficulty.ordine.lowLimit = 1;
         newDifficulty.ordine.maxLimit = 10;
 
         newDifficulty.formare.formationType = FormareType.ZU;

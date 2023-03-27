@@ -1,6 +1,7 @@
 import './App.scss'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { NextUIProvider } from '@nextui-org/react';
+// @ts-ignore
 import { AnimatePresence } from 'framer-motion';
 import DefaultPage from './pages/default';
 import Level1 from './pages/levels/level1';
@@ -15,6 +16,7 @@ import { createTheme } from '@nextui-org/react';
 import { Operatii } from './pages/exercises/matematica/aritmetica/operatii';
 import { DifficultyManager } from './services/DifficultyManager';
 import { Ordine } from './pages/exercises/matematica/aritmetica/ordine';
+import { Fractii } from './pages/exercises/matematica/aritmetica/fractii';
 
 const theme = createTheme({
   type: "light", // it could be "light" or "dark"
@@ -74,6 +76,7 @@ function App() {
                       <Route index element={<AritmeticaPanel />}/>
                       <Route path="operatii" element={<Operatii />}/>
                       <Route path="ordine" element={<Ordine />}/>
+                      <Route path="fractii" element={<Fractii />}/>
                     </Route>
                     <Route path="romana" element={<div></div>}/>
                   </Route> 
