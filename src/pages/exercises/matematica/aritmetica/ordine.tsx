@@ -233,6 +233,7 @@ export function Ordine() {
                         <Button size='sm' flat
                             css={{ fontFamily: 'DM Sans' }}
                             onPress={() => {
+                                setHasCheated(false);
                                 setItems(generateArray(difficulty.value.ordine.lowLimit, difficulty.value.ordine.maxLimit,
                                     difficulty.value.ordine.length));
                                 setSelectedOrder(difficulty.value.ordine.allowedOrders[

@@ -56,6 +56,14 @@ function Header() {
         current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('siruri')?.current ?? 0,
         total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('siruri')?.total ?? 0,
     };
+    PathNames.get('/levels/1/aritmetica/fractii')!.progress = {
+        current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('fractii')?.current ?? 0,
+        total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('fractii')?.total ?? 0,
+    };
+    PathNames.get('/levels/1/aritmetica/formare')!.progress = {
+        current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('formare')?.current ?? 0,
+        total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('formare')?.total ?? 0,
+    };
 
     console.log(location.pathname);
 

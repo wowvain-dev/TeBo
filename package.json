@@ -36,7 +36,7 @@
     "use-react-router-breadcrumbs": "^4.0.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.31.0",
+    "@playwright/test": "^1.32.1",
     "@rollup/plugin-dynamic-import-vars": "^2.0.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
@@ -47,7 +47,7 @@
     "react-dom": "^18.2.0",
     "sass": "^1.58.3",
     "typescript": "^4.9.5",
-    "vite": "^4.1.4",
+    "vite": "^4.2.1",
     "vite-electron-plugin": "^0.8.2",
     "vite-plugin-electron": "^0.11.1",
     "vite-plugin-electron-renderer": "^0.12.1"

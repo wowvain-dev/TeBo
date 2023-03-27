@@ -45,7 +45,7 @@ function Level1() {
             <div className="card-holder level1">
                 <div className="background-card">
                     <h3 style={{textAlign: 'center', 
-                    fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: "20px"}}>Materii</h3>
+                    fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: "20px"}}>Module</h3>
                     <Grid.Container gap={3}>
                         <Grid sm={6} justify='center'>
                             <ProgressSubjectCard 
@@ -72,31 +72,7 @@ function Level1() {
                             />
                         </Grid>
                     </Grid.Container>
-                
-                    {/* <Button
-                        /// TODO(wowvain-dev): simplify storage read/write access
-                        // onPress={() => {
-                        //     let copy = {...progress.value};
-                        //     let newProgress: ExerciseProgress = 
-                        //         copy.level1.matematica.parts.get('aritmetica')
-                        //             ?.parts.get('operatii') ?? new ExerciseProgress(
-                        //                 0, 0
-                        //             );
-                        //     // @ts-ignore
-                        //     newProgress.current += 1;
-                            
-                        //     copy.level1.matematica.parts.get('aritmetica')
-                        //         ?.parts.set('operatii', newProgress);
-
-                        //     let newManager: ProgressManager = new ProgressManager();
-                        //     newManager.level1 = copy.level1;
-                        //     newManager.level2 = copy.level2;
-                        //     newManager.level3 = copy.level3;
-                        //     progress.setValue(newManager);
-                        // }}
-                    >Add Progress</Button> */}
                 </div>
-
                 <FunFactCard />
             </div>
         </AnimatedPage>

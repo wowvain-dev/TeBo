@@ -9,7 +9,6 @@ import { Divider } from 'antd';
 import Fraction from 'fraction.js';
 import random from 'random';
 import { FractionCanvas } from '@/components/FractionCanvas';
-import { FaRegCalendarTimes } from 'react-icons/fa';
 import { ProgressManager, ExerciseProgress } from '@/services/ProgressManager';
 
 type Fractie = {
@@ -35,7 +34,10 @@ export function Fractii() {
         setA('');
         setB('');
         let numarator = random.int(difficulty.value.fractii.lowLimit, difficulty.value.fractii.maxLimit);
-        let numitor = random.int(1, numarator * 2);
+        let numitor = random.int(1, numarator * 2 - 1);
+        while (numitor === numarator) {
+          numitor = random.int(1, numarator * 2 - 1);
+        }
         setFraction(
             {
                 numarator: numarator,
@@ -67,7 +69,7 @@ export function Fractii() {
                     }}>
                         Fracţii
                     </h3>
-                    <AnimatedPage>
+                    {swap && <AnimatedPage>
                         <div className="fraction-card-holder">
                             <Card css={{ width: '70%', height: '300px' }}>
                                 <Card.Header css={{ fontFamily: 'DM Sans', borderBottom: '1px solid #ccc' }}>
@@ -109,9 +111,67 @@ export function Fractii() {
                             </Card>
                         </div>
                     </AnimatedPage>
+                    }
+                    {!swap && <AnimatedPage>
+                        <div className="fraction-card-holder">
+                          <Card css={{ width: '70%', height: '300px' }}>
+                              <Card.Header css={{ fontFamily: 'DM Sans', borderBottom: '1px solid #ccc' }}>
+                                  Scrieţi fracţia reprezentată în desen
+                              </Card.Header>
+                              <Card.Body css={{
+                                  fontFamily: 'DM Sans',
+                                  justifyContent: 'center',
+                                  textAlign: 'center',
+                                  display: 'flex',
+                                  flexDirection: 'row',
+                                  justifyCenter: 'center',
+                                  alignItems: 'center'
+                              }}>
+                                  <div className="fraction-content">
+                                      <div className="canvas-container">
+                                          {/* <canvas></canvas>
+                                            lmao */}
+                                          <FractionCanvas nominator={fraction?.numitor ?? 0} denominator={fraction?.numarator ?? 0} />
+                                      </div>
+                                      <Divider type="vertical" style={{ height: '100%' }} />
+                                      <div className="fraction-container">
+                                          <div className="fraction-input">
+                                              <Input
+                                                placeholder='?'
+                                                value={a}
+                                                onChange={e => setA(e.target.value)}
+                                                style={{ textAlign: 'center', width: '100px' }} size='lg' />
+                                              <Divider type="horizontal" />
+                                              <Input
+                                                placeholder='?'
+                                                value={b}
+                                                onChange={e => setB(e.target.value)}
+                                                style={{ textAlign: 'center', width: '100px' }} size='lg' />
+                                          </div>
+                                      </div>
+                                  </div>
+                              </Card.Body>
+                          </Card>
+                      </div>
+                        </AnimatedPage>
+                    }
                     <div className="buttons-container">
                         <Button size='sm' flat
                             css={{ fontFamily: 'DM Sans' }}
+                                onPress={() => {
+                                    setHasCheated(false);
+                                    setA('');
+                                    setB('');
+                                    let numarator = random.int(difficulty.value.fractii.lowLimit, difficulty.value.fractii.maxLimit);
+                                    let numitor = random.int(1, numarator * 2);
+                                    setFraction(
+                                      {
+                                          numarator: numarator,
+                                          numitor: numitor
+                                      }
+                                    );
+                                    setSwap(!swap);
+                                }}
                         >
                             Treci Peste
                         </Button>
@@ -131,8 +191,6 @@ export function Fractii() {
                                 css={{ fontFamily: 'DM Sans' }}
                                 onPress={() => {
                                     setHasCheated(true);
-                                    console.log(`correct: ${new Fraction(`${fraction?.numitor ?? 0}/${fraction?.numarator ?? 0}`)}`);
-                                    console.log(`input: ${new Fraction(`${parseInt(a) ?? 0}/${parseInt(b) ?? 0}`)}`);
                                     setA(fraction?.numitor.toString() ?? '');
                                     setB(fraction?.numarator.toString() ?? '');
                                 }}
@@ -142,7 +200,6 @@ export function Fractii() {
                         <Button size='sm' color={verifColor as NormalColors}
                             css={{ fontFamily: 'DM Sans' }}
                             onPress={() => {
-                                console.log(`correct: ${new Fraction(`${fraction?.numitor ?? 0}/${fraction?.numarator ?? 0}`)}`);
                                 if (new Fraction(`${fraction?.numitor ?? 0}/${fraction?.numarator ?? 0}`)
                                         .equals(new Fraction(`${Number.isNaN(parseInt(a)) ? 0 : parseInt(a)}/${Number.isNaN(parseInt(b)) ? 1 : parseInt(b)}`))) {
                                     setVerifColor('success');

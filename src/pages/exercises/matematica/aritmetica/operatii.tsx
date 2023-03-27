@@ -240,6 +240,7 @@ export function Operatii() {
                                     difficulty.value.operatii.allowedOperators, difficulty.value.ordine.lowLimit,
                                     difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth
                                 ));
+                                setHasCheated(false);
                                 setSwap(!swap);
                             }}
                         >Treci Peste</Button>
