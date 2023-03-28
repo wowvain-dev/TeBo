@@ -156,7 +156,7 @@ export function Fractii() {
                         </AnimatedPage>
                     }
                     <div className="buttons-container">
-                        <Button size='sm' flat
+                        <Button size='lg' flat
                             css={{ fontFamily: 'DM Sans' }}
                                 onPress={() => {
                                     setHasCheated(false);
@@ -187,7 +187,7 @@ export function Fractii() {
                                 </div>
                             }
                         >
-                            <Button size='sm' flat color="warning"
+                            <Button size='lg' flat color="warning"
                                 css={{ fontFamily: 'DM Sans' }}
                                 onPress={() => {
                                     setHasCheated(true);
@@ -197,7 +197,7 @@ export function Fractii() {
                             >Arată Răspunsul</Button>
                         </Tooltip>
                         <Spacer x={2} />
-                        <Button size='sm' color={verifColor as NormalColors}
+                        <Button size='lg' color={verifColor as NormalColors}
                             css={{ fontFamily: 'DM Sans' }}
                             onPress={() => {
                                 if (new Fraction(`${fraction?.numitor ?? 0}/${fraction?.numarator ?? 0}`)
