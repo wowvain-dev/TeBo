@@ -32,6 +32,7 @@ let PathNames: Map<string, CrumbPath> = new Map<string, CrumbPath>([
     ["/levels/1/aritmetica/fractii", { name: "Fracţii" }],
     ["/levels/1/aritmetica/formare", { name: "Formarea Numerelor" }],
     ["/levels/1/aritmetica/ordine", { name: "Ordine de Şiruri" }],
+    ["/levels/1/aritmetica/comparatii", { name: "Comparaţii de Expresii" }],
 ]);
 
 function Header() {
@@ -64,6 +65,10 @@ function Header() {
         current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('formare')?.current ?? 0,
         total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('formare')?.total ?? 0,
     };
+    PathNames.get('/levels/1/aritmetica/comparatii')!.progress = {
+        current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('comparatii')?.current ?? 0,
+        total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('comparatii')?.total ?? 0,
+    }
 
     console.log(location.pathname);
 

@@ -1,13 +1,19 @@
 import './operatii.scss';
+import stick_llama from '../../.././../assets/stick-LLAMA-nerd-yellow.png';
 import AnimatedPage from '@/components/AnimatedPage';
 import { Button, Card, Input, NormalColors, Spacer, Modal, Tooltip } from '@nextui-org/react';
-import { ArrowLeft, CloseCircle, Warning2 } from 'iconsax-react';
+import {ArrowLeft, ArrowRight, ArrowRight2, AudioSquare, CloseCircle, Warning2} from "iconsax-react";
 import { useNavigate } from 'react-router-dom';
 import { ExpressionTree } from '@/types/ExpressionTree';
-import { useEffect, useState } from 'react';
+import {useEffect, useRef, useState} from "react";
 import { useProgressContext, useDifficultyContext } from '../../../../services/context';
 import { ExerciseProgress, ProgressManager } from '@/services/ProgressManager';
-import { notification } from "antd";
+import {notification, Tour, TourProps} from "antd";
+import {TryAgainModal} from "@/components/TryAgainModal";
+import {AiOutlineQuestion, HiOutlineSpeakerphone, HiOutlineSpeakerWave} from "react-icons/all";
+import success_sound from '@/assets/audio/sfx/success_sound.aac';
+import failure_sound from '@/assets/audio/sfx/failure_sound.aac';
+import ReactHowler from 'react-howler';
 
 function WrongAnswerNotification() {
     notification.open({
@@ -30,6 +36,13 @@ export function Operatii() {
     const [swap, setSwap] = useState(false);
     const [hasCheated, setHasCheated] = useState(false);
     const [tryAgainVisible, setTryAgainVisible] = useState(false);
+    const [tourVisible, setTourVisible] = useState(false);
+
+    let eqRef = useRef(null);
+    let inputRef = useRef(null);
+    let skipRef = useRef(null);
+    let cheatRef = useRef(null);
+    let ansRef = useRef(null);
 
     useEffect(() => {
         setVerifColor('primary');
@@ -42,23 +55,118 @@ export function Operatii() {
 
     console.log(tree.root?.infix());
 
+    const tourSteps: TourProps['steps'] = [
+        {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                Calculează expresia din stânga egalului
+                <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                    <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                    <div style={{flex: '1'}}></div>
+                    <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                </div>
+                </div>
+            ),
+            target: () => eqRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {}
+        }, {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                    Introduceţi rezultatul obţinut în câmpul de text
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <div style={{flex: '1'}}></div>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    </div>
+                </div>
+            ),
+            target: () => inputRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {
+                children: <ArrowLeft size={25}/>
+            }
+        },
+        {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                    Treceţi peste acest exerciţiu
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <div style={{flex: '1'}}></div>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    </div>
+                </div>
+            ),
+            description: 'Nu veţi primi puncte de progres dacă treceţi peste exerciţiu',
+            target: () => skipRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {
+                children: <ArrowLeft size={25}/>
+            }
+        }, {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                    Afisaţi răspunsul corect al exerciţiului
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <div style={{flex: '1'}}></div>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    </div>
+                </div>
+            ),
+            description: 'Nu veţi primi puncte de progres dacă afisaţi răspunsul corect',
+            target: () => cheatRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {
+                children: <ArrowLeft size={25}/>
+            }
+        }, {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                    Verificaţi răspunsul introdus
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <div style={{flex: '1'}}></div>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    </div>
+                </div>
+            ),
+            target: () => ansRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {
+                children: <ArrowLeft size={25}/>
+            }
+        }
+    ];
+
+    const [successSound, setSuccessSound] = useState(false);
+    const [failureSound, setFailureSound] = useState(false);
+
     return (
         <AnimatedPage>
+            <ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)}/>
+            <ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)}/>
             <div className="card-holder operatii">
-                <Modal open={tryAgainVisible} blur onClose={() => setTryAgainVisible(false)}>
-                    <Modal.Header>
-                        <Warning2 color='#f31260'/>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <h4 style={{fontFamily: 'DM Sans', textAlign: 'center', fontWeight: 'normal'}}>Ai fost aproape!</h4>
-                        <h5 style={{fontFamily: 'DM Sans', textAlign: 'center', fontWeight: 'normal'}}>Mai incearca!</h5>
-                    </Modal.Body>
-                </Modal>
+                <Tour open={tourVisible} onClose={() => setTourVisible(false)} steps={tourSteps}/>
+                <TryAgainModal show={tryAgainVisible} setShow={setTryAgainVisible} />
                 <div className="background-card">
-                    <Button light auto size='xs' icon={<ArrowLeft size="24" />}
-                        css={{ width: "36px", height: "36px" }}
-                        onPress={() => navigate(-1)}
-                    />
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <Button light auto size='xs' icon={<ArrowLeft size="24" />}
+                                css={{ width: "36px", height: "36px" }}
+                                onPress={() => navigate(-1)}
+                        />
+                        <Button light auto size='xs' icon={<AiOutlineQuestion size="24" />}
+                                css={{ width: "36px", height: "36px" }}
+                                onPress={() => {setTourVisible(true)}}
+                        />
+
+                    </div>
                     <h3 style={{
                         textAlign: 'center',
                         fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: "20px"
@@ -74,8 +182,10 @@ export function Operatii() {
                                     <Card.Header
                                         css={{
                                             fontFamily: 'DM Sans',
-                                            borderBottom: '1px solid #ccc'
-                                        }}>Calculaţi</Card.Header>
+                                            borderBottom: '1px solid #ccc',
+                                        }}>
+                                        Calculaţi
+                                    </Card.Header>
                                     <Card.Body css={{
                                         fontFamily: 'DM Sans',
                                         justifyContent: 'center',
@@ -85,10 +195,11 @@ export function Operatii() {
                                         justifyCenter: 'center',
                                         alignItems: 'center'
                                     }}>
-                                        <span style={{ fontSize: '2rem' }}>
+                                        <span ref={eqRef} style={{ fontSize: '2rem' }}>
                                             {tree.expression}=
                                         </span>
                                         <Input
+                                            ref={inputRef}
                                             placeholder="?"
                                             width="100px"
                                             underlined
@@ -169,10 +280,11 @@ export function Operatii() {
                                         justifyCenter: 'center',
                                         alignItems: 'center'
                                     }}>
-                                        <span style={{ fontSize: '2rem' }}>
+                                        <span ref={eqRef} style={{ fontSize: '2rem' }}>
                                             {tree.expression}=
                                         </span>
                                         <Input
+                                            ref={inputRef}
                                             placeholder="?"
                                             width="100px"
                                             underlined
@@ -232,7 +344,8 @@ export function Operatii() {
                             </div>
                         </AnimatedPage>)}
                     <div className="buttons-container">
-                        <Button size='lg' flat
+                        <Button ref={skipRef}
+                            size='lg' flat
                             css={{ fontFamily: 'DM Sans' }}
                             onPress={() => {
                                 setInputValue('');
@@ -245,7 +358,7 @@ export function Operatii() {
                             }}
                         >Treci Peste</Button>
                         <Spacer x={2} />
-                        <Tooltip contentColor='warning' 
+                        <Tooltip contentColor='warning'
                         placement='top'
                         shadow 
                         content={
@@ -255,7 +368,9 @@ export function Operatii() {
                             <span>Nu vei mai primi puncte de progres pentru acest exercitiu.</span>
                             </div>
                         }>
-                        <Button size='lg' flat color="warning"
+                        <Button
+                            ref={cheatRef}
+                            size='lg' flat color="warning"
                             css={{ fontFamily: 'DM Sans' }}
                             onPress={() => {
                                 setHasCheated(true);
@@ -264,7 +379,8 @@ export function Operatii() {
                         >Arată Răspunsul</Button>
                         </Tooltip>
                         <Spacer x={2} />
-                        <Button size='lg' color={verifColor as NormalColors}
+                        <Button  ref={ansRef}
+                            size='lg' color={verifColor as NormalColors}
                             css={{ fontFamily: 'DM Sans' }}
                             onPress={() => {
                                 console.log(hasCheated);
@@ -280,6 +396,7 @@ export function Operatii() {
                                         difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth
                                     ));
                                     setSwap(!swap);
+                                    setSuccessSound(true);
                                     if (hasCheated) {
                                         setHasCheated(false);
                                     } else {
@@ -304,7 +421,7 @@ export function Operatii() {
                                     }
                                 } else {
                                     console.log('INCORRECT');
-                                    // WrongAnswerNotification();
+                                    setFailureSound(true);
                                     setTryAgainVisible(true);
                                     setTimeout(() => {
                                         setTryAgainVisible(false);

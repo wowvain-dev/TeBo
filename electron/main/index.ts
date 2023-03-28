@@ -44,7 +44,7 @@ const indexHtml = join(process.env.DIST, 'index.html')
 async function createWindow() {
     win = new BrowserWindow({
         title: 'Lima - Culegere Interactivă',
-        icon: join(process.env.PUBLIC, 'favicon.svg'),
+        icon: join(process.env.PUBLIC, 'favicon.ico'),
         minWidth: 1150,
         minHeight: 900,
         height: 900,

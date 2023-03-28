@@ -1,4 +1,5 @@
 import "./formare.sass";
+import '../../../../components/Tour.scss';
 import AnimatedPage from "@/components/AnimatedPage";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
@@ -6,9 +7,18 @@ import {useDifficultyContext, useProgressContext} from "../../../../services/con
 import random from "random";
 import {FormareType} from "@/services/DifficultyManager";
 import {Button, Card, Modal, NormalColors, Spacer, Tooltip} from "@nextui-org/react";
-import {ArrowLeft, Warning2} from "iconsax-react";
+import {ArrowLeft, ArrowRight, Warning2} from "iconsax-react";
 import {NumberLine} from "@/components/NumberLine";
 import {ExerciseProgress, ProgressManager} from "@/services/ProgressManager";
+import {TryAgainModal} from "@/components/TryAgainModal";
+import success_sound from '@/assets/audio/sfx/success_sound.aac';
+import failure_sound from '@/assets/audio/sfx/failure_sound.aac';
+import ReactHowler from 'react-howler';
+import { Tour, TourStepProps, TourProps } from 'antd';
+import { HiOutlineSpeakerWave } from "react-icons/hi2";
+import {useRef} from 'react';
+import stick_llama from '@/assets/stick-LLAMA-nerd-yellow.png';
+import { AiOutlineQuestion } from 'react-icons/all';
 
 export type FormareNumberType = {
 	number: number,
@@ -44,6 +54,9 @@ export function Formare() {
 	const [z, setZ] = useState<number | null>(null);
 	const [s, setS] = useState<number | null>(null);
 	const [m, setM] = useState<number | null>(null);
+	const [successSound, setSuccessSound] = useState(false);
+	const [failureSound, setFailureSound] = useState(false);
+	const [tourVisible, setTourVisible] = useState(false);
 
 
 	useEffect(() => {
@@ -52,23 +65,120 @@ export function Formare() {
 		setHasCheated(false);
 	}, []);
 
+	let nrRef = useRef(null);
+	let formRef = useRef(null);
+	let skipRef = useRef(null);
+	let cheatRef = useRef(null);
+	let ansRef = useRef(null);
+
+	const tourSteps: TourProps['steps'] = [
+        {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+				Verifică ce număr trebuie sa reprezinţi pe tijele de mai jos
+                <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                    <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                    <div style={{flex: '1'}}></div>
+                    <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                </div>
+                </div>
+            ),
+            target: () => nrRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {}
+        }, {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+					Reprezentaţi numărul pe tije prin a adauga şi elimina bile de pe tije, până când fiecare tijă are un numar de bile egal cu cifra corespunzătoare
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <div style={{flex: '1'}}></div>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    </div>
+                </div>
+            ),
+            target: () => formRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {
+                children: <ArrowLeft size={25}/>
+            }
+        },
+        {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                    Treceţi peste acest exerciţiu
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <div style={{flex: '1'}}></div>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    </div>
+                </div>
+            ),
+            description: 'Nu veţi primi puncte de progres dacă treceţi peste exerciţiu',
+            target: () => skipRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {
+                children: <ArrowLeft size={25}/>
+            }
+        }, {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                    Afisaţi răspunsul corect al exerciţiului
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <div style={{flex: '1'}}></div>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    </div>
+                </div>
+            ),
+            description: 'Nu veţi primi puncte de progres dacă afisaţi răspunsul corect',
+            target: () => cheatRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {
+                children: <ArrowLeft size={25}/>
+            }
+        }, {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                    Verificaţi răspunsul introdus
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <div style={{flex: '1'}}></div>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    </div>
+                </div>
+            ),
+            target: () => ansRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {
+                children: <ArrowLeft size={25}/>
+            }
+        }
+	];
+
 	return (
 		<AnimatedPage>
+			<ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)} />
+			<ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)} />
 			<div className="card-holder formare">
-				<Modal open={tryAgainVisible} blur onClose={() => setTryAgainVisible(false)}>
-					<Modal.Header><Warning2 color="#f31260"/></Modal.Header>
-					<Modal.Body>
-						<h4 style={{fontFamily: "DM Sans", textAlign: "center", fontWeight: "normal"}}>Ai fost
-							aproape!</h4>
-						<h5 style={{fontFamily: "DM Sans", textAlign: "center", fontWeight: "normal"}}>Mai
-							incearca!</h5>
-					</Modal.Body>
-				</Modal>
+				<Tour open={tourVisible} onClose={() => setTourVisible(false)} steps={tourSteps}/>
+				<TryAgainModal show={tryAgainVisible} setShow={setTryAgainVisible} />
 				<div className="background-card">
-					<Button light auto size='xs' icon={<ArrowLeft size="24"/>}
+					<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+					<Button light auto icon={<ArrowLeft size="24"/>}
 					        css={{width: "36px", height: "36px"}}
 					        onPress={() => navigate(-1)}
 					/>
+					<Button light auto icon={<AiOutlineQuestion size="24"/>}
+					        css={{width: "36px", height: "36px"}}
+					        onPress={() => setTourVisible(true)}
+					/>
+					</div>
 					<h3 style={{
 						textAlign: "center",
 						fontFamily: "DM Sans", fontWeight: "normal", fontSize: "20px"
@@ -88,10 +198,12 @@ export function Formare() {
 									fontFamily: "DM Sans",
 									overflow: 'hidden'
 								}}>
-									<span style={{fontSize: "2rem", textAlign: 'center'}}>
+									<span style={{fontSize: "2rem", textAlign: 'center'}} ref={nrRef}>
 										{answer?.number}
 									</span>
-									<div style={{
+									<div 
+										ref={formRef}
+										style={{
 										display: 'flex',
 										flexDirection: 'row',
 										marginLeft: 'auto',
@@ -145,10 +257,12 @@ export function Formare() {
 										fontFamily: "DM Sans",
 										overflow: 'hidden'
 									}}>
-									<span style={{fontSize: "2rem", textAlign: 'center'}}>
+									<span style={{fontSize: "2rem", textAlign: 'center'}} ref={nrRef}>
 										{answer?.number}
 									</span>
-                                        <div style={{
+                                        <div 
+										 	ref={formRef}
+											style={{
 											display: 'flex',
 											flexDirection: 'row',
 											marginLeft: 'auto',
@@ -190,7 +304,7 @@ export function Formare() {
                         </AnimatedPage>
 					}
 					<div className="buttons-container">
-						<Button size='lg' flat
+						<Button size='lg' flat ref={skipRef}
 							css={{ fontFamily: 'DM Sans' }}
 						        onPress={() => {
 									setHasCheated(false);
@@ -214,7 +328,7 @@ export function Formare() {
 								<span>Nu vei mai primi puncte de progres pentru acest exercitiu.</span>
 							</div>
 						}>
-							<Button size='lg' flat color='warning'
+							<Button size='lg' flat color='warning' ref={cheatRef}
 								css={{ fontFamily: 'DM Sans'}}
 								onPress={() => {
 									setHasCheated(true);
@@ -237,7 +351,7 @@ export function Formare() {
 							</Button>
 						</Tooltip>
 						<Spacer x={2}/>
-						<Button size='lg' color={verifColor as NormalColors}
+						<Button size='lg' color={verifColor as NormalColors} ref={ansRef}
 							css={{ fontFamily: 'DM Sans' }}
 							onPress={() => {
 								if ((m ?? 0) * 1000 + (s ?? 0) * 100 + (z ?? 0) * 10 + u === answer?.number) {
@@ -251,6 +365,7 @@ export function Formare() {
 									setU(0);
 									setAnswer(generateFormareNumber(difficulty.value.formare.formationType));
 									setSwap(!swap);
+									setSuccessSound(true);
 									console.log('correct');
 									if (hasCheated) {
 										setHasCheated(false);
@@ -274,6 +389,7 @@ export function Formare() {
 										progress.setValue(newManager);
 									}
 								} else {
+									setFailureSound(true);
 									console.log('INCORRECT');
 									setTryAgainVisible(true);
 									setTimeout(() => {

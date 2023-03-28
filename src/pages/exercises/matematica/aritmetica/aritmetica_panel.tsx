@@ -85,9 +85,9 @@ export function AritmeticaPanel() {
                                         to='/levels/1/aritmetica/comparatii'
                                         exercise="Comparatii"
                                         current={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('operatii')?.current as number}
+                                            .get('aritmetica')?.parts.get('comparatii')?.current as number}
                                         total={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('operatii')?.total as number}
+                                            .get('aritmetica')?.parts.get('comparatii')?.total as number}
                                     />
                                 </Grid>
                             </Grid.Container>

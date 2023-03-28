@@ -59,6 +59,8 @@ function App() {
         new DifficultyManager()
     );
 
+    progressValue.initialize();
+
     let location = useLocation();
 
     return (

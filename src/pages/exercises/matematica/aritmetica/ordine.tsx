@@ -1,9 +1,9 @@
 import './ordine.scss';
 import { useDifficultyContext, useProgressContext } from "@/services/context";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import AnimatedPage from '@/components/AnimatedPage';
-import { ArrowLeft, Warning2 } from 'iconsax-react';
+import { ArrowLeft, ArrowRight, Warning2 } from 'iconsax-react';
 import { Button, Card, Modal, Spacer, Tooltip, NormalColors } from '@nextui-org/react';
 import { Order } from '../../../../services/DifficultyManager';
 import {
@@ -24,6 +24,13 @@ import {
 import { horizontalListSortingStrategy } from '@dnd-kit/sortable';
 import { SortableItem } from '@/components/SortableItem';
 import { ExerciseProgress, ProgressManager } from '@/services/ProgressManager';
+import {TryAgainModal} from "@/components/TryAgainModal";
+import ReactHowler from 'react-howler';
+import success_sound from '@/assets/audio/sfx/success_sound.aac';
+import failure_sound from '@/assets/audio/sfx/failure_sound.aac';
+import { Tour, TourProps } from 'antd';
+import { HiOutlineSpeakerWave, AiOutlineQuestion } from 'react-icons/all';
+import stick_llama from '@/assets/stick-LLAMA-nerd-yellow.png';
 
 function generateArray(lowLimit: number, maxLimit: number, length: number): number[] {
     let array: number[] = [];
@@ -96,6 +103,7 @@ export function Ordine() {
     const [tryAgainVisible, setTryAgainVisible] = useState(false);
     const [items, setItems] = useState<number[]>([]);
     const [selectedOrder, setSelectedOrder] = useState<Order>(Order.ascending);
+    const [tourVisible, setTourVisible] = useState(false);
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -126,24 +134,125 @@ export function Ordine() {
         }
     };
 
+    let orderRef = useRef(null);
+    let rowRef = useRef(null);
+    let skipRef = useRef(null);
+    let cheatRef = useRef(null);
+    let ansRef = useRef(null);
+
+    const tourSteps: TourProps['steps'] = [
+        {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                Verificaţi ordinea în care trebuie să ordonaţi şirul
+                <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                    <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                    <div style={{flex: '1'}}></div>
+                    <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                </div>
+                </div>
+            ),
+            target: () => orderRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {}
+        }, {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                    Trageţi de elementele şirului pentru a le pune în poziţiile corecte, respectând ordinea menţionată anterior
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <div style={{flex: '1'}}></div>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    </div>
+                </div>
+            ),
+            target: () => rowRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {
+                children: <ArrowLeft size={25}/>
+            }
+        },
+        {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                    Treceţi peste acest exerciţiu
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <div style={{flex: '1'}}></div>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    </div>
+                </div>
+            ),
+            description: 'Nu veţi primi puncte de progres dacă treceţi peste exerciţiu',
+            target: () => skipRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {
+                children: <ArrowLeft size={25}/>
+            }
+        }, {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                    Afisaţi răspunsul corect al exerciţiului
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <div style={{flex: '1'}}></div>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    </div>
+                </div>
+            ),
+            description: 'Nu veţi primi puncte de progres dacă afisaţi răspunsul corect',
+            target: () => cheatRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {
+                children: <ArrowLeft size={25}/>
+            }
+        }, {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                    Verificaţi răspunsul introdus
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <div style={{flex: '1'}}></div>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    </div>
+                </div>
+            ),
+            target: () => ansRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {
+                children: <ArrowLeft size={25}/>
+            }
+        }
+        
+    ];
+
+    const [successSound, setSuccessSound] = useState(false);
+    const [failureSound, setFailureSound] = useState(false);
+
     if (selectedOrder === Order.ascending) console.log("ascending"); else console.log("descending");
     return (
         <AnimatedPage>
+            <ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)}/>
+            <ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)}/>
             <div className="card-holder ordine">
-                <Modal open={tryAgainVisible} blur onClose={() => setTryAgainVisible(false)}>
-                    <Modal.Header>
-                        <Warning2 color='#f31260' />
-                    </Modal.Header>
-                    <Modal.Body>
-                        <h4 style={{ fontFamily: 'DM Sans', textAlign: 'center', fontWeight: 'normal' }}>Ai fost aproape!</h4>
-                        <h5 style={{ fontFamily: 'DM Sans', textAlign: 'center', fontWeight: 'normal' }}>Mai incearca!</h5>
-                    </Modal.Body>
-                </Modal>
+                <Tour open={tourVisible} onClose={() => setTourVisible(false)} steps={tourSteps}/>
+                <TryAgainModal show={tryAgainVisible} setShow={setTryAgainVisible} />
                 <div className="background-card">
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                     <Button light auto size='xs' icon={<ArrowLeft size="24" />}
                         css={{ width: "36px", height: "36px" }}
                         onPress={() => navigate(-1)}
                     />
+                    <Button light auto size='xs' icon={<AiOutlineQuestion size="24" />}
+                        css={{ width: "36px", height: "36px" }}
+                        onPress={() => setTourVisible(true)}
+                    />
+                    </div>
                     <h3 style={{
                         textAlign: 'center',
                         fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: "20px"
@@ -156,7 +265,7 @@ export function Ordine() {
                                 <Card
                                     css={{ width: '70%', height: '200px' }}
                                 >
-                                    <Card.Header
+                                    <Card.Header ref={orderRef}
                                         css={{
                                             fontFamily: 'DM Sans',
                                             borderBottom: '1px solid #ccc'
@@ -176,13 +285,14 @@ export function Ordine() {
                                             collisionDetection={closestCenter}
                                             onDragEnd={handleDragEnd}
                                         >
-                                            <SortableContext
+                                            <div ref={rowRef} style={{display: 'flex', flexDirection: 'row'}}>
+                                            <SortableContext 
                                                 items={items}
                                                 strategy={horizontalListSortingStrategy}
-
                                             >
                                                 {items.map(id => <SortableItem key={id} id={id} />)}
                                             </SortableContext>
+                                            </div>
                                         </DndContext>
 
                                     </Card.Body>
@@ -196,7 +306,7 @@ export function Ordine() {
                                 <Card
                                     css={{ width: '70%', height: '200px' }}
                                 >
-                                    <Card.Header
+                                    <Card.Header ref={orderRef}
                                         css={{
                                             fontFamily: 'DM Sans',
                                             borderBottom: '1px solid #ccc'
@@ -216,13 +326,13 @@ export function Ordine() {
                                             collisionDetection={closestCenter}
                                             onDragEnd={handleDragEnd}
                                         >
+                                            <div ref={rowRef} style={{display: 'flex', flexDirection: 'row'}}>
                                             <SortableContext
                                                 items={items}
-                                                strategy={horizontalListSortingStrategy}
-
-                                            >
+                                                strategy={horizontalListSortingStrategy}>
                                                 {items.map(id => <SortableItem key={id} id={id} />)}
                                             </SortableContext>
+                                            </div>
                                         </DndContext>
                                     </Card.Body>
                                 </Card>
@@ -230,7 +340,7 @@ export function Ordine() {
                         </AnimatedPage>
                     )}
                     <div className="buttons-container">
-                        <Button size='lg' flat
+                        <Button size='lg' flat ref={skipRef}
                             css={{ fontFamily: 'DM Sans' }}
                             onPress={() => {
                                 setHasCheated(false);
@@ -253,7 +363,7 @@ export function Ordine() {
                                 </div>
                             }
                         >
-                            <Button size='lg' flat color="warning"
+                            <Button size='lg' flat color="warning" ref={cheatRef}
                                 css={{ fontFamily: 'DM Sans' }}
                                 onPress={() => {
                                     setHasCheated(true);
@@ -262,7 +372,7 @@ export function Ordine() {
                             >Arată Răspunsul</Button>
                         </Tooltip>
                         <Spacer x={2} />
-                        <Button size='lg' color={verifColor as NormalColors}
+                        <Button size='lg' color={verifColor as NormalColors} ref={ansRef}
                             css={{ fontFamily: 'DM Sans' }}
                             onPress={() => {
                                 console.log(hasCheated);
@@ -277,6 +387,7 @@ export function Ordine() {
                                         Math.floor(Math.random() * difficulty.value.ordine.allowedOrders.length)]);
                                     setSwap(!swap);
                                     console.log('CORRECT');
+                                    setSuccessSound(true);
                                     if (hasCheated) {
                                         setHasCheated(false);
                                     } else {
@@ -299,6 +410,7 @@ export function Ordine() {
                                         progress.setValue(newManager);
                                     }
                                 } else {
+                                    setFailureSound(true);
                                     console.log('INCORRECT');
                                     setTryAgainVisible(true);
                                     setTimeout(() => {

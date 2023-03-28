@@ -3,7 +3,7 @@ import { Queue } from './Queue';
 export enum Operator {
     plus = '+',
     minus = '-',
-    mul = '*',
+    mul = '✕',
     div = ':'
 }
 
