@@ -7,7 +7,7 @@ import {ExpressionTree} from '@/types/ExpressionTree';
 import React, {useEffect, useState} from 'react';
 import {useProgressContext, useDifficultyContext} from '../../../../services/context';
 import {ExerciseProgress, ProgressManager} from '@/services/ProgressManager';
-import {DndContext, useDraggable, useDroppable} from "@dnd-kit/core";
+import {DndContext, DragEndEvent, useDraggable, useDroppable} from "@dnd-kit/core";
 
 export type DroppableProps = {
     label: React.ReactNode
@@ -65,6 +65,10 @@ export function Comparatii() {
     console.log(tree1.root?.infix());
     console.log(tree2.root?.infix());
 
+    const handleDragEnd = (event: DragEndEvent) => {
+
+    }
+
     return (
         <AnimatedPage>
             <div className="card-holder comparatii">
@@ -79,54 +83,57 @@ export function Comparatii() {
                             incearca!</h5>
                     </Modal.Body>
                 </Modal>
-                <div className="background-card">
-                    <Button light auto size='xs' icon={<ArrowLeft size="24"/>}
-                            css={{width: "36px", height: "36px"}}
-                            onPress={() => navigate(-1)}
-                    />
-                    <h3 style={{
-                        textAlign: 'center',
-                        fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: "20px"
-                    }}>
-                        Comparatii
-                    </h3>
-                    <AnimatedPage>
-                        <div className="comparison-card-holder">
-                            <Card css={{width: '70%', height: '200px'}}>
-                                <Card.Header
-                                    css={{
+                <DndContext onDragEnd={handleDragEnd}>
+                    <div className="background-card">
+                        <Button light auto size='xs' icon={<ArrowLeft size="24"/>}
+                                css={{width: "36px", height: "36px"}}
+                                onPress={() => navigate(-1)}
+                        />
+                        <h3 style={{
+                            textAlign: 'center',
+                            fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: "20px"
+                        }}>
+                            Comparatii
+                        </h3>
+                        <AnimatedPage>
+                            <div className="comparison-card-holder">
+                                <Card css={{width: '70%', height: '200px'}}>
+                                    <Card.Header
+                                        css={{
+                                            fontFamily: 'DM Sans',
+                                            borderBottom: '1px solid #ccc'
+                                        }}>
+                                        Alegeti semnul de comparare potrivit
+                                    </Card.Header>
+                                    <Card.Body css={{
                                         fontFamily: 'DM Sans',
-                                        borderBottom: '1px solid #ccc'
+                                        justifyContent: 'center',
+                                        textAlign: 'center',
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyCenter: 'center',
+                                        alignItems: 'center'
                                     }}>
-                                    Alegeti semnul de comparare potrivit
-                                </Card.Header>
-                                <Card.Body css={{
-                                    fontFamily: 'DM Sans',
-                                    justifyContent: 'center',
-                                    textAlign: 'center',
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    justifyCenter: 'center',
-                                    alignItems: 'center'
-                                }}>
-                                    <span style={{fontSize: '2rem', flex: '1'}}>{tree1.expression}</span>
-                                    <Spacer x={2}/>
-                                    <span style={{fontSize: '2rem', flex: '1'}}>{tree2.expression}</span>
-                                </Card.Body>
-                            </Card>
+                                        <span style={{fontSize: '2rem', flex: '1'}}>{tree1.expression}</span>
+                                        <Spacer x={2}/>
+                                        <span style={{fontSize: '2rem', flex: '1'}}>{tree2.expression}</span>
+                                    </Card.Body>
+                                </Card>
+                            </div>
+                        </AnimatedPage>
+                        <div className='buttons-container'>
+                            <Button size='lg' flat
+                                    css={{fontFamily: 'DM Sans'}}
+                                    onPress={() => {
+                                    }
+                                    }
+                            >
+                                Treci Peste
+                            </Button>
                         </div>
-                    </AnimatedPage>
-                    <div className='buttons-container'>
-                        <Button size='lg' flat
-                                css={{fontFamily: 'DM Sans'}}
-                                onPress={() => {
-                                }
-                                }
-                        >
-                            Treci Peste
-                        </Button>
                     </div>
-                </div>
+
+                </DndContext>
             </div>
         </AnimatedPage>
     );
