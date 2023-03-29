@@ -7,8 +7,6 @@
 ![GitHub license](https://img.shields.io/github/license/wowvain-dev/lima-electron)
 [![Required Node.JS >= 14.18.0 || >=16.0.0](https://img.shields.io/static/v1?label=node&message=14.18.0%20||%20%3E=16.0.0&logo=node.js&color=3f893e)](https://nodejs.org/about/releases)
 
-Română
-
 ## 👀 Prezentare Generală
 
 📦 Instalare simplă
@@ -19,7 +17,7 @@ Română
 
 💪 Construită cu 
 
-[![My Skills](https://skillicons.dev/icons?i=ts,react,nodejs,electron)](https://skillicons.dev)  
+[![My Skills](https://skillicons.dev/icons?i=ts,react,nodejs,electron,scss)](https://skillicons.dev)  
 
 
 
@@ -61,6 +59,9 @@ Am folosit Electron pentru a incapsula un client de Chromium intr-o fereastra de
 
 - ### [![My Skills](https://skillicons.dev/icons?i=ts)](https://skillicons.dev) TypeScript
 Majoritatea aplicaţiei este scrisă în TypeScript (*.ts / *.tsx) pentru a putea să ne folosim de convenienta sistemului de type safety.
+
+- ### [![My Skills](https://skillicons.dev/icons?i=scss)](https://skillicons.dev) Syntetically Awesome Stylesheets (Sass)
+Pentru fisierele de stil ale aplicaţiei am folosit SASS/SCSS.
 
 ## 🫂 Echipa Nostra
 
