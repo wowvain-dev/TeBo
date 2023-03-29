@@ -26,7 +26,7 @@ Română
 ## 🛫 Instalare
 
 - #### Folosirea installer-ului:
-  - Intrati pe pagina de releases si descarcati ultima versiune: (v0.2.1-alpha)
+  - Intrati pe pagina de [releases](https://github.com/wowvain-dev/lima-electron/releases/tag/alpha) si descarcati ultima versiune: (v0.2.1-alpha)
   - Dezarhivati fisierul descarcat
   - Rulati `lima-0.2.1.exe` si urmariti pasii installer-ului
   - Porniti programul din windows search bar
