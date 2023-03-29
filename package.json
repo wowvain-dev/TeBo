@@ -1,9 +1,10 @@
 {
   "name": "lima-electron",
   "version": "2.1.0",
+  "productName": "Lima",
   "main": "dist-electron/main/index.js",
   "description": "Electron Vite React boilerplate.",
-  "author": "草鞋没号 <308487730@qq.com>",
+  "author": "wowvain-dev",
   "license": "MIT",
   "private": true,
   "debug": {
@@ -38,6 +39,7 @@
     "react-howler": "^5.2.0",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.9.0",
+    "react-simple-keyboard": "^3.5.46",
     "use-react-router-breadcrumbs": "^4.0.1"
   },
   "devDependencies": {

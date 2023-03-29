@@ -1,6 +1,7 @@
 import { createContext, useContext } from 'react';
 import { ProgressManager } from './ProgressManager';
 import { DifficultyManager } from './DifficultyManager';
+import { StorageManager } from './StorageManager';
 
 export type ProgressContainer = {
     value: ProgressManager,
@@ -10,6 +11,11 @@ export type ProgressContainer = {
 export type DifficultyContainer = {
     value: DifficultyManager,
     setValue: (val: DifficultyManager) => void
+}
+
+export type StorageContainer = {
+    value: StorageManager,
+    setValue: (val: StorageManager) => void
 }
 
 export const ProgressContext = createContext<ProgressContainer>(
@@ -26,5 +32,13 @@ export const DifficultyContext = createContext<DifficultyContainer>(
     }
 );
 
+export const StorageContext = createContext<StorageContainer>(
+    {
+        value: new StorageManager(),
+        setValue: () => {}
+    }
+);
+
 export const useProgressContext = () => useContext(ProgressContext);
 export const useDifficultyContext = () => useContext(DifficultyContext);
+export const useStorageContext = () => useContext(StorageContext);

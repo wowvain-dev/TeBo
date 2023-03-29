@@ -1,4 +1,4 @@
-enum LetterType {
+export enum LetterType {
     vowel, consonant
 }
 
@@ -12,7 +12,7 @@ export class Letter {
 
     
     public get letterType() : LetterType {
-        if ("aeiouăîâ".includes(this.character ?? ' ')) return LetterType.vowel;
+        if (['a','e','i','o','u','ă','î','â'].indexOf(this.character?.toLowerCase() ?? ' ') !== -1) return LetterType.vowel;
         return LetterType.consonant;
     }
 

@@ -12,6 +12,7 @@ import { RxSlash } from 'react-icons/rx';
 import { Breadcrumb } from 'antd';
 import type { ItemType } from 'antd/es/breadcrumb/Breadcrumb';
 import type { BreadcrumbItemProps } from 'antd/es/breadcrumb';
+import logo from '../assets/HEAD-LLAMA-cool-blue.png';
 
 export type CrumbPath = {
     name: string,
@@ -33,6 +34,11 @@ let PathNames: Map<string, CrumbPath> = new Map<string, CrumbPath>([
     ["/levels/1/aritmetica/formare", { name: "Formarea Numerelor" }],
     ["/levels/1/aritmetica/ordine", { name: "Ordine de Şiruri" }],
     ["/levels/1/aritmetica/comparatii", { name: "Comparaţii de Expresii" }],
+    ["/levels/1/romana/vocale", { name: "Vocale şi Consoane" }],
+    ["/levels/1/romana/litere", { name: "Recunoaştere Litere" }],
+    ["/levels/1/geometrie/culori", { name: "Recunoaştere Culori" }],
+    ["/levels/1/geometrie/regula_sirului", { name: "Regula Şirului" }],
+    ["/levels/1/geometrie/comparare", { name: "Comparare de Forme" }],
 ]);
 
 function Header() {
@@ -48,6 +54,26 @@ function Header() {
     PathNames.get('/levels/1/aritmetica')!.progress = {
         current: progress.value.level1.matematica.parts.get('aritmetica')?.current() ?? 0,
         total: progress.value.level1.matematica.parts.get('aritmetica')?.total() ?? 0,
+    };
+    PathNames.get('/levels/1/romana')!.progress = {
+        current: progress.value.level1.comunicare.parts.get('romana')?.current() ?? 0,
+        total: progress.value.level1.comunicare.parts.get('romana')?.total() ?? 0,
+    };
+    PathNames.get('/levels/1/geometrie')!.progress = {
+        current: progress.value.level1.matematica.parts.get('geometrie')?.current() ?? 0,
+        total: progress.value.level1.matematica.parts.get('geometrie')?.total() ?? 0,
+    };
+    PathNames.get('/levels/1/geometrie/culori')!.progress = {
+        current: progress.value.level1.matematica.parts.get('geometrie')?.parts.get('culori')?.current ?? 0,
+        total: progress.value.level1.matematica.parts.get('geometrie')?.parts.get('culori')?.total ?? 0,
+    };
+    PathNames.get('/levels/1/geometrie/regula_sirului')!.progress = {
+        current: progress.value.level1.matematica.parts.get('geometrie')?.parts.get('regula_sirului')?.current ?? 0,
+        total: progress.value.level1.matematica.parts.get('geometrie')?.parts.get('regula_sirului')?.total ?? 0,
+    };
+    PathNames.get('/levels/1/geometrie/comparare')!.progress = {
+        current: progress.value.level1.matematica.parts.get('geometrie')?.parts.get('comparare')?.current ?? 0,
+        total: progress.value.level1.matematica.parts.get('geometrie')?.parts.get('comparare')?.total ?? 0,
     };
     PathNames.get('/levels/1/aritmetica/operatii')!.progress = {
         current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('operatii')?.current ?? 0,
@@ -69,15 +95,29 @@ function Header() {
         current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('comparatii')?.current ?? 0,
         total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('comparatii')?.total ?? 0,
     }
-
+    PathNames.get('/levels/1/romana/litere')!.progress = {
+        current: progress.value.level1.comunicare.parts.get('romana')?.parts.get('litere')?.current ?? 0,
+        total: progress.value.level1.comunicare.parts.get('romana')?.parts.get('litere')?.total ?? 0,
+    }
+    PathNames.get('/levels/1/romana/vocale')!.progress = {
+        current: progress.value.level1.comunicare.parts.get('romana')?.parts.get('vocale')?.current ?? 0,
+        total: progress.value.level1.comunicare.parts.get('romana')?.parts.get('vocale')?.total ?? 0,
+    }
     console.log(location.pathname);
 
     const Breadcrumbs = () => {
         let crumbs: Array<ItemType> = new Array<ItemType>;
         for (let i = 0; i < breadcrumbs.length; i++) {
             if (breadcrumbs[i].match.pathname === '/') {
+                continue;
                 crumbs.push({
                     title: <Link to='/'><HomeOutlined /></Link>,
+                    href: undefined,
+
+                });
+            } else if (breadcrumbs[i].match.pathname === '/levels/1') {
+                crumbs.push({
+                    title: <Link to='/levels/1'><HomeOutlined /></Link>,
                     href: undefined,
 
                 });
@@ -104,9 +144,9 @@ function Header() {
                             {PathNames.get(breadcrumbs[i].match.pathname)?.icon}
                             <span>{PathNames.get(breadcrumbs[i].match.pathname)?.name}</span>
                         </div>,
-                        menu: {
-                            items: menuItems
-                        }
+                        // menu: {
+                        //     items: menuItems
+                        // }
                     })
                     break;
                 }
@@ -160,7 +200,12 @@ function Header() {
                     ? 'Cunoscător'
                     : 'Expert'
                 }</p> */}
-                    <Dropdown>
+                    <div style={{fontFamily: 'DM Sans', fontSize: '30px', display: 'flex',
+                        justifyContent: 'center', alignItems: 'center'
+                    }}>
+                        Lima
+                        </div>
+                    {/* <Dropdown>
                         <Dropdown.Button light
                             css={{ fontFamily: "DM Sans", fontSize: '20px' }}
                         >
@@ -187,7 +232,7 @@ function Header() {
                                 <div className="dropdown-link" onClick={() => navigate('/levels/3')}>Expert</div>
                             </Dropdown.Item>
                         </Dropdown.Menu>
-                    </Dropdown>
+                    </Dropdown> */}
                 </div>
 
                 <div className="header-progress">

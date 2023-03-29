@@ -99,11 +99,11 @@ export class LevelProgress {
 }
 
 export class ProgressManager {
-    static level1: LevelProgress = new LevelProgress();
-    static level2: LevelProgress = new LevelProgress();
-    static level3: LevelProgress = new LevelProgress();
+    level1: LevelProgress = new LevelProgress();
+    level2: LevelProgress = new LevelProgress();
+    level3: LevelProgress = new LevelProgress();
     
-    static isThereProgress: boolean = false;
+    isThereProgress: boolean = false;
 
     setValue(
         level: number, metasubject: string, subject: string, exercise: string, 
@@ -112,15 +112,15 @@ export class ProgressManager {
             if (metasubject === "comunicare") {
                 switch (level) {
                     case 1:
-                        ProgressManager.level1.comunicare
+                        this.level1.comunicare
                         .parts.get(subject)?.parts.set(exercise, newProgress);
                         break;
                     case 2:
-                        ProgressManager.level2.comunicare
+                        this.level2.comunicare
                         .parts.get(subject)?.parts.set(exercise, newProgress);
                         break;
                     case 3:
-                        ProgressManager.level3.comunicare
+                        this.level3.comunicare
                         .parts.get(subject)?.parts.set(exercise, newProgress);
                         break;
                     default:
@@ -129,15 +129,15 @@ export class ProgressManager {
             } else if (metasubject === "matematica") {
                 switch (level) {
                     case 1:
-                        ProgressManager.level1.matematica
+                        this.level1.matematica
                         .parts.get(subject)?.parts.set(exercise, newProgress);
                         break;
                     case 2:
-                        ProgressManager.level2.matematica
+                        this.level2.matematica
                         .parts.get(subject)?.parts.set(exercise, newProgress);
                         break;
                     case 3:
-                        ProgressManager.level3.matematica
+                        this.level3.matematica
                         .parts.get(subject)?.parts.set(exercise, newProgress);
                         break;
                     default:
@@ -146,7 +146,7 @@ export class ProgressManager {
             }
         }
 
-        static create() {
+        create() {
             this.level1.comunicare.parts.set('romana', new CollectionProgress());
             this.level1.comunicare.parts.get('romana')?.parts
                 .set('litere', new ExerciseProgress(0, 31));
@@ -159,7 +159,7 @@ export class ProgressManager {
             this.level1.matematica.parts.get('aritmetica')?.parts
                 .set('fractii', new ExerciseProgress(0, 50));
             this.level1.matematica.parts.get('aritmetica')?.parts
-                .set('siruri', new ExerciseProgress(0, 50));
+                .set('ordine', new ExerciseProgress(0, 50));
             this.level1.matematica.parts.get('aritmetica')?.parts
                 .set('formare', new ExerciseProgress(0, 50));
             this.level1.matematica.parts.get('aritmetica')?.parts
@@ -176,7 +176,7 @@ export class ProgressManager {
             this.scriere();
         }
 
-        static initialize() {
+        initialize() {
             let directoryPath = join(homedir(), 'lima');
             let filePath = join(homedir(), 'lima', 'progress.json');
 
@@ -212,8 +212,8 @@ export class ProgressManager {
             progressJson.levels.forEach((element: any) => {
                 var x = new LevelProgress();
                 x.comunicare.parts.set('romana', new CollectionProgress());
-                x.comunicare.parts.set('aritmetica', new CollectionProgress());
-                x.comunicare.parts.set('geometrie', new CollectionProgress());
+                x.matematica.parts.set('aritmetica', new CollectionProgress());
+                x.matematica.parts.set('geometrie', new CollectionProgress());
 
                 if (element.comunicare.romana.litere[0] != 0 ||
                     element.comunicare.romana.vocale[0] != 0 ||
@@ -225,8 +225,10 @@ export class ProgressManager {
                     element.matematica.geometrie.culori[0]      != 0 ||
                     element.matematica.geometrie.regula_sirului[0]      != 0 ||
                     element.matematica.geometrie.comparare[0]           != 0) {
-                        ProgressManager.isThereProgress = true;
+                        this.isThereProgress = true;
                     }
+
+                console.log(this.isThereProgress);
 
                 x.comunicare.parts.get('romana')?.parts.set('litere', 
                     new ExerciseProgress(element.comunicare.romana.litere[0],
@@ -283,9 +285,10 @@ export class ProgressManager {
             });
 
             console.log(progressJson);
+            console.log(this.level1);
         }
 
-        static stergere() {
+        stergere() {
             this.isThereProgress = false;
 
             var romana1 = this.level1.comunicare.parts.get('romana');
@@ -355,42 +358,10 @@ export class ProgressManager {
             });
         }
 
-        static scriere() {
+        scriere() {
             var romana1 = this.level1.comunicare.parts.get('romana');
             var aritmetica1 = this.level1.matematica.parts.get('aritmetica');
             var geometrie1 = this.level1.matematica.parts.get('geometrie');
-
-            romana1?.parts.set('litere',
-                new ExerciseProgress(0, romana1?.parts.get('litere')?.total ?? 0) 
-            );
-            romana1?.parts.set('vocale',
-                new ExerciseProgress(0, romana1?.parts.get('litere')?.total ?? 0) 
-            );
-            aritmetica1?.parts.set('operatii',
-                new ExerciseProgress(0, aritmetica1?.parts.get('operatii')?.total ?? 0) 
-            );
-            aritmetica1?.parts.set('fractii',
-                new ExerciseProgress(0, aritmetica1?.parts.get('fractii')?.total ?? 0) 
-            );
-            aritmetica1?.parts.set('ordine',
-                new ExerciseProgress(0, aritmetica1?.parts.get('ordine')?.total ?? 0) 
-            );
-            aritmetica1?.parts.set('formare',
-                new ExerciseProgress(0, aritmetica1?.parts.get('formare')?.total ?? 0) 
-            );
-            aritmetica1?.parts.set('comparatii',
-                new ExerciseProgress(0, aritmetica1?.parts.get('comparatii')?.total ?? 0) 
-            );
-            geometrie1?.parts.set('culori', 
-                new ExerciseProgress(0, geometrie1?.parts.get('culori')?.total ?? 0) 
-            );
-            geometrie1?.parts.set('regula_sirului', 
-                new ExerciseProgress(0, geometrie1?.parts.get('regula_sirului')?.total ?? 0) 
-            );
-            geometrie1?.parts.set('comparare', 
-                new ExerciseProgress(0, geometrie1?.parts.get('comparare')?.total ?? 0) 
-            );
-
 
             let progressMap = {
                 levels: [
@@ -426,6 +397,6 @@ export class ProgressManager {
         }
 
         constructor() {
-            ProgressManager.initialize();
+            this.initialize();
         }
 };

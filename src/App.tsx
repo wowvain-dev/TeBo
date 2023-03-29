@@ -8,7 +8,7 @@ import Level1 from './pages/levels/level1';
 import {PageLayout, OverallLayout} from './pages/layout';
 import Level2 from './pages/levels/level2';
 import Level3 from './pages/levels/level3';
-import {ProgressContext, DifficultyContext} from './services/context';
+import {ProgressContext, DifficultyContext, StorageContext} from './services/context';
 import {ProgressManager} from './services/ProgressManager';
 import {useState} from 'react';
 import {AritmeticaPanel} from './pages/exercises/matematica/aritmetica/aritmetica_panel';
@@ -19,6 +19,12 @@ import {Ordine} from './pages/exercises/matematica/aritmetica/ordine';
 import {Fractii} from './pages/exercises/matematica/aritmetica/fractii';
 import {Formare} from "@/pages/exercises/matematica/aritmetica/formare";
 import {Comparatii} from "@/pages/exercises/matematica/aritmetica/comparatii";
+import { RomanaPanel } from './pages/exercises/comunicare/romana/romana_panel';
+import { Litere } from './pages/exercises/comunicare/romana/recunoastere_litere';
+import { StorageManager } from './services/StorageManager';
+import { Vocale } from './pages/exercises/comunicare/romana/vocale';
+import { GeometriePanel } from './pages/exercises/matematica/geometrie/geometrie_panel';
+import { Culori } from './pages/exercises/matematica/geometrie/culori';
 
 const theme = createTheme({
     type: "light", // it could be "light" or "dark"
@@ -58,13 +64,15 @@ function App() {
     const [difficultyValue, setDifficultyValue] = useState(
         new DifficultyManager()
     );
+    const [storageValue, setStorageValue] = useState(new StorageManager());
 
-    progressValue.initialize();
+    // progressValue.initialize();
 
     let location = useLocation();
 
     return (
         <div className='App'>
+            <StorageContext.Provider value={{value: storageValue, setValue: setStorageValue}}>
             <ProgressContext.Provider value={{value: progressValue, setValue: setProgressValue}}>
                 <DifficultyContext.Provider value={{value: difficultyValue, setValue: setDifficultyValue}}>
                     <NextUIProvider theme={theme}>
@@ -84,7 +92,17 @@ function App() {
                                                 <Route path="formare" element={<Formare/>}/>
                                                 <Route path="comparatii" element={<Comparatii/>}/>
                                             </Route>
-                                            <Route path="romana" element={<div></div>}/>
+                                            <Route path="romana">
+                                                <Route index element={<RomanaPanel/>}/>
+                                                <Route path="vocale" element={<Vocale/>}/>
+                                                <Route path="litere" element={<Litere/>}/>
+                                            </Route>
+                                            <Route path="geometrie">
+                                                <Route index element={<GeometriePanel/>}/>
+                                                <Route path="culori" element={<Culori />}/>
+                                                <Route path="regula_sirului" element={<Litere/>}/>
+                                                <Route path="comparare" element={<Litere/>}/>
+                                            </Route>
                                         </Route>
                                         <Route path="2">
                                             <Route index element={<Level2/>}/>
@@ -99,6 +117,7 @@ function App() {
                     </NextUIProvider>
                 </DifficultyContext.Provider>
             </ProgressContext.Provider>
+            </StorageContext.Provider>
         </div>
     )
 }

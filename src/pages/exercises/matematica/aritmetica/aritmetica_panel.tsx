@@ -30,12 +30,12 @@ export function AritmeticaPanel() {
                     <h3 style={{
                         textAlign: 'center',
                         fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: "20px"
-                    }}>Exerciţii</h3>
+                    }}>Exerciţii Aritmetică</h3>
                     {page === 1 &&
                         <AnimatedPage>
                             <Grid.Container gap={3}>
                                 <Grid sm={6} justify='center'>
-                                    <ProgressExerciseCard
+                                    <ProgressExerciseCard level={2} color='green' type='nerd'
                                         to='/levels/1/aritmetica/operatii'
                                         exercise="Operaţii"
                                         current={progress.value.level1.matematica.parts
@@ -45,7 +45,7 @@ export function AritmeticaPanel() {
                                     />
                                 </Grid>
                                 <Grid sm={6} justify='center'>
-                                    <ProgressExerciseCard
+                                    <ProgressExerciseCard level={2} color='green' type='nerd'
                                         to='/levels/1/aritmetica/fractii'
                                         exercise="Fracţii"
                                         current={progress.value.level1.matematica.parts
@@ -55,17 +55,17 @@ export function AritmeticaPanel() {
                                     />
                                 </Grid>
                                 <Grid sm={6} justify='center'>
-                                    <ProgressExerciseCard
+                                    <ProgressExerciseCard level={1} color='green' type='nerd'
                                         to='/levels/1/aritmetica/ordine'
                                         exercise="Şiruri de numere"
                                         current={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('siruri')?.current as number}
+                                            .get('aritmetica')?.parts.get('ordine')?.current as number}
                                         total={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('siruri')?.total as number}
+                                            .get('aritmetica')?.parts.get('ordine')?.total as number}
                                     />
                                 </Grid>
                                 <Grid sm={6} justify='center'>
-                                    <ProgressExerciseCard
+                                    <ProgressExerciseCard level={1} color='green' type='nerd'
                                         to='/levels/1/aritmetica/formare'
                                         exercise="Formarea Numerelor"
                                         current={progress.value.level1.matematica.parts
@@ -81,7 +81,7 @@ export function AritmeticaPanel() {
                         <AnimatedPage>
                             <Grid.Container gap={3}>
                                 <Grid sm={6} justify='center'>
-                                    <ProgressExerciseCard
+                                    <ProgressExerciseCard level={3} color='green' type='nerd'
                                         to='/levels/1/aritmetica/comparatii'
                                         exercise="Comparatii"
                                         current={progress.value.level1.matematica.parts

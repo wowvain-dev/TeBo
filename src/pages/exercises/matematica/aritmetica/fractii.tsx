@@ -344,6 +344,7 @@ export function Fractii() {
                                         newManager.level2 = copy.level2;
                                         newManager.level3 = copy.level3;
                                         progress.setValue(newManager);
+                                        progress.value.scriere();
                                     }
                                 } else {
                                     setFailureSound(true);

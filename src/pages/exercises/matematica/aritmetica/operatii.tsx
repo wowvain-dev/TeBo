@@ -167,8 +167,7 @@ export function Operatii() {
                         />
 
                     </div>
-                    <h3 style={{
-                        textAlign: 'center',
+                    <h3 style={{ textAlign: 'center',
                         fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: "20px"
                     }}>
                         Operaţii
@@ -400,7 +399,6 @@ export function Operatii() {
                                     if (hasCheated) {
                                         setHasCheated(false);
                                     } else {
-
                                         let copy = { ...progress.value };
                                         let newProgress: ExerciseProgress =
                                             copy.level1.matematica.parts.get('aritmetica')
@@ -418,6 +416,7 @@ export function Operatii() {
                                         newManager.level2 = copy.level2;
                                         newManager.level3 = copy.level3;
                                         progress.setValue(newManager);
+                                        progress.value.scriere();
                                     }
                                 } else {
                                     console.log('INCORRECT');

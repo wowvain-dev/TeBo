@@ -8,6 +8,7 @@ import cool_head_green from '../assets/HEAD-LLAMA-cool-green.png';
 import nerd_head_green from '../assets/HEAD-LLAMA-nerd-green.png';
 import cool_head_yellow from '../assets/HEAD-LLLAMA.png';
 import nerd_head_yellow from '../assets/HEAD-LLAMA-nerd.png';
+import React from 'react';
 
 const images: Map<string, Map<string, string>> = new Map([
 	['nerd', new Map([
@@ -33,8 +34,18 @@ export type DifficultyLevel = {
 
 export function DifficultyLevel({level, color, type}: DifficultyLevel) {
 	let chosenImg = images.get(type)?.get(color) ?? '';
+	let array: string[] = [chosenImg, chosenImg, chosenImg];
+	
 
 	return (
-		<></>
+		<div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+			{
+				array.map((val, index, _) => {
+					return <img src={val} style={{opacity: index >= level ? '30%' : '100%',
+					height: '45px'
+				}}/>
+				})
+			}
+		</div>
 	);
 }
