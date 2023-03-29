@@ -4,10 +4,13 @@ import { GiSchoolBag } from 'react-icons/all';
 import { Book1, ShoppingBag, Medal } from 'iconsax-react';
 import AnimatedPage from '../components/AnimatedPage';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function DefaultPage() {
     const navigate = useNavigate();
-
+    useEffect(() => {
+        navigate('/levels/1');
+    }, []);
     return (
         <AnimatedPage>
             <div className="grid-holder default">

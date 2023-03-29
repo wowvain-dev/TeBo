@@ -20,6 +20,12 @@
     }
   ],
   "configurations": [
+  {
+    "command": "npm run dev",
+    "name": "Start App",
+    "request": "launch",
+    "type": "node-terminal"
+  },
     {
       "name": "Debug Main Process",
       "type": "node",
