@@ -38,6 +38,8 @@ npm run dev
 ```
 
 ## 📂 Aplicaţia
+
+### KNOWN BUG: DACA PRIMESTI UN ECRAN ALB GOL UNEORI, TREBUIE SA APESI CTRL + R PENTRU A DA REFRESH LA PAGINA.
 Scopul aplicaţiei este de a facilita învăţarea copiilor prin a le oferi exerciţii uşor de înţeles şi generate aleatoriu.
 
 #### Screenshots
