@@ -224,6 +224,7 @@ export function Operatii() {
                                                             difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth
                                                         ));
                                                         setSwap(!swap);
+                                                        setSuccessSound(true);
                                                         if (hasCheated) {
                                                             setHasCheated(false);
                                                         } else {
@@ -245,6 +246,7 @@ export function Operatii() {
                                                             newManager.level2 = copy.level2;
                                                             newManager.level3 = copy.level3;
                                                             progress.setValue(newManager);
+                                                            progress.value.scriere();
                                                         }
                                                     } else {
                                                         console.log('INCORRECT')
@@ -309,6 +311,7 @@ export function Operatii() {
                                                             difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth
                                                         ));
                                                         setSwap(!swap);
+                                                        setSuccessSound(true);
                                                         if (hasCheated) {
                                                             setHasCheated(false);
                                                         } else {
@@ -330,6 +333,7 @@ export function Operatii() {
                                                             newManager.level2 = copy.level2;
                                                             newManager.level3 = copy.level3;
                                                             progress.setValue(newManager);
+                                                            progress.value.scriere();
                                                         }
                                                     } else {
                                                         console.log('INCORRECT')
