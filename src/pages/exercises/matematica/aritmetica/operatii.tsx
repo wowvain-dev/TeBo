@@ -13,6 +13,9 @@ import {TryAgainModal} from "@/components/TryAgainModal";
 import {AiOutlineQuestion, HiOutlineSpeakerphone, HiOutlineSpeakerWave} from "react-icons/all";
 import success_sound from '@/assets/audio/sfx/success_sound.aac';
 import failure_sound from '@/assets/audio/sfx/failure_sound.aac';
+import check_tour from '@/assets/audio/ui/check_tour.aac';
+import skip_tour from '@/assets/audio/ui/skip_tour.aac';
+import cheat_tour from '@/assets/audio/ui/cheat_tour.aac';
 import ReactHowler from 'react-howler';
 
 function WrongAnswerNotification() {
@@ -93,7 +96,9 @@ export function Operatii() {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
                     Treceţi peste acest exerciţiu
                     <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}
+                            onPress={() => setSkipSound(true)}
+                        ></Button>
                         <div style={{flex: '1'}}></div>
                         <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
                     </div>
@@ -111,7 +116,9 @@ export function Operatii() {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
                     Afisaţi răspunsul corect al exerciţiului
                     <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}
+                            onPress={() => setCheatSound(true)}
+                        ></Button>
                         <div style={{flex: '1'}}></div>
                         <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
                     </div>
@@ -129,7 +136,9 @@ export function Operatii() {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
                     Verificaţi răspunsul introdus
                     <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}
+                            onPress={() => setCheckSound(true)}
+                        ></Button>
                         <div style={{flex: '1'}}></div>
                         <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
                     </div>
@@ -147,9 +156,15 @@ export function Operatii() {
 
     const [successSound, setSuccessSound] = useState(false);
     const [failureSound, setFailureSound] = useState(false);
+    const [skipSound, setSkipSound] = useState(false);
+    const [cheatSound, setCheatSound] = useState(false);
+    const [checkSound, setCheckSound] = useState(false);
 
     return (
         <AnimatedPage>
+            <ReactHowler src={skip_tour} playing={skipSound} onEnd={() => setSkipSound(false)} />
+            <ReactHowler src={cheat_tour} playing={cheatSound} onEnd={() => setCheatSound(false)} />
+            <ReactHowler src={check_tour} playing={checkSound} onEnd={() => setCheckSound(false)} />
             <ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)}/>
             <ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)}/>
             <div className="card-holder operatii">
