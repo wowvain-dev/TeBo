@@ -103,6 +103,7 @@ export function PageLayout() {
                 left: '15px',
                 bottom: '15px'
             }}>
+                {/* SETTINGS BUTTON */}
                 <Button  ref={settingsRef}
                 auto size='xs' css={{
                     background: '$normalWhite'
@@ -117,6 +118,7 @@ export function PageLayout() {
                 right: '15px',
                 bottom: '15px'
             }}>
+                {/* HELP BUTTON */}
                 <Button
                 // ghost
                 onPress={() => setShowTour(true)}
