@@ -2,127 +2,127 @@
 "letters" : [
   {
     "letter": "a",
-    "recording": "audio/letters/A.m4a"
+    "recording": "audio/letters/A.aac"
   },
   {
     "letter": "ă",
-    "recording": "audio/letters/A_2.m4a"
+    "recording": "audio/letters/A_2.aac"
   },
   {
     "letter": "â",
-    "recording": "audio/letters/A_1.m4a"
+    "recording": "audio/letters/A_1.aac"
   },
   {
     "letter": "b",
-    "recording": "audio/letters/B.m4a"
+    "recording": "audio/letters/B.aac"
   },
   {
     "letter": "c",
-    "recording": "audio/letters/C.m4a"
+    "recording": "audio/letters/C.aac"
   },
   {
     "letter": "d",
-    "recording": "audio/letters/D.m4a"
+    "recording": "audio/letters/D.aac"
   },
   {
     "letter": "e",
-    "recording": "audio/letters/E.m4a"
+    "recording": "audio/letters/E.aac"
   },
   {
     "letter": "f",
-    "recording": "audio/letters/f.m4a"
+    "recording": "audio/letters/f.aac"
   },
   {
     "letter": "g",
-    "recording": "audio/letters/G.m4a"
+    "recording": "audio/letters/G.aac"
   },
   {
     "letter": "h",
-    "recording": "audio/letters/H.m4a"
+    "recording": "audio/letters/H.aac"
   },
   {
     "letter": "i",
-    "recording": "audio/letters/i.m4a"
+    "recording": "audio/letters/i.aac"
   },
   {
     "letter": "j",
-    "recording": "audio/letters/J.m4a"
+    "recording": "audio/letters/J.aac"
   },
   {
     "letter": "k",
-    "recording": "audio/letters/K.m4a"
+    "recording": "audio/letters/K.aac"
   },
   {
     "letter": "l",
-    "recording": "audio/letters/L.m4a"
+    "recording": "audio/letters/L.aac"
   },
   {
     "letter": "m",
-    "recording": "audio/letters/M.m4a"
+    "recording": "audio/letters/M.aac"
   },
   {
     "letter": "n",
-    "recording": "audio/letters/N.m4a"
+    "recording": "audio/letters/N.aac"
   },
   {
     "letter": "o",
-    "recording": "audio/letters/O.m4a"
+    "recording": "audio/letters/O.aac"
   },
   {
     "letter": "p",
-    "recording": "audio/letters/P.m4a"
+    "recording": "audio/letters/P.aac"
   },
   {
     "letter": "q",
-    "recording": "audio/letters/Q.m4a"
+    "recording": "audio/letters/Q.aac"
   },
   {
     "letter": "r",
-    "recording": "audio/letters/R.m4a"
+    "recording": "audio/letters/R.aac"
   },
   {
     "letter": "s",
-    "recording": "audio/letters/S.m4a"
+    "recording": "audio/letters/S.aac"
   },
   {
     "letter": "ş",
-    "recording": "audio/letters/S_1.m4a"
+    "recording": "audio/letters/S_1.aac"
   },
   {
     "letter": "t",
-    "recording": "audio/letters/T.m4a"
+    "recording": "audio/letters/T.aac"
   },
   {
     "letter": "ţ",
-    "recording": "audio/letters/T_1.m4a"
+    "recording": "audio/letters/T_1.aac"
   },
   {
     "letter": "r",
-    "recording": "audio/letters/R.m4a"
+    "recording": "audio/letters/R.aac"
   },
   {
     "letter": "u",
-    "recording": "audio/letters/U.m4a"
+    "recording": "audio/letters/U.aac"
   },
   {
     "letter": "v",
-    "recording": "audio/letters/V.m4a"
+    "recording": "audio/letters/V.aac"
   },
   {
     "letter": "w",
-    "recording": "audio/letters/W.m4a"
+    "recording": "audio/letters/W.aac"
   },
   {
     "letter": "x",
-    "recording": "audio/letters/X.m4a"
+    "recording": "audio/letters/X.aac"
   },
   {
     "letter": "y",
-    "recording": "audio/letters/Y.m4a"
+    "recording": "audio/letters/Y.aac"
   },
   {
     "letter": "z",
-    "recording": "audio/letters/Z.m4a"
+    "recording": "audio/letters/Z.aac"
   }
 ]
 }
