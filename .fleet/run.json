@@ -1,0 +1,9 @@
+{
+    "configurations": [
+        {
+            "type": "command",
+            "name": "Command configuration",
+            "program": "C:\Users\wowva\scoop\persist\nvm\nodejs\v16.15.0\node_modules\npm\bin\npm"
+        }
+    ]
+}

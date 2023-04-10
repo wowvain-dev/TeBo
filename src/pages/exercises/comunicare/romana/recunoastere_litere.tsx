@@ -180,7 +180,7 @@ export function Litere() {
     return (
         <AnimatedPage>
             <ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)} />
-            <ReactHowler src={`/src/assets/${chosenLetter?.audioPath}`} playing={letterSound} onEnd={() => setLetterSound(false)} />
+            <ReactHowler src={`../../src/assets/${chosenLetter?.audioPath}`} playing={letterSound} onEnd={() => setLetterSound(false)} />
             <ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)} />
             <div className="card-holder litere">
                 <Tour open={tourVisible} onClose={() => setTourVisible(false)} steps={tourSteps} />

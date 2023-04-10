@@ -3,13 +3,16 @@
  */
 {
   "appId": "YourAppID",
-  "asar": false,
   "directories": {
     "output": "release/${version}"
   },
   "files": [
     "dist-electron",
     "dist"
+  ],
+  "extraResources": [
+    "src/assets",
+    "src/assets/audio/letters"
   ],
   "mac": {
     "artifactName": "${productName}_${version}.${ext}",
