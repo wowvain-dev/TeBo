@@ -2,6 +2,7 @@
 
 declare namespace NodeJS {
   interface ProcessEnv {
+    ELECTRON_ENABLE_LOGGING: 'true'
     VSCODE_DEBUG?: 'true'
     DIST_ELECTRON: string
     DIST: string

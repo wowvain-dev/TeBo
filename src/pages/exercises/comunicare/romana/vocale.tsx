@@ -16,7 +16,7 @@ import failure_sound from '@/assets/audio/sfx/failure_sound.aac';
 import ReactHowler from 'react-howler';
 import { Letter } from '@/types/Letter';
 import random from 'random';
-import { LetterType } from '../../../../types/Letter';
+import { LetterType } from '@/types/Letter';
 
 
 export function Vocale() {
@@ -208,7 +208,7 @@ export function Vocale() {
 
     return (
         <AnimatedPage>
-            <ReactHowler src={`/src/assets/${chosenLetter?.audioPath}`} playing={letterSound} onEnd={() => setLetterSound(false)} />
+            <ReactHowler src={`../../src/assets/${chosenLetter?.audioPath}`} playing={letterSound} onEnd={() => setLetterSound(false)} />
             <ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)} />
             <ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)} />
             <div className="card-holder vocale">
