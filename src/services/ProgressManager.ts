@@ -180,15 +180,19 @@ export class ProgressManager {
             let directoryPath = join(homedir(), 'lima');
             let filePath = join(homedir(), 'lima', 'progress.json');
 
-            console.log(`directoryPath: ${directoryPath}`);
+            console.log(`directoryPath2: ${directoryPath}`);
             console.log(`filePath: ${filePath}`);
 
+
             if (!existsSync(join(homedir(), 'lima'))) {
-                mkdirSync(join(homedir(), 'lima'));                
-                writeFileSync(join(homedir(), 'lima'), '', {flag: 'w'});
-                return; 
+                console.log(`existsSync passed`);
+                mkdirSync(join(homedir(), 'lima'));
+                console.log(`mkdirSync passed`);
+                writeFileSync(join(homedir(), 'lima', 'progress.json'), '', {flag: 'w'});
+                console.log(`writeFileSync passed`);
+                return;
             }
-            if (existsSync(join(homedir(), 'lima', 'progress.json')) === false) {
+            if (!existsSync(join(homedir(), 'lima', 'progress.json'))) {
                 // console.log(`'${join(homedir(), 'lima', 'progress.json')}'does not already exist`);
                 writeFileSync(join(homedir(), 'lima', 'progress.json'), '', {flag: 'w'});
                 return;

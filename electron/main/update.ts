@@ -23,6 +23,7 @@ export function update(win: Electron.BrowserWindow) {
     win.webContents.send('update-can-available', { update: false, version: app.getVersion(), newVersion: arg?.version })
   })
 
+  console.log('update Called');
   // Checking for updates
   ipcMain.handle('check-update', async () => {
     if (!app.isPackaged) {
