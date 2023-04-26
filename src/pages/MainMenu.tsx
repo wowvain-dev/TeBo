@@ -1,19 +1,15 @@
+import './MainMenu.scss';
 import { useNavigate } from 'react-router-dom';
 import AnimatedPage from '../../components/AnimatedPage';
-import { motion } from 'framer-motion';
-import './level1.scss';
 import { Text, Grid, Card, Button } from '@nextui-org/react';
-import { GridLock } from 'iconsax-react';
 import { ProgressSubjectCard } from '@/components/ProgressSubjectCard';
-import { SlArrowLeft, SlArrowRight } from 'react-icons/all';
 import { FunFactCard } from '@/components/FunFactCard';
-import { useProgressContext, useDifficultyContext } from '../../services/context';
+import { useProgressContext, useDifficultyContext } from '@/services/context';
 import { useState, useEffect } from 'react';
-import { DifficultyManager, Order } from '@/services/DifficultyManager';
+import { DifficultyManager, Order, FormareType } from '@/services/DifficultyManager';
 import { Operator } from '@/types/ExpressionTree';
-import { FormareType } from '../../services/DifficultyManager';
 
-function Level1() {
+function MainMenu() {
     const navigate = useNavigate();
     const progress = useProgressContext();
     const difficulty = useDifficultyContext();
@@ -79,4 +75,4 @@ function Level1() {
     );
 }
 
-export default Level1;
+export default MainMenu;

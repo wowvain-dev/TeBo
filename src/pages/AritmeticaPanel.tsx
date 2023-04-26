@@ -1,11 +1,11 @@
 import './aritmetica_panel.scss';
-import {ProgressExerciseCard} from '@/components/ProgressExerciseCard';
+import {ProgressExerciseCard} from '../components/ProgressExerciseCard';
 import {Button, Grid} from '@nextui-org/react';
-import AnimatedPage from '../../../../components/AnimatedPage';
-import {useProgressContext} from '../../../../services/context';
+import AnimatedPage from '../components/AnimatedPage';
+import {useProgressContext} from '../services/context';
 import {useNavigate} from 'react-router-dom';
 import {BsArrowLeft} from 'react-icons/bs';
-import {ExpressionNode, ExpressionTree, Operator} from '@/types/ExpressionTree';
+import {ExpressionNode, ExpressionTree, Operator} from '../types/ExpressionTree';
 import {Pagination} from '@nextui-org/react';
 import {ArrowLeft} from 'iconsax-react';
 import {useState} from "react";
@@ -36,7 +36,7 @@ export function AritmeticaPanel() {
                             <Grid.Container gap={3}>
                                 <Grid sm={6} justify='center'>
                                     <ProgressExerciseCard level={2} color='green' type='nerd'
-                                        to='/levels/1/aritmetica/operatii'
+                                        to='/aritmetica/operatii'
                                         exercise="Operaţii"
                                         current={progress.value.level1.matematica.parts
                                             .get('aritmetica')?.parts.get('operatii')?.current as number}
@@ -46,7 +46,7 @@ export function AritmeticaPanel() {
                                 </Grid>
                                 <Grid sm={6} justify='center'>
                                     <ProgressExerciseCard level={2} color='green' type='nerd'
-                                        to='/levels/1/aritmetica/fractii'
+                                        to='/aritmetica/fractii'
                                         exercise="Fracţii"
                                         current={progress.value.level1.matematica.parts
                                             .get('aritmetica')?.parts.get('fractii')?.current as number}
@@ -56,7 +56,7 @@ export function AritmeticaPanel() {
                                 </Grid>
                                 <Grid sm={6} justify='center'>
                                     <ProgressExerciseCard level={1} color='green' type='nerd'
-                                        to='/levels/1/aritmetica/ordine'
+                                        to='/aritmetica/ordine'
                                         exercise="Şiruri de numere"
                                         current={progress.value.level1.matematica.parts
                                             .get('aritmetica')?.parts.get('ordine')?.current as number}
@@ -66,7 +66,7 @@ export function AritmeticaPanel() {
                                 </Grid>
                                 <Grid sm={6} justify='center'>
                                     <ProgressExerciseCard level={1} color='green' type='nerd'
-                                        to='/levels/1/aritmetica/formare'
+                                        to='/aritmetica/formare'
                                         exercise="Formarea Numerelor"
                                         current={progress.value.level1.matematica.parts
                                             .get('aritmetica')?.parts.get('formare')?.current as number}
@@ -82,7 +82,7 @@ export function AritmeticaPanel() {
                             <Grid.Container gap={3}>
                                 <Grid sm={6} justify='center'>
                                     <ProgressExerciseCard level={3} color='green' type='nerd'
-                                        to='/levels/1/aritmetica/comparatii'
+                                        to='/aritmetica/comparatii'
                                         exercise="Comparatii"
                                         current={progress.value.level1.matematica.parts
                                             .get('aritmetica')?.parts.get('comparatii')?.current as number}
@@ -95,8 +95,9 @@ export function AritmeticaPanel() {
                     }
 
                     <div style={{width: '100%', display: 'flex', marginBottom: '10px', marginTop: '30px'}}>
-                        <Pagination style={{marginLeft: 'auto', marginRight: 'auto'}}
+                        <Pagination style={{marginLeft: 'auto', marginRight: 'auto', fontFamily: 'DM Sans'}}
                                     color='primary'
+                                    noMargin
                                     onChange={(page) => {
                                         setPage(page)
                                     }}

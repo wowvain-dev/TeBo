@@ -1,11 +1,11 @@
 import './geometrie_panel.sass';
-import {ProgressExerciseCard} from '@/components/ProgressExerciseCard';
+import {ProgressExerciseCard} from '../components/ProgressExerciseCard';
 import {Button, Grid} from '@nextui-org/react';
-import AnimatedPage from '../../../../components/AnimatedPage';
-import {useProgressContext} from '../../../../services/context';
+import AnimatedPage from '../components/AnimatedPage';
+import {useProgressContext} from '../services/context';
 import {useNavigate} from 'react-router-dom';
 import {BsArrowLeft} from 'react-icons/bs';
-import {ExpressionNode, ExpressionTree, Operator} from '@/types/ExpressionTree';
+import {ExpressionNode, ExpressionTree, Operator} from '../types/ExpressionTree';
 import {Pagination} from '@nextui-org/react';
 import {ArrowLeft} from 'iconsax-react';
 import {useState} from "react";
@@ -33,7 +33,7 @@ export function GeometriePanel() {
                 <Grid.Container gap={3}>
                     <Grid sm={6} justify='center'>
                         <ProgressExerciseCard level={1} color='purple' type='cool'
-                            to='/levels/1/geometrie/culori'
+                            to='/geometrie/culori'
                             exercise='Recunoaşterea Culorilor'
                             current={progress.value.level1.matematica
                                 .parts.get('geometrie')?.parts.get('culori')?.current as number}
@@ -44,7 +44,7 @@ export function GeometriePanel() {
                     <Grid sm={6} justify='center'>
                         <ProgressExerciseCard level={2} color='purple' type='cool'
                             disabled
-                            to='/levels/1/geometrie/regula_sirului'
+                            to='/geometrie/regula_sirului'
                             exercise='Regula Şirului de Forme'
                             current={progress.value.level1.matematica
                                 .parts.get('geometrie')?.parts.get('regula_sirului')?.current as number}
@@ -55,7 +55,7 @@ export function GeometriePanel() {
                     <Grid sm={6} justify='center'>
                         <ProgressExerciseCard level={1} color='purple' type='cool'
                             disabled
-                            to='/levels/1/geometrie/comparare'
+                            to='/geometrie/comparare'
                             exercise='Comparare Figuri'
                             current={progress.value.level1.matematica
                                 .parts.get('geometrie')?.parts.get('regula_sirului')?.current as number}
