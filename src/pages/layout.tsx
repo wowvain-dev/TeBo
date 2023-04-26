@@ -48,7 +48,7 @@ export function PageLayout() {
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center' }}>
                     <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
                     <div style={{ flex: '1' }}></div>
-                    <img style={{ scale: '150%', height: '100px', marginRight: '20px' }} src={stick_llama} alt='Llama ajutatoare' />
+                    <img style={{ scale: '150%', height: '100px', marginRight: '20px', zIndex: '0' }} src={stick_llama} alt='Llama ajutatoare' />
                 </div>
             </div>
             ),
