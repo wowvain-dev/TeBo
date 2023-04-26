@@ -1,14 +1,10 @@
-import './romana_panel.sass';
+import './RomanaPanel.sass';
 import {ProgressExerciseCard} from '@/components/ProgressExerciseCard';
 import {Button, Grid} from '@nextui-org/react';
-import AnimatedPage from '../../../../components/AnimatedPage';
-import {useProgressContext} from '../../../../services/context';
+import AnimatedPage from '../components/AnimatedPage';
+import {useProgressContext} from "@/services/context";
 import {useNavigate} from 'react-router-dom';
-import {BsArrowLeft} from 'react-icons/bs';
-import {ExpressionNode, ExpressionTree, Operator} from '@/types/ExpressionTree';
-import {Pagination} from '@nextui-org/react';
 import {ArrowLeft} from 'iconsax-react';
-import {useState} from "react";
 
 export function RomanaPanel() {
     const progress = useProgressContext();
@@ -32,7 +28,7 @@ export function RomanaPanel() {
                 <Grid.Container gap={3}>
                     <Grid sm={6} justify='center'>
                         <ProgressExerciseCard level={1} color='blue' type='cool'
-                            to='/levels/1/romana/litere'
+                            to='/romana/litere'
                             exercise='Recunoaşterea Literelor'
                             current={progress.value.level1.comunicare
                                 .parts.get('romana')?.parts.get('litere')?.current as number}
@@ -42,7 +38,7 @@ export function RomanaPanel() {
                     </Grid>
                     <Grid sm={6} justify='center'>
                         <ProgressExerciseCard level={2} color='blue' type='cool'
-                            to='/levels/1/romana/vocale'
+                            to='/romana/vocale'
                             exercise='Vocale şi Consoane'
                             current={progress.value.level1.comunicare
                                 .parts.get('romana')?.parts.get('vocale')?.current as number}

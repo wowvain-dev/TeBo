@@ -1,4 +1,4 @@
-import './culori.sass';
+import './Vocale.sass';
 import stick_llama from '../../.././../assets/stick-LLAMA-nerd-yellow.png';
 import AnimatedPage from '@/components/AnimatedPage';
 import { Button, Card, Input, NormalColors, Spacer, Modal, Tooltip } from '@nextui-org/react';
@@ -14,70 +14,45 @@ import { AiOutlineQuestion, HiOutlineSpeakerphone, HiOutlineSpeakerWave } from "
 import success_sound from '@/assets/audio/sfx/success_sound.aac';
 import failure_sound from '@/assets/audio/sfx/failure_sound.aac';
 import ReactHowler from 'react-howler';
+import { Letter } from '@/types/Letter';
 import random from 'random';
-import { LetterType } from '../../../../types/Letter';
-import React from 'react';
-import generateCalendar from 'antd/es/calendar/generateCalendar';
+import { LetterType } from '@/types/Letter';
 
-export enum Colors {
-    red = '#ff7875',
-    blue = '#4096ff',
-    green = '#73d13d',
-    yellow = '#fff566',
-    purple = '#b37feb',
-    pink = '#f759ab',
-    gray = '#8c8c8c'
-};
 
-export function Culori() {
+export function Vocale() {
     const difficulty = useDifficultyContext();
     const navigate = useNavigate();
     const progress = useProgressContext();
     const storage = useStorageContext();
     const [verifColor, setVerifColor] = useState('primary');
+    const [inputValue, setInputValue] = useState('');
     const [swap, setSwap] = useState(false);
     const [hasCheated, setHasCheated] = useState(false);
     const [tryAgainVisible, setTryAgainVisible] = useState(false);
     const [tourVisible, setTourVisible] = useState(false);
-    const [chosenColor, setChosenColor] = useState<Colors | null>(null);
-    const [answerColor, setAnswerColor] = useState<Colors | null>(null);
+    const [chosenLetter, setChosenLetter] = useState<Letter | null>(null);
+    const [chosenType, setChosenType] = useState<LetterType | null>(null);
 
     const [successSound, setSuccessSound] = useState(false);
     const [failureSound, setFailureSound] = useState(false);
     const [letterSound, setLetterSound] = useState(false);
 
-    let shapeRef = useRef(null);
+    let letterRef = useRef(null);
     let choiceRef = useRef(null);
     let skipRef = useRef(null);
     let cheatRef = useRef(null);
     let ansRef = useRef(null);
 
-    const getRandomColor = () => {
-        let x = random.int(0, 7);
-        switch (x) {
-            case 0: return Colors.blue;
-            case 1: return Colors.gray;
-            case 2: return Colors.green;
-            case 3: return Colors.pink;
-            case 4: return Colors.purple;
-            case 5: return Colors.red;
-            case 6: return Colors.yellow;
-            default:
-                break;
-        }
-        return Colors.blue;
-    }
-
     useEffect(() => {
         setVerifColor('primary');
-        setChosenColor(getRandomColor());
+        setChosenLetter(storage.value.letters.letters[random.int(0, storage.value.letters.letters.length - 1)]);
         setHasCheated(false);
     }, []);
 
     const tourSteps: TourProps['steps'] = [
         {
             title: (<div style={{ display: 'flex', flexDirection: 'column' }}>
-                Priviţi cu atenţie forma
+                Verificaţi dacă litera este vocală sau consoană
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center' }}>
                     <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
                     <div style={{ flex: '1' }}></div>
@@ -85,13 +60,16 @@ export function Culori() {
                 </div>
             </div>
             ),
-            target: () => shapeRef.current,
+            description: ('Puteţi apăsa pe literă pentru a o asculta'),
+            target: () => letterRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25} />
             },
-        }, {
+            prevButtonProps: {}
+        },
+        {
             title: (<div style={{ display: 'flex', flexDirection: 'column' }}>
-                Alegeţi din lista de mai jos culoarea formei
+                Alegeţi opţiunea corectă
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center' }}>
                     <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
                     <div style={{ flex: '1' }}></div>
@@ -106,7 +84,6 @@ export function Culori() {
             prevButtonProps: {
                 children: <ArrowLeft size={25} />
             }
-
         },
         {
             title: (<div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -165,9 +142,15 @@ export function Culori() {
     ];
 
     const MainContent = () => {
+        // console.log(new Letter('A', '').letterType === LetterType.vowel);
+
+
+        console.log(`${chosenLetter?.character ?? ''} ${chosenLetter?.letterType ?? null}`);
+        // console.log(chosenLetter);
+
         return (
-            <div className="culori-card-holder">
-                <Card css={{ width: '70%', height: '300px' }}>
+            <div className="vocale-card-holder">
+                <Card css={{ width: '70%', height: '250px' }}>
                     <Card.Header css={{ fontFamily: 'DM Sans', borderBottom: '1px solid #ccc' }}>
                         Alegeţi opţiunea corectă
                     </Card.Header>
@@ -180,108 +163,58 @@ export function Culori() {
                         justifyCenter: 'center',
                         alignItems: 'center',
                     }}>
-                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                            ref={shapeRef}
+                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+                            ref={letterRef}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" className="svg-triangle" width='100' height='100'
-                                fill={chosenColor?.toString()}
-                            >
-                                <path d="M 50,10 90,90 10,90 z" />
-                            </svg>
+                        <Button animated={false}
+                            auto light css={{ w: '75px', h: '75px', fontFamily: 'DM Sans', fontSize: '$4xl' }}
+                            onPress={() => setLetterSound(true)}
+                        >{chosenLetter?.character}</Button>
+                        <Spacer x={1}/>
+                        <Button
+                            auto light animated={false} css={{ w: '75px', h: '75px', fontFamily: 'DM Sans', fontSize: '$4xl' }}
+                            onPress={() => setLetterSound(true)}
+                        >{chosenLetter?.character?.toUpperCase()}</Button>
                         </div>
                         <Divider type='horizontal' style={{ width: '100px', marginTop: '0' }} />
-                        <div ref={choiceRef}>
-                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}} ref={choiceRef}>
                             <Button
-                                size='sm'
-                                flat={!(answerColor === Colors.blue)}
-                                color={answerColor === Colors.blue ? 'success' : 'primary'}
+                                size='md'
+                                flat={!(chosenType === LetterType.vowel)}
+                                color={chosenType === LetterType.vowel ? 'success' : 'primary'}
                                 onPress={() => {
-                                    if (answerColor === Colors.blue) { setAnswerColor(null); return; }
-                                    setAnswerColor(Colors.blue); return;
+                                    if (chosenType === null) {setChosenType(LetterType.vowel); return;}
+                                    if (chosenType === LetterType.vowel) {setChosenType(null); return;}
+                                    if (chosenType === LetterType.consonant) {setChosenType(LetterType.vowel); return;}
                                 }}
-                            >Albastru</Button>
-                            <Spacer x={1} />
+                            >Vocală</Button>
+                            <Spacer x={2}/>
                             <Button
-                                size='sm'
-                                flat={!(answerColor === Colors.gray)}
-                                color={answerColor === Colors.gray ? 'success' : 'primary'}
+                                size='md'
+                                flat={!(chosenType === LetterType.consonant)}
+                                color={chosenType === LetterType.consonant ? 'success' : 'primary'}
                                 onPress={() => {
-                                    if (answerColor === Colors.gray) { setAnswerColor(null); return; }
-                                    setAnswerColor(Colors.gray); return;
+                                    if (chosenType === null) {setChosenType(LetterType.consonant); return;}
+                                    if (chosenType === LetterType.consonant) {setChosenType(null); return;}
+                                    if (chosenType === LetterType.vowel) {setChosenType(LetterType.consonant); return;}
                                 }}
-                            >Gri</Button>
-                            <Spacer x={1} />
-                            <Button
-                                size='sm'
-                                flat={!(answerColor === Colors.green)}
-                                color={answerColor === Colors.green ? 'success' : 'primary'}
-                                onPress={() => {
-                                    if (answerColor === Colors.green) { setAnswerColor(null); return; }
-                                    setAnswerColor(Colors.green); return;
-                                }}
-                            >Verde</Button>
-                            <Spacer x={1} />
-                            <Button
-                                size='sm'
-                                flat={!(answerColor === Colors.pink)}
-                                color={answerColor === Colors.pink ? 'success' : 'primary'}
-                                onPress={() => {
-                                    if (answerColor === Colors.pink) { setAnswerColor(null); return; }
-                                    setAnswerColor(Colors.pink); return;
-                                }}
-                            >Roz</Button>
-                            </div>
-                        <Spacer y={1}/>
-                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <Spacer x={1} />
-                            <Button
-                                size='sm'
-                                flat={!(answerColor === Colors.purple)}
-                                color={answerColor === Colors.purple ? 'success' : 'primary'}
-                                onPress={() => {
-                                    if (answerColor === Colors.purple) { setAnswerColor(null); return; }
-                                    setAnswerColor(Colors.purple); return;
-                                }}
-                            >Mov</Button>
-                            
-                            <Spacer x={1} />
-                            <Button
-                                size='sm'
-                                flat={!(answerColor === Colors.red)}
-                                color={answerColor === Colors.red ? 'success' : 'primary'}
-                                onPress={() => {
-                                    if (answerColor === Colors.red) { setAnswerColor(null); return; }
-                                    setAnswerColor(Colors.red); return;
-                                }}
-                            >Roşu</Button>
-                            <Spacer x={1} />
-                            <Button
-                                size='sm'
-                                flat={!(answerColor === Colors.yellow)}
-                                color={answerColor === Colors.yellow ? 'success' : 'primary'}
-                                onPress={() => {
-                                    if (answerColor === Colors.yellow) { setAnswerColor(null); return; }
-                                    setAnswerColor(Colors.yellow); return;
-                                }}
-                            >Galben</Button>
-                        </div>
-
+                            >Consoană</Button>
                         </div>
                     </Card.Body>
                 </Card>
             </div>
         );
-    }
+    };
 
     return (
         <AnimatedPage>
-            <ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)}/>
-            <ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)}/>
-            <div className="card-holder culori">
-                <Tour open={tourVisible} onClose={() => setTourVisible(false)} steps={tourSteps}/>
+            <ReactHowler src={`../../src/assets/${chosenLetter?.audioPath}`} playing={letterSound} onEnd={() => setLetterSound(false)} />
+            <ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)} />
+            <ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)} />
+            <div className="card-holder vocale">
+                <Tour open={tourVisible} onClose={() => setTourVisible(false)} steps={tourSteps} />
                 <TryAgainModal show={tryAgainVisible} setShow={setTryAgainVisible} />
-                <div className="background-card">
+                <div className='background-card'>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                         <Button light auto size='xs' icon={<ArrowLeft size="24" />}
                             css={{ width: "36px", height: "36px" }}
@@ -293,19 +226,19 @@ export function Culori() {
                         />
                     </div>
                     <h3 style={{ textAlign: 'center', fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: '20px'}}>
-                        Recunoaşterea Culorilor
+                        Vocale şi Consoane
                     </h3>
 
                     {swap && <AnimatedPage><MainContent /></AnimatedPage>}
                     {!swap && <AnimatedPage><MainContent /></AnimatedPage>}
 
                     <div className="buttons-container">
-                        <Button size='lg' flat ref={skipRef} css={{fontFamily: 'DM Sans'}}
+                        <Button size='lg' flat ref={skipRef} css={{ fontFamily: 'DM Sans' }}
                             onPress={() => {
                                 setHasCheated(false);
                                 setSwap(!swap);
-                                setChosenColor(getRandomColor());
-                                setAnswerColor(null);
+                                setChosenLetter(storage.value.letters.letters[random.int(0, storage.value.letters.letters.length - 1)]);
+                                setChosenType(null);
                             }}
                         >
                             Treci Peste
@@ -318,25 +251,27 @@ export function Culori() {
                                     <span>Nu vei mai primi puncte de progres pentru acest exercitiu.</span>
                                 </div>
                         }>
-                        <Button size='lg' color='warning' flat ref={cheatRef} css={{fontFamily: 'DM Sans'}}
-                            onPress={() => {
-                                setHasCheated(false);
-                                setAnswerColor(chosenColor);
-                            }}
-                        >
-                            Arată Răspunsul
-                        </Button>
+                            <Button size='lg' flat color='warning' ref={cheatRef}
+                                css={{ fontFamily: 'DM Sans' }} 
+                                onPress={() => {
+                                    setHasCheated(true);
+                                    setChosenType(chosenLetter?.letterType ?? null);
+                                }}
+                            >
+                                Arată Răspunsul
+                            </Button>
                         </Tooltip>
                         <Spacer x={2}/>
-                        <Button size='lg' ref={ansRef} css={{fontFamily: 'DM Sans'}}
+                        <Button size='lg' color={verifColor as NormalColors} ref={ansRef}
+                            css={{ fontFamily: 'DM Sans' }}
                             onPress={() => {
-                                if (chosenColor === answerColor) {
+                                if (chosenLetter?.letterType === chosenType) {
                                     setVerifColor('success');
                                     setTimeout(() => {
                                         setVerifColor('primary');
                                     }, 500);
-                                    setAnswerColor(null);
-                                    setChosenColor(getRandomColor());
+                                    setChosenType(null);
+                                    setChosenLetter(storage.value.letters.letters[random.int(0, storage.value.letters.letters.length - 1)]);
                                     setSwap(!swap);
                                     setSuccessSound(true);
                                     if (hasCheated) {
@@ -344,15 +279,15 @@ export function Culori() {
                                     } else {
                                         let copy = { ...progress.value };
                                         let newProgress: ExerciseProgress =
-                                            copy.level1.matematica.parts.get('geometrie')
-                                                ?.parts.get('culori') ?? new ExerciseProgress(
+                                            copy.level1.comunicare.parts.get('romana')
+                                                ?.parts.get('vocale') ?? new ExerciseProgress(
                                                     0, 0
                                                 );
                                         // @ts-ignore
                                         newProgress.current += 1;
 
-                                        copy.level1.matematica.parts.get('geometrie')
-                                            ?.parts.set('culori', newProgress);
+                                        copy.level1.comunicare.parts.get('romana')
+                                            ?.parts.set('vocale', newProgress);
 
                                         let newManager: ProgressManager = new ProgressManager();
                                         newManager.level1 = copy.level1;
@@ -362,6 +297,7 @@ export function Culori() {
                                         progress.value.scriere();
                                     }
                                 } else {
+                                    console.log('INCORRECT');
                                     setFailureSound(true);
                                     setTryAgainVisible(true);
                                     setTimeout(() => {
@@ -372,8 +308,9 @@ export function Culori() {
                                         setVerifColor('primary');
                                     }, 500);
                                 }
-                            }} 
-                        >Verifică</Button>
+                            }}
+                        >Verifică
+                        </Button>
                     </div>
                 </div>
             </div>

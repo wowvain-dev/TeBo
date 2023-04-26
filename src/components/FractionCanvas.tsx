@@ -1,4 +1,4 @@
-import '../pages/exercises/matematica/aritmetica/fractii.sass';
+import '../pages/exercises/matematica/aritmetica/Fractii.sass';
 import Fraction from 'fraction.js';
 import {useRef, useEffect, useState} from 'react';
 

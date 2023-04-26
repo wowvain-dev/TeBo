@@ -1,4 +1,4 @@
-import './aritmetica_panel.scss';
+import './AritmeticaPanel.scss';
 import {ProgressExerciseCard} from '../components/ProgressExerciseCard';
 import {Button, Grid} from '@nextui-org/react';
 import AnimatedPage from '../components/AnimatedPage';
@@ -16,7 +16,6 @@ export function AritmeticaPanel() {
     const navigate = useNavigate();
 
     const [page, setPage] = useState<number>(1);
-
 
     return (
         <AnimatedPage>

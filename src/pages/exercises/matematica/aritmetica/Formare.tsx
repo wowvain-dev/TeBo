@@ -1,4 +1,4 @@
-import "./formare.sass";
+import "./Formare.sass";
 import '../../../../components/Tour.scss';
 import AnimatedPage from "@/components/AnimatedPage";
 import {useNavigate} from "react-router-dom";

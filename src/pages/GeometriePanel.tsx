@@ -1,4 +1,4 @@
-import './geometrie_panel.sass';
+import './GemoetriePanel.sass';
 import {ProgressExerciseCard} from '../components/ProgressExerciseCard';
 import {Button, Grid} from '@nextui-org/react';
 import AnimatedPage from '../components/AnimatedPage';

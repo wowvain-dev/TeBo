@@ -1,21 +1,16 @@
-import "./comparatii.sass";
-import error_llama from '../../../../assets/LLAMA-cool-purple.png';
+import "./Comparatii.sass";
 import AnimatedPage from "@/components/AnimatedPage";
 import {Button, Card, Input, NormalColors, Spacer, Modal, Tooltip} from "@nextui-org/react";
 import {Add, ArrowLeft, ArrowRight, CloseCircle, Minus, Warning2} from "iconsax-react";
 import {useNavigate} from "react-router-dom";
 import {ExpressionTree} from "@/types/ExpressionTree";
-import React, {RefObject, useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useProgressContext, useDifficultyContext} from "../../../../services/context";
 import {ExerciseProgress, ProgressManager} from "@/services/ProgressManager";
 import {DndContext, DragEndEvent, useDraggable, useDroppable, DragOverlay, DragStartEvent} from "@dnd-kit/core";
 import {CSS} from "@dnd-kit/utilities";
 import {
-	CgClose,
-	CgMathDivide,
-	CgMathMinus,
-	CgMathPlus, HiOutlineSpeakerWave, TbEqual,
-	TbMathEqualGreater, TbMathEqualLower,
+	HiOutlineSpeakerWave, TbEqual,
 	TbMathGreater,
 	TbMathLower
 } from "react-icons/all";

@@ -1,4 +1,4 @@
-import './fractii.sass';
+import './Fractii.sass';
 import { useDifficultyContext, useProgressContext } from '../../../../services/context';
 import { useNavigate } from 'react-router-dom';
 import React, {useEffect, useRef, useState} from "react";

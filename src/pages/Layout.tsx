@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import './layout.scss';
+import './Layout.scss';
 import Header from "../components/Header";
 import { Button } from '@nextui-org/react';
 import { ArrowRight, Candle2, MessageQuestion, ArrowLeft } from 'iconsax-react';
@@ -138,7 +138,8 @@ export function OverallLayout() {
     return(
         <div className="overall-layout"
         >
-            <Outlet /> 
+            {/*<Outlet /> */}
+            <PageLayout />
         </div>
     );
 }

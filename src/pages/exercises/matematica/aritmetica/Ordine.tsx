@@ -1,4 +1,4 @@
-import './ordine.scss';
+import './Ordine.scss';
 import { useDifficultyContext, useProgressContext } from "@/services/context";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState, useRef } from 'react';
