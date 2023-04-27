@@ -14,3 +14,37 @@
     background-size: cover;
     overflow: hidden;
 }
+
+.settings-content {
+    padding: 1rem;
+    min-width: 50vh;
+}
+
+
+.side-menu-wrapper {
+    overflow: auto;
+
+    &::-webkit-scrollbar-track
+    {
+        border: 1px solid #aaa;
+        border-radius: 14px;
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar
+    {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar-thumb
+    {
+        border-radius: 14px;
+        background-color: #aaa;
+    }
+}
+
+.nextui-backdrop-content {
+    max-width: 70vw !important;
+}
+

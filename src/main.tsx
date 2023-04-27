@@ -8,6 +8,8 @@ import {BrowserRouter, HashRouter} from "react-router-dom";
 import {DevSupport} from "@react-buddy/ide-toolbox";
 import {ComponentPreviews, useInitial} from "@/dev";
 
+export const VERSION_NUMBER = 'v2.1.1';
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
 		<DevSupport ComponentPreviews={ComponentPreviews}
