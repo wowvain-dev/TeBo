@@ -1,4 +1,4 @@
-<img width="250px" src="https://user-images.githubusercontent.com/79089703/228573457-ee265da7-3769-4c42-be53-d8e9180dacb0.png" />
+<img width="150px" src="https://user-images.githubusercontent.com/79089703/228573457-ee265da7-3769-4c42-be53-d8e9180dacb0.png" />
 
 # Lima - Culegerea Interactivă Pentru Copii
 
