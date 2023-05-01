@@ -18,17 +18,6 @@ import skip_tour from '@/assets/audio/ui/skip_tour.aac';
 import cheat_tour from '@/assets/audio/ui/cheat_tour.aac';
 import ReactHowler from 'react-howler';
 
-function WrongAnswerNotification() {
-    notification.open({
-        message: 'Răspuns greşit',
-        description: 'Mai încearcă!',
-        duration: 2,
-        icon: <Warning2 color='#f31260' />,
-        closeIcon: <CloseCircle />,
-        placement: 'topRight'
-    })
-}
-
 export function Operatii() {
     let difficulty = useDifficultyContext();
     const navigate = useNavigate();

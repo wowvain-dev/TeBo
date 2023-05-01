@@ -40,6 +40,7 @@
     "iconsax-react": "^0.0.8",
     "localforage": "^1.10.0",
     "maths.ts": "^0.0.8",
+    "openai": "^3.2.1",
     "random": "^4.1.0",
     "react-howler": "^5.2.0",
     "react-icons": "^4.8.0",
