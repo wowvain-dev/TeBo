@@ -1,4 +1,4 @@
-import '../pages/exercises/matematica/aritmetica/ordine.scss';
+import '../pages/exercises/matematica/aritmetica/Ordine.scss';
 import {useSortable} from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Card } from '@nextui-org/react';

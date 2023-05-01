@@ -1,30 +1,27 @@
 import './App.scss'
-import {BrowserRouter, Routes, Route, useLocation} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, useLocation, RouterProvider, createHashRouter} from "react-router-dom";
 import {NextUIProvider} from '@nextui-org/react';
 // @ts-ignore
 import {AnimatePresence} from 'framer-motion';
-import DefaultPage from './pages/default';
-import Level1 from './pages/levels/level1';
-import {PageLayout, OverallLayout} from './pages/layout';
-import Level2 from './pages/levels/level2';
-import Level3 from './pages/levels/level3';
+import MainMenu from './pages/MainMenu';
+import {PageLayout, OverallLayout} from './pages/Layout';
 import {ProgressContext, DifficultyContext, StorageContext} from './services/context';
 import {ProgressManager} from './services/ProgressManager';
 import {useState} from 'react';
-import {AritmeticaPanel} from './pages/exercises/matematica/aritmetica/aritmetica_panel';
+import {AritmeticaPanel} from './pages/AritmeticaPanel';
 import {createTheme} from '@nextui-org/react';
-import {Operatii} from './pages/exercises/matematica/aritmetica/operatii';
+import {Operatii} from './pages/exercises/matematica/aritmetica/Operatii';
 import {DifficultyManager} from './services/DifficultyManager';
-import {Ordine} from './pages/exercises/matematica/aritmetica/ordine';
-import {Fractii} from './pages/exercises/matematica/aritmetica/fractii';
-import {Formare} from "@/pages/exercises/matematica/aritmetica/formare";
-import {Comparatii} from "@/pages/exercises/matematica/aritmetica/comparatii";
-import { RomanaPanel } from './pages/exercises/comunicare/romana/romana_panel';
-import { Litere } from './pages/exercises/comunicare/romana/recunoastere_litere';
+import {Ordine} from './pages/exercises/matematica/aritmetica/Ordine';
+import {Fractii} from './pages/exercises/matematica/aritmetica/Fractii';
+import {Formare} from "@/pages/exercises/matematica/aritmetica/Formare";
+import {Comparatii} from "@/pages/exercises/matematica/aritmetica/Comparatii";
+import { RomanaPanel } from './pages/RomanaPanel';
+import { Litere } from './pages/exercises/comunicare/romana/RecunoastereLitere';
 import { StorageManager } from './services/StorageManager';
-import { Vocale } from './pages/exercises/comunicare/romana/vocale';
-import { GeometriePanel } from './pages/exercises/matematica/geometrie/geometrie_panel';
-import { Culori } from './pages/exercises/matematica/geometrie/culori';
+import { Vocale } from './pages/exercises/comunicare/romana/Vocale';
+import { GeometriePanel } from './pages/GeometriePanel';
+import { Culori } from './pages/exercises/matematica/geometrie/Culori';
 
 const theme = createTheme({
     type: "light", // it could be "light" or "dark"
@@ -68,7 +65,72 @@ function App() {
 
     // progressValue.initialize();
 
-    let location = useLocation();
+    const router = createHashRouter([
+        {
+            path: "/",
+            element: <OverallLayout />,
+            children: [
+                {
+                    index: true,
+                    element: <MainMenu />
+                }, {
+                    path: 'aritmetica',
+                    children: [
+                        {
+                            index: true,
+                            element: <AritmeticaPanel />
+                        }, {
+                            path: 'operatii',
+                            element: <Operatii />
+                        }, {
+                            path: 'ordine',
+                            element: <Ordine />
+                        }, {
+                            path: 'fractii',
+                            element: <Fractii />
+                        }, {
+                            path: 'formare',
+                            element: <Formare />
+                        }, {
+                            path: 'comparatii',
+                            element: <Comparatii />
+                        }
+                    ]
+                }, {
+                    path: 'geometrie',
+                    children: [
+                        {
+                            index: true,
+                            element: <GeometriePanel />
+                        }, {
+                            path: 'culori',
+                            element: <Culori />
+                        }, {
+                            path: 'regula_sirului',
+                            element: <Litere />
+                        }, {
+                            path: 'comparare',
+                            element: <Litere />
+                        }
+                    ]
+                }, {
+                    path: 'romana',
+                    children: [
+                        {
+                            index: true,
+                            element: <RomanaPanel />
+                        }, {
+                            path: 'vocale',
+                            element: <Vocale />
+                        }, {
+                            path: 'litere',
+                            element: <Litere />
+                        }
+                    ]
+                }
+            ]
+        }
+    ]);
 
     return (
         <div className='App'>
@@ -77,42 +139,31 @@ function App() {
                 <DifficultyContext.Provider value={{value: difficultyValue, setValue: setDifficultyValue}}>
                     <NextUIProvider theme={theme}>
                         <AnimatePresence mode="wait">
-                            <Routes key={location.pathname} location={location}>
-                                <Route path="/" element={<OverallLayout/>}>
-                                    <Route index element={<DefaultPage/>}/>
-                                    <Route path="levels" element={<PageLayout/>}>
-                                        <Route path="1">
-                                            <Route index element={<Level1/>}/>
-                                            <Route path="geometrie" element={<div></div>}/>
-                                            <Route path="aritmetica">
-                                                <Route index element={<AritmeticaPanel/>}/>
-                                                <Route path="operatii" element={<Operatii/>}/>
-                                                <Route path="ordine" element={<Ordine/>}/>
-                                                <Route path="fractii" element={<Fractii/>}/>
-                                                <Route path="formare" element={<Formare/>}/>
-                                                <Route path="comparatii" element={<Comparatii/>}/>
-                                            </Route>
-                                            <Route path="romana">
-                                                <Route index element={<RomanaPanel/>}/>
-                                                <Route path="vocale" element={<Vocale/>}/>
-                                                <Route path="litere" element={<Litere/>}/>
-                                            </Route>
-                                            <Route path="geometrie">
-                                                <Route index element={<GeometriePanel/>}/>
-                                                <Route path="culori" element={<Culori />}/>
-                                                <Route path="regula_sirului" element={<Litere/>}/>
-                                                <Route path="comparare" element={<Litere/>}/>
-                                            </Route>
-                                        </Route>
-                                        <Route path="2">
-                                            <Route index element={<Level2/>}/>
-                                        </Route>
-                                        <Route path="3">
-                                            <Route index element={<Level3/>}/>
-                                        </Route>
-                                    </Route>
-                                </Route>
-                            </Routes>
+                            <RouterProvider router={router} />
+                            {/*<Routes key={location.pathname} location={location}>*/}
+                            {/*    <Route path="/" element={<OverallLayout/>}>*/}
+                            {/*        <Route index element={<MainMenu/>}/>*/}
+                            {/*        <Route path="aritmetica">*/}
+                            {/*            <Route index element={<AritmeticaPanel/>}/>*/}
+                            {/*            <Route path="operatii" element={<Operatii/>}/>*/}
+                            {/*            <Route path="ordine" element={<Ordine/>}/>*/}
+                            {/*            <Route path="fractii" element={<Fractii/>}/>*/}
+                            {/*            <Route path="formare" element={<Formare/>}/>*/}
+                            {/*            <Route path="comparatii" element={<Comparatii/>}/>*/}
+                            {/*        </Route>*/}
+                            {/*        <Route path="romana">*/}
+                            {/*            <Route index element={<RomanaPanel/>}/>*/}
+                            {/*            <Route path="vocale" element={<Vocale/>}/>*/}
+                            {/*            <Route path="litere" element={<Litere/>}/>*/}
+                            {/*        </Route>*/}
+                            {/*        <Route path="geometrie">*/}
+                            {/*            <Route index element={<GeometriePanel/>}/>*/}
+                            {/*            <Route path="culori" element={<Culori />}/>*/}
+                            {/*            <Route path="regula_sirului" element={<Litere/>}/>*/}
+                            {/*            <Route path="comparare" element={<Litere/>}/>*/}
+                            {/*        </Route>*/}
+                            {/*    </Route>*/}
+                            {/*</Routes>*/}
                         </AnimatePresence>
                     </NextUIProvider>
                 </DifficultyContext.Provider>

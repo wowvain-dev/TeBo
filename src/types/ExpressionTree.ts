@@ -134,6 +134,7 @@ export class ExpressionTree {
         // has the max depth been reached
         maxDepth: number
     ): ExpressionTree {
+        console.log(`expressionTree.random: ` + maxDepth);
         const cls = new ExpressionTree();
         cls.allowedOperators = operators;
         cls.minimumAllowedOperand = start;
@@ -241,7 +242,8 @@ export class ExpressionTree {
             maxDepth = true;
         }
 
-        if (maxDepth === true) {
+        // console.log(`start: ${start}; end: ${end}`);
+        if (maxDepth) {
             return new ExpressionNode(null, Math.floor(Math.random() * (end-start) + start));
         } else {
             let percentage: number = Math.random() * 100 + 1;
@@ -296,7 +298,7 @@ export class ExpressionTree {
     ): ExpressionNode | null {
         let expression: ExpressionTree = new ExpressionTree();
         do {
-            var lastNode = ExpressionTree.getFirstFreeOperatorLeafNode(expression.root);   
+            let lastNode = ExpressionTree.getFirstFreeOperatorLeafNode(expression.root);
             if (lastNode === null) {
                 expression.addLeafNode(new ExpressionNode(
                     operators[Math.floor(Math.random() * (operators.length))], null
@@ -304,7 +306,7 @@ export class ExpressionTree {
                 continue;
             }
 
-            var op = ExpressionTree.randomOperandOrOperator(
+            let op = ExpressionTree.randomOperandOrOperator(
                 operators, start, end, expression.depth >= maxDepth);
 
             if (lastNode.left === null) {

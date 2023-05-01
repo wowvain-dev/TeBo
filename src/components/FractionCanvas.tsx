@@ -1,4 +1,4 @@
-import '../pages/exercises/matematica/aritmetica/fractii.sass';
+import '../pages/exercises/matematica/aritmetica/Fractii.sass';
 import Fraction from 'fraction.js';
 import {useRef, useEffect, useState} from 'react';
 
@@ -13,8 +13,6 @@ export function FractionCanvas({ nominator, denominator }: FractionCanvasProps) 
 
     const [canvas, setCanvas] = useState<HTMLCanvasElement | null>();
     const [context, setContext] = useState<CanvasRenderingContext2D | null>();
-
-    console.log(`nominator: ${nominator}; denominator: ${denominator}`);
 
     const draw = (ctx: CanvasRenderingContext2D) => {
         ctx.canvas.height = containerRef?.current?.clientHeight ?? 0;

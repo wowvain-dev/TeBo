@@ -1,0 +1,71 @@
+.comparatii
+  &.card-holder
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    height: 90vh
+
+    .background-card
+      padding: 10px
+      background: #fefefe
+      border-radius: 12px
+      width: 1000px
+      max-height: 600px
+      margin-bottom: 3vh
+      margin-top: 5vh
+
+    .buttons-container
+      display: flex
+      flex-direction: row
+      justify-content: center
+      margin-bottom: 20px
+
+    .comparison-card-holder
+      display: flex
+      margin-top: 50px
+      margin-bottom: 20px
+      flex-direction: row
+      justify-content: center
+      align-items: center
+
+    .droppable
+      display: flex
+      border: 1px solid #ccc
+      background: #ededed
+      width: 50px
+      height: 50px
+      justify-content: center
+      align-items: center
+      border-radius: 12px
+      transition: all .5s linear
+
+      &-active
+        display: flex
+        border: 5px solid #9750dd
+        background: #ededed
+        width: 50px
+        height: 50px
+        justify-content: center
+        align-items: center
+        border-radius: 12px
+        transition: all .5s ease
+
+    .draggable
+      display: flex
+      border: 1px solid #ccc
+      background: #fefefe
+      width: 50px
+      height: 50px
+      justify-content: center
+      align-items: center
+      border-radius: 12px
+      box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px
+
+    .draggable-list
+      display: flex
+      flex-direction: row
+      justify-content: center
+      align-items: center
+      margin-bottom: 50px
+

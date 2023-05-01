@@ -23,22 +23,20 @@ export type CrumbPath = {
 
 let PathNames: Map<string, CrumbPath> = new Map<string, CrumbPath>([
     // ["/levels/1", {name: "Învăţăcel", icon: <ShoppingBag size={15} style={{marginRight: "5px"}}/>}],
-    ["/levels/1", { name: "Învăţăcel" }],
-    ["/levels/2", { name: "Cunoscător" }],
-    ["/levels/3", { name: "Expert" }],
-    ["/levels/1/aritmetica", { name: "Aritmetică" }],
-    ["/levels/1/geometrie", { name: "Geometrie" }],
-    ["/levels/1/romana", { name: "Română" }],
-    ["/levels/1/aritmetica/operatii", { name: "Operaţii" }],
-    ["/levels/1/aritmetica/fractii", { name: "Fracţii" }],
-    ["/levels/1/aritmetica/formare", { name: "Formarea Numerelor" }],
-    ["/levels/1/aritmetica/ordine", { name: "Ordine de Şiruri" }],
-    ["/levels/1/aritmetica/comparatii", { name: "Comparaţii de Expresii" }],
-    ["/levels/1/romana/vocale", { name: "Vocale şi Consoane" }],
-    ["/levels/1/romana/litere", { name: "Recunoaştere Litere" }],
-    ["/levels/1/geometrie/culori", { name: "Recunoaştere Culori" }],
-    ["/levels/1/geometrie/regula_sirului", { name: "Regula Şirului" }],
-    ["/levels/1/geometrie/comparare", { name: "Comparare de Forme" }],
+    ["/", { name: "Meniu" }],
+    ["/aritmetica", { name: "Aritmetică" }],
+    ["/geometrie", { name: "Geometrie" }],
+    ["/romana", { name: "Română" }],
+    ["/aritmetica/operatii", { name: "Operaţii" }],
+    ["/aritmetica/fractii", { name: "Fracţii" }],
+    ["/aritmetica/formare", { name: "Formarea Numerelor" }],
+    ["/aritmetica/ordine", { name: "Ordine de Şiruri" }],
+    ["/aritmetica/comparatii", { name: "Comparaţii de Expresii" }],
+    ["/romana/vocale", { name: "Vocale şi Consoane" }],
+    ["/romana/litere", { name: "Recunoaştere Litere" }],
+    ["/geometrie/culori", { name: "Recunoaştere Culori" }],
+    ["/geometrie/regula_sirului", { name: "Regula Şirului" }],
+    ["/geometrie/comparare", { name: "Comparare de Forme" }],
 ]);
 
 function Header() {
@@ -47,59 +45,59 @@ function Header() {
     const navigate = useNavigate();
     const progress = useProgressContext();
 
-    PathNames.get('/levels/1')!.progress = {
+    PathNames.get('/')!.progress = {
         current: progress.value.level1.current(),
         total: progress.value.level1.total()
     }
-    PathNames.get('/levels/1/aritmetica')!.progress = {
+    PathNames.get('/aritmetica')!.progress = {
         current: progress.value.level1.matematica.parts.get('aritmetica')?.current() ?? 0,
         total: progress.value.level1.matematica.parts.get('aritmetica')?.total() ?? 0,
     };
-    PathNames.get('/levels/1/romana')!.progress = {
+    PathNames.get('/romana')!.progress = {
         current: progress.value.level1.comunicare.parts.get('romana')?.current() ?? 0,
         total: progress.value.level1.comunicare.parts.get('romana')?.total() ?? 0,
     };
-    PathNames.get('/levels/1/geometrie')!.progress = {
+    PathNames.get('/geometrie')!.progress = {
         current: progress.value.level1.matematica.parts.get('geometrie')?.current() ?? 0,
         total: progress.value.level1.matematica.parts.get('geometrie')?.total() ?? 0,
     };
-    PathNames.get('/levels/1/geometrie/culori')!.progress = {
+    PathNames.get('/geometrie/culori')!.progress = {
         current: progress.value.level1.matematica.parts.get('geometrie')?.parts.get('culori')?.current ?? 0,
         total: progress.value.level1.matematica.parts.get('geometrie')?.parts.get('culori')?.total ?? 0,
     };
-    PathNames.get('/levels/1/geometrie/regula_sirului')!.progress = {
+    PathNames.get('/geometrie/regula_sirului')!.progress = {
         current: progress.value.level1.matematica.parts.get('geometrie')?.parts.get('regula_sirului')?.current ?? 0,
         total: progress.value.level1.matematica.parts.get('geometrie')?.parts.get('regula_sirului')?.total ?? 0,
     };
-    PathNames.get('/levels/1/geometrie/comparare')!.progress = {
+    PathNames.get('/geometrie/comparare')!.progress = {
         current: progress.value.level1.matematica.parts.get('geometrie')?.parts.get('comparare')?.current ?? 0,
         total: progress.value.level1.matematica.parts.get('geometrie')?.parts.get('comparare')?.total ?? 0,
     };
-    PathNames.get('/levels/1/aritmetica/operatii')!.progress = {
+    PathNames.get('/aritmetica/operatii')!.progress = {
         current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('operatii')?.current ?? 0,
         total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('operatii')?.total ?? 0,
     };
-    PathNames.get('/levels/1/aritmetica/ordine')!.progress = {
-        current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('siruri')?.current ?? 0,
-        total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('siruri')?.total ?? 0,
+    PathNames.get('/aritmetica/ordine')!.progress = {
+        current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('ordine')?.current ?? 0,
+        total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('ordine')?.total ?? 0,
     };
-    PathNames.get('/levels/1/aritmetica/fractii')!.progress = {
+    PathNames.get('/aritmetica/fractii')!.progress = {
         current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('fractii')?.current ?? 0,
         total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('fractii')?.total ?? 0,
     };
-    PathNames.get('/levels/1/aritmetica/formare')!.progress = {
+    PathNames.get('/aritmetica/formare')!.progress = {
         current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('formare')?.current ?? 0,
         total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('formare')?.total ?? 0,
     };
-    PathNames.get('/levels/1/aritmetica/comparatii')!.progress = {
+    PathNames.get('/aritmetica/comparatii')!.progress = {
         current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('comparatii')?.current ?? 0,
         total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('comparatii')?.total ?? 0,
     }
-    PathNames.get('/levels/1/romana/litere')!.progress = {
+    PathNames.get('/romana/litere')!.progress = {
         current: progress.value.level1.comunicare.parts.get('romana')?.parts.get('litere')?.current ?? 0,
         total: progress.value.level1.comunicare.parts.get('romana')?.parts.get('litere')?.total ?? 0,
     }
-    PathNames.get('/levels/1/romana/vocale')!.progress = {
+    PathNames.get('/romana/vocale')!.progress = {
         current: progress.value.level1.comunicare.parts.get('romana')?.parts.get('vocale')?.current ?? 0,
         total: progress.value.level1.comunicare.parts.get('romana')?.parts.get('vocale')?.total ?? 0,
     }
@@ -109,20 +107,12 @@ function Header() {
         let crumbs: Array<ItemType> = new Array<ItemType>;
         for (let i = 0; i < breadcrumbs.length; i++) {
             if (breadcrumbs[i].match.pathname === '/') {
+                crumbs.push({
+                    title: <Link to='/'><HomeOutlined/></Link>,
+                    href: undefined,
+                });
                 continue;
-                crumbs.push({
-                    title: <Link to='/'><HomeOutlined /></Link>,
-                    href: undefined,
-
-                });
-            } else if (breadcrumbs[i].match.pathname === '/levels/1') {
-                crumbs.push({
-                    title: <Link to='/levels/1'><HomeOutlined /></Link>,
-                    href: undefined,
-
-                });
-            } else if (breadcrumbs[i].match.pathname === '/levels') { continue; }
-            else {
+            } else {
                 var currentPath = breadcrumbs[i].match.pathname;
                 var countSlashes = (currentPath.match(/\//g) || []).length;
                 var matchyPath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
