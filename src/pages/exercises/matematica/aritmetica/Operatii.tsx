@@ -30,7 +30,7 @@ function WrongAnswerNotification() {
 }
 
 export function Operatii() {
-    const difficulty = useDifficultyContext();
+    let difficulty = useDifficultyContext();
     const navigate = useNavigate();
     const progress = useProgressContext();
     const [verifColor, setVerifColor] = useState('primary');
@@ -40,6 +40,7 @@ export function Operatii() {
     const [hasCheated, setHasCheated] = useState(false);
     const [tryAgainVisible, setTryAgainVisible] = useState(false);
     const [tourVisible, setTourVisible] = useState(false);
+    const [exercise, setExercise] = useState<JSX.Element>(<></>);
 
     let eqRef = useRef(null);
     let inputRef = useRef(null);
@@ -47,16 +48,37 @@ export function Operatii() {
     let cheatRef = useRef(null);
     let ansRef = useRef(null);
 
+    const regenerteTree = () => {
+        setTree(ExpressionTree.random(
+            difficulty.value.operatii.allowedOperators, difficulty.value.operatii.lowLimit,
+            difficulty.value.operatii.maxLimit, difficulty.value.operatii.depth
+        ));
+        console.log(`depth: ${tree.depth}`);
+    }
+
     useEffect(() => {
         setVerifColor('primary');
-        setTree(ExpressionTree.random(
-            difficulty.value.operatii.allowedOperators, difficulty.value.ordine.lowLimit,
-            difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth
-        ));
+        console.log(`start: ${difficulty.value.operatii.lowLimit}; end: ${difficulty.value.operatii.maxLimit}`);
+        regenerteTree();
         setHasCheated(false);
     }, []);
 
-    console.log(tree.root?.infix());
+
+    // useEffect(() => {
+    //     setExercise(<RenderExercise inputValue={inputValue} setInputValue={setInputValue}/>)
+    // }, [tree])
+
+
+    // useEffect(() => {
+    //     setVerifColor('primary');
+    //     console.log(`start: ${difficulty.value.operatii.lowLimit}; end: ${difficulty.value.operatii.maxLimit}`);
+    //     regenerteTree();
+    //     setHasCheated(false);
+    // }, [difficulty]);
+
+
+    // Print out the equation
+    // console.log(tree.root?.infix());
 
     const tourSteps: TourProps['steps'] = [
         {
@@ -160,6 +182,100 @@ export function Operatii() {
     const [cheatSound, setCheatSound] = useState(false);
     const [checkSound, setCheckSound] = useState(false);
 
+    interface ExerciseProps {
+        inputValue: string,
+        setInputValue: (val: string) => void
+    }
+
+    function RenderExercise({inputValue, setInputValue}: ExerciseProps) {
+        return <AnimatedPage>
+            <div className="equation-card-holder">
+                <Card
+                    css={{ width: '70%', height: '200px' }}
+                >
+                    <Card.Header
+                        css={{
+                            fontFamily: 'DM Sans',
+                            borderBottom: '1px solid #ccc',
+                        }}>
+                        Calculaţi
+                    </Card.Header>
+                    <Card.Body css={{
+                        fontFamily: 'DM Sans',
+                        justifyContent: 'center',
+                        textAlign: 'center',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyCenter: 'center',
+                        alignItems: 'center'
+                    }}>
+                                        <span ref={eqRef} style={{ fontSize: '2rem' }}>
+                                            {tree.expression}=
+                                        </span>
+                        <Input
+                            ref={inputRef}
+                            placeholder="?"
+                            width="100px"
+                            underlined
+                            style={{
+                                fontSize: '2rem',
+                                textAlign: 'center'
+                            }}
+                            css={{
+                                display: 'inline-block',
+                                fontFamily: 'DM Sans',
+                            }}
+                            value={inputValue}
+                            autoFocus
+                            onChange={e => setInputValue(e.target.value)}
+                            onKeyDown={e => {
+                                if (e.key === 'Enter') {
+                                    console.log(hasCheated);
+                                    if (parseInt(inputValue) === ExpressionTree.evaluate(tree.root)) {
+                                        console.log('CORRECT')
+                                        setInputValue('');
+                                        setTree(ExpressionTree.random(
+                                            difficulty.value.operatii.allowedOperators, difficulty.value.ordine.lowLimit,
+                                            difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth
+                                        ));
+                                        setSwap(!swap);
+                                        setSuccessSound(true);
+                                        if (hasCheated) {
+                                            setHasCheated(false);
+                                        } else {
+
+                                            let copy = { ...progress.value };
+                                            let newProgress: ExerciseProgress =
+                                                copy.level1.matematica.parts.get('aritmetica')
+                                                    ?.parts.get('operatii') ?? new ExerciseProgress(
+                                                    0, 0
+                                                );
+                                            // @ts-ignore
+                                            newProgress.current += 1;
+
+                                            copy.level1.matematica.parts.get('aritmetica')
+                                                ?.parts.set('operatii', newProgress);
+
+                                            let newManager: ProgressManager = new ProgressManager();
+                                            newManager.level1 = copy.level1;
+                                            newManager.level2 = copy.level2;
+                                            newManager.level3 = copy.level3;
+                                            progress.setValue(newManager);
+                                            progress.value.scriere();
+                                        }
+                                    } else {
+                                        console.log('INCORRECT')
+                                    }
+                                }
+                            }}
+                        />
+
+                    </Card.Body>
+                </Card>
+            </div>
+        </AnimatedPage>
+    }
+
     return (
         <AnimatedPage>
             <ReactHowler src={skip_tour} playing={skipSound} onEnd={() => setSkipSound(false)} />
@@ -248,8 +364,8 @@ export function Operatii() {
                                                             let newProgress: ExerciseProgress =
                                                                 copy.level1.matematica.parts.get('aritmetica')
                                                                     ?.parts.get('operatii') ?? new ExerciseProgress(
-                                                                        0, 0
-                                                                    );
+                                                                    0, 0
+                                                                );
                                                             // @ts-ignore
                                                             newProgress.current += 1;
 
@@ -335,8 +451,8 @@ export function Operatii() {
                                                             let newProgress: ExerciseProgress =
                                                                 copy.level1.matematica.parts.get('aritmetica')
                                                                     ?.parts.get('operatii') ?? new ExerciseProgress(
-                                                                        0, 0
-                                                                    );
+                                                                    0, 0
+                                                                );
                                                             // @ts-ignore
                                                             newProgress.current += 1;
 
@@ -356,7 +472,6 @@ export function Operatii() {
                                                 }
                                             }}
                                         />
-
                                     </Card.Body>
                                 </Card>
                             </div>
@@ -367,10 +482,7 @@ export function Operatii() {
                             css={{ fontFamily: 'DM Sans' }}
                             onPress={() => {
                                 setInputValue('');
-                                setTree(ExpressionTree.random(
-                                    difficulty.value.operatii.allowedOperators, difficulty.value.ordine.lowLimit,
-                                    difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth
-                                ));
+                                regenerteTree();
                                 setHasCheated(false);
                                 setSwap(!swap);
                             }}
@@ -409,10 +521,7 @@ export function Operatii() {
                                     }, 500);
                                     console.log('CORRECT')
                                     setInputValue('');
-                                    setTree(ExpressionTree.random(
-                                        difficulty.value.operatii.allowedOperators, difficulty.value.ordine.lowLimit,
-                                        difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth
-                                    ));
+                                    regenerteTree();
                                     setSwap(!swap);
                                     setSuccessSound(true);
                                     if (hasCheated) {

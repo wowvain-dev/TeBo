@@ -22,13 +22,13 @@ export class ExpressionDifficulty extends Difficulty {
 }
 
 class FractionDifficulty extends Difficulty {
-    lowLimit: number = 0;
+    lowLimit: number = 2;
     maxLimit: number = 10;
     allowWholes: boolean = false;
 }
 
 export class OrderDifficulty extends Difficulty {
-    lowLimit: number = 0;
+    lowLimit: number = 1;
     maxLimit: number = 10;
     length: number = 7;
     allowedOrders: Array<Order> = [Order.descending, Order.ascending];

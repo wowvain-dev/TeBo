@@ -5,7 +5,7 @@ import {Add, ArrowLeft, ArrowRight, CloseCircle, Minus, Warning2} from "iconsax-
 import {useNavigate} from "react-router-dom";
 import {ExpressionTree} from "@/types/ExpressionTree";
 import React, {useEffect, useRef, useState} from "react";
-import {useProgressContext, useDifficultyContext} from "../../../../services/context";
+import {useProgressContext, useDifficultyContext} from "@/services/context";
 import {ExerciseProgress, ProgressManager} from "@/services/ProgressManager";
 import {DndContext, DragEndEvent, useDraggable, useDroppable, DragOverlay, DragStartEvent} from "@dnd-kit/core";
 import {CSS} from "@dnd-kit/utilities";
@@ -79,12 +79,12 @@ export function Comparatii() {
 	useEffect(() => {
 		setVerifColor("primary");
 		setTree1(ExpressionTree.random(
-			difficulty.value.operatii.allowedOperators, difficulty.value.ordine.lowLimit,
-			difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth
+			difficulty.value.operatii.allowedOperators, difficulty.value.operatii.lowLimit,
+			difficulty.value.operatii.maxLimit, difficulty.value.operatii.depth
 		));
 		setTree2(ExpressionTree.random(
-			difficulty.value.operatii.allowedOperators, difficulty.value.ordine.lowLimit,
-			difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth
+			difficulty.value.operatii.allowedOperators, difficulty.value.operatii.lowLimit,
+			difficulty.value.operatii.maxLimit, difficulty.value.operatii.depth
 		));
 		setHasCheated(false);
 	}, []);
@@ -233,6 +233,17 @@ export function Comparatii() {
         }
 	];
 
+	console.log("tree1 depth" + tree1.depth);
+
+	let tree1_fontsize: string;
+	let tree2_fontsize: string;
+
+	if (tree1.depth <= 2) tree1_fontsize = "2rem"; else if (tree1.depth <= 4) tree1_fontsize = "1.75rem";
+		else tree1_fontsize = "1.25rem";
+
+	if (tree2.depth <= 2) tree2_fontsize = "2rem"; else if (tree2.depth <= 4) tree2_fontsize = "1.75rem";
+	else tree2_fontsize = "1.25rem";
+
 	return (
 		<AnimatedPage>
 			<ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)}/>
@@ -278,7 +289,9 @@ export function Comparatii() {
 											justifyCenter: "center",
 											alignItems: "center"
 										}}>
-                                            <span ref={leftRef} style={{fontSize: "2rem", flex: "1"}}>{tree1.expression}</span>
+                                            <span ref={leftRef} style={{
+												fontSize: tree1_fontsize
+												, flex: "1"}}>{tree1.expression}</span>
                                             <Spacer x={2}/>
 											{/*<Droppable label='?' />*/}
                                             <Droppable label={"?"} ref={dropContainerRef}>
@@ -289,7 +302,7 @@ export function Comparatii() {
 												}
                                             </Droppable>
                                             <Spacer x={2}/>
-                                            <span ref={rightRef} style={{fontSize: "2rem", flex: "1"}}>{tree2.expression}</span>
+                                            <span ref={rightRef} style={{fontSize: tree2_fontsize, flex: "1"}}>{tree2.expression}</span>
                                         </Card.Body>
                                     </Card>
                                 </div>
@@ -315,7 +328,7 @@ export function Comparatii() {
 											justifyCenter: "center",
 											alignItems: "center"
 										}}>
-                                            <span ref={leftRef} style={{fontSize: "2rem", flex: "1"}}>{tree1.expression}</span>
+                                            <span ref={leftRef} style={{fontSize: tree1_fontsize, flex: "1"}}>{tree1.expression}</span>
                                             <Spacer x={2}/>
 											{/*<Droppable label='?' />*/}
                                             <Droppable label={"?"} ref={dropContainerRef}>
@@ -326,7 +339,7 @@ export function Comparatii() {
 												}
                                             </Droppable>
                                             <Spacer x={2}/>
-                                            <span ref={rightRef} style={{fontSize: "2rem", flex: "1"}}>{tree2.expression}</span>
+                                            <span ref={rightRef} style={{fontSize: tree2_fontsize, flex: "1"}}>{tree2.expression}</span>
                                         </Card.Body>
                                     </Card>
                                 </div>
@@ -347,11 +360,11 @@ export function Comparatii() {
 								        setHasCheated(false);
 								        setActiveId(null);
 								        setTree1(ExpressionTree.random(
-									        difficulty.value.operatii.allowedOperators, difficulty.value.ordine.lowLimit,
-									        difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth));
+									        difficulty.value.operatii.allowedOperators, difficulty.value.operatii.lowLimit,
+									        difficulty.value.operatii.maxLimit, difficulty.value.operatii.depth));
 								        setTree2(ExpressionTree.random(
-									        difficulty.value.operatii.allowedOperators, difficulty.value.ordine.lowLimit,
-									        difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth));
+									        difficulty.value.operatii.allowedOperators, difficulty.value.operatii.lowLimit,
+									        difficulty.value.operatii.maxLimit, difficulty.value.operatii.depth));
 								        setSwap(!swap);
 							        }}
 							>
@@ -475,11 +488,11 @@ export function Comparatii() {
 										        setVerifColor("primary");
 									        }, 500);
 									        setTree1(ExpressionTree.random(
-										        difficulty.value.operatii.allowedOperators, difficulty.value.ordine.lowLimit,
-										        difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth));
+										        difficulty.value.operatii.allowedOperators, difficulty.value.operatii.lowLimit,
+										        difficulty.value.operatii.maxLimit, difficulty.value.operatii.depth));
 									        setTree2(ExpressionTree.random(
-										        difficulty.value.operatii.allowedOperators, difficulty.value.ordine.lowLimit,
-										        difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth));
+										        difficulty.value.operatii.allowedOperators, difficulty.value.operatii.lowLimit,
+										        difficulty.value.operatii.maxLimit, difficulty.value.operatii.depth));
 									        setSwap(!swap);
 									        setSuccessSound(true);
 									        console.log("correct");

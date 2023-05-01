@@ -78,8 +78,8 @@ function Header() {
         total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('operatii')?.total ?? 0,
     };
     PathNames.get('/aritmetica/ordine')!.progress = {
-        current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('siruri')?.current ?? 0,
-        total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('siruri')?.total ?? 0,
+        current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('ordine')?.current ?? 0,
+        total: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('ordine')?.total ?? 0,
     };
     PathNames.get('/aritmetica/fractii')!.progress = {
         current: progress.value.level1.matematica.parts.get('aritmetica')?.parts.get('fractii')?.current ?? 0,

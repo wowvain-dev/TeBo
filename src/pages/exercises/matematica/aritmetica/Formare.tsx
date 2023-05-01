@@ -3,7 +3,7 @@ import '../../../../components/Tour.scss';
 import AnimatedPage from "@/components/AnimatedPage";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {useDifficultyContext, useProgressContext} from "../../../../services/context";
+import {useDifficultyContext, useProgressContext} from "@/services/context";
 import random from "random";
 import {FormareType} from "@/services/DifficultyManager";
 import {Button, Card, Modal, NormalColors, Spacer, Tooltip} from "@nextui-org/react";

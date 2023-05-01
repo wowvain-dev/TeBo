@@ -5,7 +5,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import AnimatedPage from '@/components/AnimatedPage';
 import { ArrowLeft, ArrowRight, Warning2 } from 'iconsax-react';
 import { Button, Card, Modal, Spacer, Tooltip, NormalColors } from '@nextui-org/react';
-import { Order } from '../../../../services/DifficultyManager';
+import { Order } from '@/services/DifficultyManager';
 import {
     DndContext,
     closestCenter,
@@ -36,7 +36,7 @@ function generateArray(lowLimit: number, maxLimit: number, length: number): numb
     let array: number[] = [];
 
     while (array.length < length - 1) {
-        var a = Math.floor(Math.random() * (maxLimit - lowLimit) + lowLimit);
+        let a = Math.floor(Math.random() * (maxLimit - lowLimit) + lowLimit);
 
         while (array.includes(a)) {
             a = Math.floor(Math.random() * (maxLimit - lowLimit) + lowLimit);
@@ -394,14 +394,14 @@ export function Ordine() {
                                         let copy = { ...progress.value };
                                         let newProgress: ExerciseProgress =
                                             copy.level1.matematica.parts.get('aritmetica')
-                                                ?.parts.get('siruri') ?? new ExerciseProgress(
+                                                ?.parts.get('ordine') ?? new ExerciseProgress(
                                                     0, 0
                                                 );
                                         // @ts-ignore
                                         newProgress.current += 1;
 
                                         copy.level1.matematica.parts.get('aritmetica')
-                                            ?.parts.set('siruri', newProgress);
+                                            ?.parts.set('ordine', newProgress);
 
                                         let newManager: ProgressManager = new ProgressManager();
                                         newManager.level1 = copy.level1;

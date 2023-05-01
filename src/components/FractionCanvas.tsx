@@ -14,8 +14,6 @@ export function FractionCanvas({ nominator, denominator }: FractionCanvasProps) 
     const [canvas, setCanvas] = useState<HTMLCanvasElement | null>();
     const [context, setContext] = useState<CanvasRenderingContext2D | null>();
 
-    console.log(`nominator: ${nominator}; denominator: ${denominator}`);
-
     const draw = (ctx: CanvasRenderingContext2D) => {
         ctx.canvas.height = containerRef?.current?.clientHeight ?? 0;
         ctx.canvas.width = containerRef?.current?.clientWidth ?? 0;

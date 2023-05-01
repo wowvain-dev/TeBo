@@ -42,10 +42,11 @@ export function Fractii() {
         setHasCheated(false);
         setA('');
         setB('');
+        console.log(`allow wholes: ${difficulty.value.fractii.allowWholes}`)
         let numarator = random.int(difficulty.value.fractii.lowLimit, difficulty.value.fractii.maxLimit);
-        let numitor = random.int(1, numarator * 2 - 1);
+        let numitor = random.int(1, difficulty.value.fractii.allowWholes ? (numarator * 2 - 1) : numarator);
         while (numitor === numarator) {
-          numitor = random.int(1, numarator * 2 - 1);
+          numitor = random.int(1, difficulty.value.fractii.allowWholes ? (numarator * 2 - 1) : numarator);
         }
         setFraction(
             {
@@ -268,7 +269,10 @@ export function Fractii() {
                                     setA('');
                                     setB('');
                                     let numarator = random.int(difficulty.value.fractii.lowLimit, difficulty.value.fractii.maxLimit);
-                                    let numitor = random.int(1, numarator * 2);
+                                    let numitor = random.int(1, difficulty.value.fractii.allowWholes ? (numarator * 2 - 1) : numarator);
+                                    while (numitor === numarator) {
+                                        numitor = random.int(1, difficulty.value.fractii.allowWholes ? (numarator * 2 - 1) : numarator);
+                                    }
                                     setFraction(
                                       {
                                           numarator: numarator,

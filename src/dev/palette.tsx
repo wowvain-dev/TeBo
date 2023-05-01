@@ -7,6 +7,7 @@ import {
 	Palette,
 } from "@react-buddy/ide-toolbox";
 import AntdPalette from "@react-buddy/palette-antd";
+import MantinePalette from "@react-buddy/palette-mantine-core";
 
 export const PaletteTree = () => (
 	<Palette>
@@ -18,7 +19,8 @@ export const PaletteTree = () => (
 			</Component>
 		</Category>
 		<AntdPalette/>
-	</Palette>
+        <MantinePalette/>
+    </Palette>
 );
 
 export function ExampleLoaderComponent() {

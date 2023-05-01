@@ -15,25 +15,6 @@ function MainMenu() {
     const difficulty = useDifficultyContext();
 
     useEffect(() => {
-        let newDifficulty = new DifficultyManager();
-
-        newDifficulty.operatii.allowedOperators = [Operator.minus, Operator.plus, Operator.div];
-        newDifficulty.operatii.lowLimit = 1;
-        newDifficulty.operatii.maxLimit = 10;
-        newDifficulty.operatii.depth = 3;
-
-        newDifficulty.fractii.lowLimit = 2;
-        newDifficulty.fractii.maxLimit = 10;
-        newDifficulty.fractii.allowWholes = false;
-
-        newDifficulty.ordine.allowedOrders = [Order.descending, Order.ascending];
-        newDifficulty.ordine.length = 7;
-        newDifficulty.ordine.lowLimit = 1;
-        newDifficulty.ordine.maxLimit = 10;
-
-        newDifficulty.formare.formationType = FormareType.ZU;
-
-        difficulty.setValue(newDifficulty);
     }, []);
 
     return (

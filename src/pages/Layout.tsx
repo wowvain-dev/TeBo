@@ -6,7 +6,7 @@ import {ArrowRight, Candle2, MessageQuestion, ArrowLeft, Setting} from "iconsax-
 // @ts-ignore
 import { motion } from 'framer-motion';
 import {Menu, MenuProps, Tour, TourProps} from "antd";
-import {useState, useRef, ReactNode, Key, SetStateAction, Dispatch} from "react";
+import {useState, useRef, ReactNode, Key, SetStateAction, Dispatch, useEffect} from "react";
 import {
     BiMath, BsBook, GoListOrdered, HiOutlineInformationCircle,
     HiOutlineSpeakerWave, IoIosInformationCircleOutline,
@@ -27,6 +27,8 @@ import {FormeSettings} from "@/pages/settings/FormeSettings";
 import {CompFiguriSettings} from "@/pages/settings/CompFiguriSettings";
 import {VocaleSettings} from "@/pages/settings/VocaleSettings";
 import {LitereSettings} from "@/pages/settings/LitereSettings";
+import {AboutSettings} from "@/pages/settings/AboutSettings";
+import {NotFoundSettings} from "@/pages/settings/NotFoundSettings";
 
 export function PageLayout() {
     const [showTour, setShowTour] = useState(false);
@@ -94,14 +96,15 @@ export function PageLayout() {
            icon?: ReactNode,
            children?: MenuItem[],
            type?: 'group',
-           danger: boolean = false
+           danger: boolean = false,
+           disabled: boolean = false
        ): MenuItem {
-           return {key, icon, children, label, type} as MenuItem;
+           return {key, icon, children, label, type, danger, disabled} as MenuItem;
        }
 
        const items: MenuProps['items'] = [
-           getItem('Preferinţe', 'preferences', <SlWrench size={20} />),
            getItem('Despre', 'about', <IoIosInformationCircleOutline size={20} />),
+           getItem('Preferinţe', 'preferences', <SlWrench size={20} />, undefined, undefined, false, true),
            {type: 'divider'},
            getItem('Dificultate', 'sub1', <TbCircuitChangeover size={20} />, [
                getItem('Aritmetică', 'aritmetica', <BiMath size={20} />, [
@@ -128,25 +131,26 @@ export function PageLayout() {
 
         const [selectedKey, selectKey] = useState<string | null>(null);
 
+        useEffect(() => selectKey('about'),[]);
+
         const onClick: MenuProps['onClick'] = (e) => {
             selectKey(e.key);
-            // console.log('click', e);
-            console.log(selectedKey);
         }
 
         const SettingsContent = () => {
-
             switch (selectedKey) {
+                case "about": return <AboutSettings />
                 case "operatii": return <OperatiiSettings />
                 case "fractii": return <FractiiSettings />
                 case "formare": return <FormareSettings />
                 case "comparatii": return <ComparareSettings />
                 case "ordine": return <OrdineSettings />
-                case "culori": return <CuloriSettings />
-                case "forme": return <FormeSettings />
-                case "comparare_figuri": return <CompFiguriSettings />
-                case "vocale": return <VocaleSettings />
-                case "litere": return <LitereSettings />
+                // case "culori": return <CuloriSettings />
+                // case "forme": return <FormeSettings />
+                // case "comparare_figuri": return <CompFiguriSettings />
+                // case "vocale": return <VocaleSettings />
+                // case "litere": return <LitereSettings />
+                default: return <NotFoundSettings />
             }
 
             return <div></div>
@@ -155,6 +159,7 @@ export function PageLayout() {
 
         return <div className="settings-modal"><Modal
             className="settings-modal"
+            preventClose
             closeButton
             blur
             aria-labelledby="modal-title"
@@ -162,18 +167,18 @@ export function PageLayout() {
             onClose={() => setVisible(false)}
             style={{height: '85vh'}}
         >
-            <Modal.Header>
+            <Modal.Header style={{borderBottom: '1px solid #eee'}}>
                 <h1 style={{fontFamily: "DM Sans", fontSize: '2rem', textAlign: 'start'}}>Setări</h1>
             </Modal.Header>
             <Modal.Body css={{p: 0, display: 'flex', flexDirection: 'row'}} style={{paddingLeft: 0}}>
                 <div className="side-menu-wrapper">
-                    <Menu onClick={onClick} style={{ width: 300, fontFamily: "DM Sans", height: '100%' }} mode="inline" items={items}/>
+                    <Menu defaultSelectedKeys={["about"]} onClick={onClick} style={{ width: 300, fontFamily: "DM Sans", height: '100%' }} mode="inline" items={items}/>
                 </div>
                 <div className="settings-content" style={{overflow: 'hidden'}}>
                     <SettingsContent />
                 </div>
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer style={{borderTop: '1px solid #eee'}}>
                 <span style={{fontFamily: 'DM Sans'}}>
                     {VERSION_NUMBER}, developed by <a target="_blank" href="https://github.com/wowvain-dev"><i>wowvain-dev</i></a>, &copy; MIT License
                 </span>
