@@ -15,9 +15,7 @@ import success_sound from '@/assets/audio/sfx/success_sound.aac';
 import failure_sound from '@/assets/audio/sfx/failure_sound.aac';
 import ReactHowler from 'react-howler';
 import random from 'random';
-import { LetterType } from '../../../../types/Letter';
 import React from 'react';
-import generateCalendar from 'antd/es/calendar/generateCalendar';
 
 export enum Colors {
     red = '#ff7875',
@@ -244,7 +242,7 @@ export function Culori() {
                                     setAnswerColor(Colors.purple); return;
                                 }}
                             >Mov</Button>
-                            
+
                             <Spacer x={1} />
                             <Button
                                 size='sm'

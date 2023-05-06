@@ -9,6 +9,9 @@ import {DevSupport} from "@react-buddy/ide-toolbox";
 import {ComponentPreviews, useInitial} from "@/dev";
 
 export const VERSION_NUMBER = 'v2.1.1';
+export const OPENAI_KEY = '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';
+
+require('dotenv').config();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>

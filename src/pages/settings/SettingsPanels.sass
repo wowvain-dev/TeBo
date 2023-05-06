@@ -11,31 +11,37 @@
     margin-right: auto
 
   &-about
+    display: flex
+    flex-direction: column
 
     .top-row
       display: flex
       justify-content: center
       align-items: center
       margin-bottom: 50px
-      .header
-        display: flex
-        flex-direction: column
-        align-items: center
-        .title
-          font-family: "DM Sans", sans-serif
-          font-weight: 600
-          font-size: 2rem
-        .authors
-          font-family: "DM Sans", sans-serif
-          font-size: 0.8rem
-          text-align: end
-        .version
-          font-family: "DM Sans", sans-serif
-          font-size: 1rem
+
+    .header
+      display: flex
+      flex-direction: column
+      align-items: center
+
+      .title
+        font-family: "DM Sans", sans-serif
+        font-weight: 600
+        font-size: 2rem
+
+      .authors
+        font-family: "DM Sans", sans-serif
+        font-size: 0.8rem
+        text-align: end
+
+      .version
+        font-family: "DM Sans", sans-serif
+        font-size: 1rem
 
     &-content
       span
-        font-family: "DM Sans", sans
+        font-family: "DM Sans", sans-serif
 
       .subtitle
         font-size: 1.15rem
@@ -44,11 +50,12 @@
       .tech-stack
         display: flex
         flex-direction: row
+        //width: 100px
 
       .design-stack
         display: flex
         flex-direction: row
-
+        //width: 100px
 
 
   &-panel
@@ -64,6 +71,7 @@
 
       .range
         width: 100%
+
         .inputs
           display: flex
           flex-direction: row

@@ -1,42 +1,42 @@
 import './Header.scss';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
-import { Progress, Text, Button, Dropdown } from '@nextui-org/react';
-import { BiHomeAlt2 } from 'react-icons/bi';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { ReactElement } from 'react';
+import {Progress, Text, Button, Dropdown} from '@nextui-org/react';
+import {BiHomeAlt2} from 'react-icons/bi';
+import {useLocation, useNavigate, Link} from 'react-router-dom';
+import {ReactElement} from 'react';
 import AnimatedPage from '@/components/AnimatedPage';
-import { Book1, Medal, ShoppingBag } from 'iconsax-react';
-import { useProgressContext } from '../services/context';
-import { HomeOutlined } from '@ant-design/icons';
-import { RxSlash } from 'react-icons/rx';
-import { Breadcrumb } from 'antd';
-import type { ItemType } from 'antd/es/breadcrumb/Breadcrumb';
-import type { BreadcrumbItemProps } from 'antd/es/breadcrumb';
+import {Book1, Medal, ShoppingBag} from 'iconsax-react';
+import {useProgressContext} from '../services/context';
+import {HomeOutlined} from '@ant-design/icons';
+import {RxSlash} from 'react-icons/rx';
+import {Breadcrumb} from 'antd';
+import type {ItemType} from 'antd/es/breadcrumb/Breadcrumb';
+import type {BreadcrumbItemProps} from 'antd/es/breadcrumb';
 import logo from '../assets/HEAD-LLAMA-cool-blue.png';
 
 export type CrumbPath = {
     name: string,
     icon?: JSX.Element | undefined,
-    progress?: {current: number, total: number} | null
+    progress?: { current: number, total: number } | null
 };
 
 
 let PathNames: Map<string, CrumbPath> = new Map<string, CrumbPath>([
     // ["/levels/1", {name: "Învăţăcel", icon: <ShoppingBag size={15} style={{marginRight: "5px"}}/>}],
-    ["/", { name: "Meniu" }],
-    ["/aritmetica", { name: "Aritmetică" }],
-    ["/geometrie", { name: "Geometrie" }],
-    ["/romana", { name: "Română" }],
-    ["/aritmetica/operatii", { name: "Operaţii" }],
-    ["/aritmetica/fractii", { name: "Fracţii" }],
-    ["/aritmetica/formare", { name: "Formarea Numerelor" }],
-    ["/aritmetica/ordine", { name: "Ordine de Şiruri" }],
-    ["/aritmetica/comparatii", { name: "Comparaţii de Expresii" }],
-    ["/romana/vocale", { name: "Vocale şi Consoane" }],
-    ["/romana/litere", { name: "Recunoaştere Litere" }],
-    ["/geometrie/culori", { name: "Recunoaştere Culori" }],
-    ["/geometrie/regula_sirului", { name: "Regula Şirului" }],
-    ["/geometrie/comparare", { name: "Comparare de Forme" }],
+    ["/", {name: "Meniu"}],
+    ["/aritmetica", {name: "Aritmetică"}],
+    ["/geometrie", {name: "Geometrie"}],
+    ["/romana", {name: "Română"}],
+    ["/aritmetica/operatii", {name: "Operaţii"}],
+    ["/aritmetica/fractii", {name: "Fracţii"}],
+    ["/aritmetica/formare", {name: "Formarea Numerelor"}],
+    ["/aritmetica/ordine", {name: "Ordine de Şiruri"}],
+    ["/aritmetica/comparatii", {name: "Comparaţii de Expresii"}],
+    ["/romana/vocale", {name: "Vocale şi Consoane"}],
+    ["/romana/litere", {name: "Recunoaştere Litere"}],
+    ["/geometrie/culori", {name: "Recunoaştere Culori"}],
+    ["/geometrie/regula_sirului", {name: "Regula Şirului"}],
+    ["/geometrie/comparare", {name: "Comparare de Forme"}],
 ]);
 
 function Header() {
@@ -101,7 +101,6 @@ function Header() {
         current: progress.value.level1.comunicare.parts.get('romana')?.parts.get('vocale')?.current ?? 0,
         total: progress.value.level1.comunicare.parts.get('romana')?.parts.get('vocale')?.total ?? 0,
     }
-    console.log(location.pathname);
 
     const Breadcrumbs = () => {
         let crumbs: Array<ItemType> = new Array<ItemType>;
@@ -157,19 +156,20 @@ function Header() {
         }
         console.log(breadcrumbs[breadcrumbs.length - 1].match.params)
         return (
-            <Breadcrumb items={crumbs} 
-                style={{marginTop: 'auto', marginBottom: 'auto',
-                    maxWidth: "100%", whiteSpace: "nowrap",
-                }}
+            <Breadcrumb items={crumbs}
+                        style={{
+                            marginTop: 'auto', marginBottom: 'auto',
+                            maxWidth: "100%", whiteSpace: "nowrap",
+                        }}
             />);
     };
 
 
     return (
         // <AnimatedPage>
-            <div className="header-container">
-                <div className="header-breadcrumbs">
-                    {/* {breadcrumbs.map(({match, breadcrumb}, index) => 
+        <div className="header-container">
+            <div className="header-breadcrumbs">
+                {/* {breadcrumbs.map(({match, breadcrumb}, index) =>
                    <div key={match.pathname}>
                    <Link 
                    className="link" 
@@ -179,23 +179,24 @@ function Header() {
                     {index !== breadcrumbs.length - 1 ? '/' : ''}
                     </div>
                )}  */}
-                    {/* @ts-ignore */}
-                    <Breadcrumbs />
-                </div>
+                {/* @ts-ignore */}
+                <Breadcrumbs/>
+            </div>
 
-                <div className="header-level">
-                    {/* <p>{location.pathname.includes('levels/1')
+            <div className="header-level">
+                {/* <p>{location.pathname.includes('levels/1')
                     ? 'Învăţăcel'
                     : location.pathname.includes('levels/2')
                     ? 'Cunoscător'
                     : 'Expert'
                 }</p> */}
-                    <div style={{fontFamily: 'DM Sans', fontSize: '30px', display: 'flex',
-                        justifyContent: 'center', alignItems: 'center'
-                    }}>
-                        Lima
-                        </div>
-                    {/* <Dropdown>
+                <div style={{
+                    fontFamily: 'DM Sans', fontSize: '30px', display: 'flex',
+                    justifyContent: 'center', alignItems: 'center'
+                }}>
+                    Lima
+                </div>
+                {/* <Dropdown>
                         <Dropdown.Button light
                             css={{ fontFamily: "DM Sans", fontSize: '20px' }}
                         >
@@ -223,13 +224,14 @@ function Header() {
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown> */}
-                </div>
-
-                <div className="header-progress">
-                    <Progress value=
-                        {(PathNames.get(location.pathname)?.progress?.current ?? 0) * 100 / (PathNames.get(location.pathname)?.progress?.total ?? 1)} color="gradient" />
-                </div>
             </div>
+
+            <div className="header-progress">
+                <Progress value=
+                              {(PathNames.get(location.pathname)?.progress?.current ?? 0) * 100 / (PathNames.get(location.pathname)?.progress?.total ?? 1)}
+                          color="gradient"/>
+            </div>
+        </div>
         // </AnimatedPage>
     );
 }

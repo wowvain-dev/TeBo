@@ -4,19 +4,19 @@ import AnimatedPage from '../../../../components/AnimatedPage';
 import { Button, Card, Input, NormalColors, Spacer, Modal, Tooltip } from '@nextui-org/react';
 import { ArrowLeft, ArrowRight, ArrowRight2, AudioSquare, Car, CloseCircle, Warning2 } from "iconsax-react";
 import { useNavigate } from 'react-router-dom';
-import { ExpressionTree } from '../../../../types/ExpressionTree';
 import { useEffect, useRef, useState } from "react";
-import { useProgressContext, useDifficultyContext, useStorageContext } from '../../../../services/context';
-import { ExerciseProgress, ProgressManager } from '../../../../services/ProgressManager';
+import { useProgressContext, useDifficultyContext, useStorageContext } from '@/services/context';
+import { ExerciseProgress, ProgressManager } from '@/services/ProgressManager';
 import { Divider, notification, Tour, TourProps } from "antd";
-import { TryAgainModal } from "../../../../components/TryAgainModal";
+import { TryAgainModal } from "@/components/TryAgainModal";
 import { AiOutlineQuestion, HiOutlineSpeakerphone, HiOutlineSpeakerWave } from "react-icons/all";
 import success_sound from '../../../../assets/audio/sfx/success_sound.aac';
 import failure_sound from '../../../../assets/audio/sfx/failure_sound.aac';
 import ReactHowler from 'react-howler';
 import { join } from 'path';
-import { Letter } from '../../../../types/Letter';
+import { Letter } from '@/types/Letter';
 import random from 'random';
+import RandomSentence from "@/pages/exercises/comunicare/romana/TestGPT";
 
 
 export function Litere() {
@@ -199,6 +199,7 @@ export function Litere() {
                     <h3 style={{ textAlign: 'center', fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: '20px' }}>
                         Recunoaştere Litere
                     </h3>
+                    {/*<RandomSentence />*/}
                     {swap && <AnimatedPage><MainContent /></AnimatedPage>}
                     {!swap && <AnimatedPage><MainContent /></AnimatedPage>}
 
