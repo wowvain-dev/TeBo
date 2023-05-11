@@ -27,6 +27,7 @@ import {backgrounds} from "./services/context";
 import {SettingsManager} from "@/services/SettingsManager";
 import {DesenareFiguri} from "@/pages/exercises/matematica/geometrie/DesenareFiguri";
 import LineDrawingCanvas from "@/components/LineDrawingCanvas";
+import {ConfigProvider, theme as ATheme} from "antd";
 
 const theme = createTheme({
     type: "light",
@@ -131,11 +132,13 @@ function App() {
                 <ProgressContext.Provider value={{value: progressValue, setValue: setProgressValue}}>
                     <DifficultyContext.Provider value={{value: difficultyValue, setValue: setDifficultyValue}}>
                         <SettingsContext.Provider value={{value: settingsValue, setValue: setSettingsValue}}>
-                            <NextUIProvider theme={theme}>
-                                <AnimatePresence mode="wait">
-                                    <RouterProvider router={router}/>
-                                </AnimatePresence>
-                            </NextUIProvider>
+                            <ConfigProvider>
+                                <NextUIProvider theme={theme}>
+                                    <AnimatePresence mode="wait">
+                                        <RouterProvider router={router}/>
+                                    </AnimatePresence>
+                                </NextUIProvider>
+                            </ConfigProvider>
                         </SettingsContext.Provider>
                     </DifficultyContext.Provider>
                 </ProgressContext.Provider>

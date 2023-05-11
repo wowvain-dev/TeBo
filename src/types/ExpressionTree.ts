@@ -1,5 +1,7 @@
-import { ipcMain } from 'electron';
-import { Queue } from './Queue';
+import {ipcMain} from 'electron';
+import {Queue} from './Queue';
+import random from "random";
+
 export enum Operator {
     plus = '+',
     minus = '-',
@@ -19,12 +21,14 @@ export class ExpressionNode {
         this.sign = sign, this.value = value;
     }
 
-    toString() {this._diagram(this);}
+    toString() {
+        this._diagram(this);
+    }
 
     isEqual(other: ExpressionNode) {
         return this.value == other.value && this.sign == other.sign;
     }
-    
+
     _diagram(
         node: ExpressionNode | null,
         top: string = '',
@@ -33,7 +37,7 @@ export class ExpressionNode {
     ): string {
         if (node === null) return `${root} null\n`;
         if (node.left == null && node.right == null) return `${root} ${node.value ?? node.sign}\n`;
-    
+
         let a = this._diagram(
             node.right === undefined ? null : node.right,
             `${top} `,
@@ -57,20 +61,20 @@ export class ExpressionNode {
             left = 0;
         } else {
             left = this.left.height();
-        } 
+        }
         if (this.right === undefined || this.right === null) {
             right = 0;
         } else {
             right = this.right.height();
         }
 
-        return (left < right ? right : left) + 1; 
+        return (left < right ? right : left) + 1;
     }
 
     infix(): string {
         if (this.sign === null && this.value === null) {
             return '';
-        } 
+        }
 
         let a: string = '';
 
@@ -81,7 +85,7 @@ export class ExpressionNode {
                 a = `[${this.left?.infix()}${this.sign}${this.right?.infix()}]`;
             } else if (this.height() === 2) {
                 a = `(${this.left?.infix()}${this.sign}${this.right?.infix()})`;
-            }            
+            }
         } else {
             a = `${this.value}${a}`;
         }
@@ -90,23 +94,23 @@ export class ExpressionNode {
     }
 
     isOperator(): boolean {
-        if ((this.sign !== null || this.sign !== undefined) && 
+        if ((this.sign !== null || this.sign !== undefined) &&
             (this.value === null || this.value === undefined)
-       ) return true;
+        ) return true;
 
-        if ((this.sign === null || this.sign === undefined) && 
+        if ((this.sign === null || this.sign === undefined) &&
             (this.value !== null || this.value !== undefined)
-       ) return false;
+        ) return false;
 
-        if ((this.sign === null || this.sign === undefined) && 
+        if ((this.sign === null || this.sign === undefined) &&
             (this.value === null || this.value === undefined)
-       ) return false;
+        ) return false;
 
-        if ((this.sign !== null || this.sign !== undefined) && 
+        if ((this.sign !== null || this.sign !== undefined) &&
             (this.value !== null || this.value !== undefined)
-       ) throw new Error("A node can't have both a sign and a value");
+        ) throw new Error("A node can't have both a sign and a value");
 
-       return false;
+        return false;
     }
 }
 
@@ -124,13 +128,10 @@ export class ExpressionTree {
     public static random(
         // allowed operators
         operators: Array<Operator>,
-
         // the start of the interval allowed for the numbers
         start: number,
-
         // the end of the interval allowed for the numbers
         end: number,
-
         // has the max depth been reached
         maxDepth: number
     ): ExpressionTree {
@@ -151,7 +152,7 @@ export class ExpressionTree {
         cls.allowedOperators = source.allowedOperators;
         cls.minimumAllowedOperand = source.minimumAllowedOperand;
         cls.maximumAllowedOperand = source.maximumAllowedOperand;
-        cls.maximumPossibleDepth  =  source.maximumPossibleDepth; 
+        cls.maximumPossibleDepth = source.maximumPossibleDepth;
         cls.root = cls.randomExpression(
             cls.allowedOperators, cls.minimumAllowedOperand, cls.maximumAllowedOperand, cls.maximumPossibleDepth
         );
@@ -175,8 +176,8 @@ export class ExpressionTree {
         this._buildInOrderQueue(queue, n);
 
         while (queue.size() !== 0) {
-            if (queue.first()?.isOperator() 
-            && (queue.first()?.left === null || queue.first()?.right === null))  {
+            if (queue.first()?.isOperator()
+                && (queue.first()?.left === null || queue.first()?.right === null)) {
                 return queue.first();
             }
             queue.dequeue();
@@ -191,12 +192,12 @@ export class ExpressionTree {
         if (this.root === null) {
             this.root = node;
             this.root.parent = null;
-            this.root.left= null;
+            this.root.left = null;
             this.root.right = null;
         } else {
-            let lastOperatorLeaf: ExpressionNode | null = 
+            let lastOperatorLeaf: ExpressionNode | null =
                 ExpressionTree.getFirstFreeOperatorLeafNode(this.root);
-            
+
             if (lastOperatorLeaf !== null) {
                 if (lastOperatorLeaf.left === null) {
                     node.parent = lastOperatorLeaf;
@@ -221,20 +222,17 @@ export class ExpressionTree {
 
             return (lDepth > rDepth ? lDepth : rDepth) + 1;
         }
-    } 
+    }
 
     /// Returns an `ExpressionNode` that eithers contains a sign node or a 
     /// value node with its value found in a set numerical interval
     static randomOperandOrOperator(
         // allowed operators
         operators: Array<Operator>,
-
         // the start of the interval allowed for the numbers
         start: number,
-
         // the end of the interval allowed for the numbers
         end: number,
-
         // is the max depth reached?
         maxDepth: boolean
     ): ExpressionNode {
@@ -244,11 +242,11 @@ export class ExpressionTree {
 
         // console.log(`start: ${start}; end: ${end}`);
         if (maxDepth) {
-            return new ExpressionNode(null, Math.floor(Math.random() * (end-start) + start));
+            return new ExpressionNode(null, Math.floor(Math.random() * (end - start) + start));
         } else {
             let percentage: number = Math.random() * 100 + 1;
             if (percentage <= 30) {
-                return new ExpressionNode(null, Math.floor(Math.random() * (end-start) + start));
+                return new ExpressionNode(null, Math.floor(Math.random() * (end - start) + start));
             } else {
                 return new ExpressionNode(
                     operators[Math.floor(Math.random() * (operators.length))], null
@@ -274,27 +272,24 @@ export class ExpressionTree {
         if (node.sign === Operator.mul) return lVal * rVal;
         if (node.sign === Operator.div) {
             if (rVal === 0) return 0;
-            return ~~(lVal/rVal);
+            return ~~(lVal / rVal);
         }
 
         return 0;
     }
-    
+
     /// Returns a tree containing a randomly generated expression based on
     /// the operators given as parameters, the interval of the numeric values
     /// and the maximum depth of the tree.
     randomExpression(
         /// allowed operators
         operators: Array<Operator>,
-
         /// the start of the interval allowed for the numbers
         start: number,
-
         /// the end of the interval allowed for the numbers
         end: number,
-
         /// the max depth
-        maxDepth: number 
+        maxDepth: number
     ): ExpressionNode | null {
         let expression: ExpressionTree = new ExpressionTree();
         do {
@@ -314,9 +309,14 @@ export class ExpressionTree {
                 continue;
             }
 
-            var val = ExpressionTree.evaluate(lastNode.left);
+            let val = ExpressionTree.evaluate(lastNode.left);
 
             if (lastNode.isEqual(new ExpressionNode(Operator.minus, null))) {
+                if (val <= 1) {
+                    lastNode.sign = Operator.plus;
+                    lastNode.right = new ExpressionNode(null, random.int(this.minimumAllowedOperand, this.maximumAllowedOperand));
+                    continue;
+                }
                 lastNode.right = new ExpressionNode(null, Math.floor(Math.random() * (val)));
                 continue;
             }
@@ -334,10 +334,10 @@ export class ExpressionTree {
                 }
 
                 let divisors: Array<number> = new Array();
-            
-                var i = 1;    
-            
-                while (i*i <= val && i <= end) {
+
+                var i = 1;
+
+                while (i * i <= val && i <= end) {
                     console.log(`i: ${i}; val: ${val}`);
                     if (Math.floor(val) % i === 0) {
                         if (i * i === val) {
@@ -348,8 +348,8 @@ export class ExpressionTree {
                         // divisors.push(...[i, Math.floor(Math.floor(val)/i)]);
                         divisors.push(i);
                         console.log(`pushed ${i}`);
-                        divisors.push(Math.floor(Math.floor(val)/i));
-                        console.log(`pushed ${Math.floor(Math.floor(val)/i)}`);
+                        divisors.push(Math.floor(Math.floor(val) / i));
+                        console.log(`pushed ${Math.floor(Math.floor(val) / i)}`);
                         console.log(divisors);
                     }
                     i++;
@@ -369,13 +369,13 @@ export class ExpressionTree {
         return expression.root;
     }
 
-    public get expression() : string {
+    public get expression(): string {
         if (this.root === null) {
             return "".toString();
         } else {
             var expr = this.root.infix();
             if (expr.includes('(')) {
-                expr = expr.substring(1, expr.length-1);
+                expr = expr.substring(1, expr.length - 1);
             }
 
             var chars = [...expr];
@@ -390,5 +390,5 @@ export class ExpressionTree {
             return res;
         }
     }
-    
+
 }

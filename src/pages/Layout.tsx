@@ -5,7 +5,7 @@ import {Button, Modal} from "@nextui-org/react";
 import {ArrowRight, Candle2, MessageQuestion, ArrowLeft, Setting} from "iconsax-react";
 // @ts-ignore
 import {motion} from 'framer-motion';
-import {Menu, MenuProps, Tour, TourProps} from "antd";
+import {Divider, Menu, MenuProps, Tour, TourProps} from "antd";
 import {useState, useRef, ReactNode, Key, SetStateAction, Dispatch, useEffect} from "react";
 import {
     BiMath, BsBook, GoListOrdered, HiOutlineInformationCircle,
@@ -40,6 +40,8 @@ export function PageLayout() {
     let mainContentRef = useRef(null);
     let settingsRef = useRef(null);
 
+    const settings = useSettingsContext();
+
     const tourSteps: TourProps['steps'] = [
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
@@ -50,24 +52,22 @@ export function PageLayout() {
                         justifyContent: 'spaceBetween',
                         alignItems: 'center'
                     }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px', zIndex: '0'}}
-                             src={stick_llama} alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
-            description: (<div>
-                În stânga puteţi găsi o detaliere clară a unde vă aflaţi în aplicaţie <br/>
-                În dreapta puteţi observa progresul făcut relativ cu ecranul în care vă aflaţi
+            description: (<div style={{display: 'flex'}}>
+                <div>
+                    În stânga puteţi găsi o detaliere clară a unde vă aflaţi în aplicaţie <br/>
+                    În dreapta puteţi observa progresul făcut relativ cu ecranul în care vă aflaţi
+                </div>
+                <Divider type={"vertical"} style={{height: '100px'}}/>
+                <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                     src={settings.value.settings.avatar.getStick()} alt='Llama ajutatoare'/>
             </div>),
             target: () => headerRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
             },
-            // prevButtonProps: {
-            //     children: <ArrowLeft size={25} />
-            // }
         },
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
@@ -78,11 +78,17 @@ export function PageLayout() {
                         justifyContent: 'spaceBetween',
                         alignItems: 'center'
                     }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
                     </div>
+                </div>
+            ),
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div>
+                        De aici puteți accesa setările pentru configurarea dificultății și a aspectului aplicației.
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={settings.value.settings.avatar.getStick()} alt='Llama ajutatoare'/>
                 </div>
             ),
             target: () => settingsRef.current,

@@ -1,4 +1,4 @@
-import {Button} from "@nextui-org/react";
+import {Button, Spacer} from "@nextui-org/react";
 import {useSettingsContext, useStorageContext} from "@/services/context";
 import {backgrounds} from "@/services/context";
 import {Radio, Image, Divider, message} from "antd";
@@ -199,6 +199,7 @@ export function PreferencesSettings() {
             <Divider type="horizontal"/>
             <div className="change-avatar">
                 <p style={{fontSize: "1.25rem", marginBottom: '10px'}}>Configurați avatarul LiMa:</p>
+                <Spacer y={2}/>
                 <div className="avatar-config">
                     <div style={{display: 'flex', flexDirection: 'column'}}>
                         <div>
@@ -219,7 +220,7 @@ export function PreferencesSettings() {
                                         setChosenType(val as AvatarType)
                                     }}
                                     label=""
-                                    defaultValue={chosenType}
+                                    defaultValue={settings.value.settings.avatar.type}
                                     placeholder="Alegeți o variantă"
                                     itemComponent={SelectItem}
                                     searchable

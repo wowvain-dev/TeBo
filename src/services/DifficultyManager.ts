@@ -19,7 +19,7 @@ class Difficulty {
 }
 
 export class ExpressionDifficulty extends Difficulty {
-    lowLimit: number = 0;
+    lowLimit: number = 1;
     maxLimit: number = 10;
     depth: number = 2;
     allowedOperators: Array<Operator> = [Operator.minus, Operator.plus];

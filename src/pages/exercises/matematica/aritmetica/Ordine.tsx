@@ -1,5 +1,5 @@
 import './Ordine.scss';
-import {useDifficultyContext, useProgressContext} from "@/services/context";
+import {useDifficultyContext, useProgressContext, useSettingsContext} from "@/services/context";
 import {useNavigate} from "react-router-dom";
 import React, {useEffect, useState, useRef} from 'react';
 import AnimatedPage from '@/components/AnimatedPage';
@@ -28,7 +28,7 @@ import {TryAgainModal} from "@/components/TryAgainModal";
 import ReactHowler from 'react-howler';
 import success_sound from '@/assets/audio/sfx/success_sound.aac';
 import failure_sound from '@/assets/audio/sfx/failure_sound.aac';
-import {Tour, TourProps} from 'antd';
+import {Divider, Tour, TourProps} from 'antd';
 import {HiOutlineSpeakerWave, AiOutlineQuestion} from 'react-icons/all';
 import stick_llama from '@/assets/stick-LLAMA-nerd-yellow.png';
 
@@ -140,45 +140,41 @@ export function Ordine() {
     let cheatRef = useRef(null);
     let ansRef = useRef(null);
 
+    const settings = useSettingsContext();
+    const avatar = settings.value.settings.avatar;
+
     const tourSteps: TourProps['steps'] = [
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Verificaţi ordinea în care trebuie să ordonaţi şirul
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'spaceBetween',
-                        alignItems: 'center'
-                    }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
-                    </div>
+                    Citiți cu atenție enunțul
                 </div>
             ),
             target: () => orderRef.current,
+            description: (<div style={{display: 'flex'}}>
+                <div style={{flex: '1'}}>
+                    Observați ordinea în care trebuie să ordonați șirul.
+                </div>
+                <Divider type={"vertical"} style={{height: '100px'}}/>
+                <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                     src={avatar.getStick()} alt='Llama ajutatoare'/>
+            </div>),
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
             },
             prevButtonProps: {}
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Trageţi de elementele şirului pentru a le pune în poziţiile corecte, respectând ordinea menţionată
-                    anterior
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'spaceBetween',
-                        alignItems: 'center'
-                    }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
-                    </div>
+                    Ordonați elementele respectând cerința
                 </div>
             ),
+            description: (<div style={{display: 'flex'}}>
+                <div style={{flex: '1'}}>
+                    Trage de jetoanele cu numere pentru a le pune în ordinea cerută.
+                </div>
+                <Divider type={"vertical"} style={{height: '100px'}}/>
+                <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                     src={avatar.getStick()} alt='Llama ajutatoare'/>
+            </div>),
             target: () => rowRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -196,14 +192,18 @@ export function Ordine() {
                         justifyContent: 'spaceBetween',
                         alignItems: 'center'
                     }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
-            description: 'Nu veţi primi puncte de progres dacă treceţi peste exerciţiu',
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1', color: '#F5A524'}}>
+                        Nu vei primi puncte de progres pentru acest exercțiu
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
+                </div>),
             target: () => skipRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -220,14 +220,18 @@ export function Ordine() {
                         justifyContent: 'spaceBetween',
                         alignItems: 'center'
                     }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
-            description: 'Nu veţi primi puncte de progres dacă afisaţi răspunsul corect',
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1', color: '#F5A524'}}>
+                        Nu vei primi puncte de progres dacă arăți răspunsul corect.
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
+                </div>),
             target: () => cheatRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -237,20 +241,18 @@ export function Ordine() {
             }
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Verificaţi răspunsul introdus
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'spaceBetween',
-                        alignItems: 'center'
-                    }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
-                    </div>
+                    Verifică
                 </div>
             ),
+            description: (<div style={{display: 'flex'}}>
+                <div style={{flex: '1'}}>
+                    După ce introduci răspunsul, apasă pe butonul de verificare pentru a vedea cum te-ai descurcat!
+                    Dacă ai greșit, nu te descuraja, poți să mai încerci odată!
+                </div>
+                <Divider type={"vertical"} style={{height: '100px'}}/>
+                <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                     src={avatar.getStick()} alt='Llama ajutatoare'/>
+            </div>),
             target: () => ansRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -259,7 +261,6 @@ export function Ordine() {
                 children: <ArrowLeft size={25}/>
             }
         }
-
     ];
 
     const [successSound, setSuccessSound] = useState(false);

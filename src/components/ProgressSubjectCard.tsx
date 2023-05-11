@@ -44,7 +44,7 @@ export function ProgressSubjectCard({subject, current, total, to}: ProgressSubje
                         height: 50
                     }}>
                         {subject}
-                        <Image src={llama_pic} height={75} width={50}/>
+                        <Image preview={false} src={llama_pic} height={75} width={50}/>
                     </div>
                 </Card.Header>
                 <Card.Body>

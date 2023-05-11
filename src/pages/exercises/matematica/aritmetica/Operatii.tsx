@@ -6,9 +6,9 @@ import {ArrowLeft, ArrowRight, ArrowRight2, AudioSquare, CloseCircle, Warning2} 
 import {useNavigate} from 'react-router-dom';
 import {ExpressionTree} from '@/types/ExpressionTree';
 import {useEffect, useRef, useState} from "react";
-import {useProgressContext, useDifficultyContext} from '@/services/context';
+import {useProgressContext, useDifficultyContext, useSettingsContext} from '@/services/context';
 import {ExerciseProgress, ProgressManager} from '@/services/ProgressManager';
-import {notification, Tour, TourProps} from "antd";
+import {Divider, notification, Tour, TourProps} from "antd";
 import {TryAgainModal} from "@/components/TryAgainModal";
 import {AiOutlineQuestion, HiOutlineSpeakerphone, HiOutlineSpeakerWave} from "react-icons/all";
 import success_sound from '@/assets/audio/sfx/success_sound.aac';
@@ -69,21 +69,23 @@ export function Operatii() {
     // Print out the equation
     // console.log(tree.root?.infix());
 
+    const settings = useSettingsContext();
+    const avatar = settings.value.settings.avatar;
+
     const tourSteps: TourProps['steps'] = [
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Calculează expresia din stânga egalului
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'spaceBetween',
-                        alignItems: 'center'
-                    }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
+                    Calculează
+                </div>
+            ),
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1'}}>
+                        Calculați expresia din stânga egalului
                     </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
                 </div>
             ),
             target: () => eqRef.current,
@@ -93,21 +95,27 @@ export function Operatii() {
             prevButtonProps: {}
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Introduceţi rezultatul obţinut în câmpul de text
+                    Răspundeți
                     <div style={{
                         display: 'flex',
                         flexDirection: 'row',
                         justifyContent: 'spaceBetween',
                         alignItems: 'center'
                     }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
             target: () => inputRef.current,
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1'}}>
+                        Scrieți rezultatul în câmpul de text
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
+                </div>
+            ),
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
             },
@@ -124,16 +132,18 @@ export function Operatii() {
                         justifyContent: 'spaceBetween',
                         alignItems: 'center'
                     }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}
-                                onPress={() => setSkipSound(true)}
-                        ></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
-            description: 'Nu veţi primi puncte de progres dacă treceţi peste exerciţiu',
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1', color: '#F5A524'}}>
+                        Nu vei primi puncte de progres pentru acest exercțiu
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
+                </div>),
             target: () => skipRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -150,16 +160,18 @@ export function Operatii() {
                         justifyContent: 'spaceBetween',
                         alignItems: 'center'
                     }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}
-                                onPress={() => setCheatSound(true)}
-                        ></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
-            description: 'Nu veţi primi puncte de progres dacă afisaţi răspunsul corect',
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1', color: '#F5A524'}}>
+                        Nu vei primi puncte de progres dacă arăți răspunsul corect.
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
+                </div>),
             target: () => cheatRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -169,22 +181,18 @@ export function Operatii() {
             }
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Verificaţi răspunsul introdus
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'spaceBetween',
-                        alignItems: 'center'
-                    }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}
-                                onPress={() => setCheckSound(true)}
-                        ></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
-                    </div>
+                    Verifică
                 </div>
             ),
+            description: (<div style={{display: 'flex'}}>
+                <div style={{flex: '1'}}>
+                    După ce introduci răspunsul, apasă pe butonul de verificare pentru a vedea cum te-ai descurcat!
+                    Dacă ai greșit, nu te descuraja, poți să mai încerci odată!
+                </div>
+                <Divider type={"vertical"} style={{height: '100px'}}/>
+                <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                     src={avatar.getStick()} alt='Llama ajutatoare'/>
+            </div>),
             target: () => ansRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>

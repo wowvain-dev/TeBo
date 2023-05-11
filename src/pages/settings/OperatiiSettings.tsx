@@ -10,8 +10,8 @@ import {AiOutlineMinus, AiOutlinePlus, AiOutlineSetting, RiDivideFill, TiTimes} 
 export const OperatiiSettings = () => {
     const context = useDifficultyContext();
     const op_difficulty = context.value.operatii;
-    const [lowLimit, setLowLimit] = useState<number | null>(0);
-    const [highLimit, setHighLimit] = useState<number | null>(0);
+    const [lowLimit, setLowLimit] = useState<number | null>(1);
+    const [highLimit, setHighLimit] = useState<number | null>(10);
     const [saveColor, setSaveColor] =
         useState<"primary" | "secondary" | "error" | "success">('primary');
     const [allowedOp, setAllowedOp] =
@@ -51,6 +51,18 @@ export const OperatiiSettings = () => {
     }, []);
 
     const handleRangeChange = ([low_l, high_l]: [number, number]) => {
+        if (low_l < 1) low_l = 1;
+        if (high_l > 100) high_l = 100;
+        if (high_l - low_l < 9) {
+            if (low_l + 9 > 100) {
+                low_l = high_l - 9;
+            } else if (high_l - 9 < 1) {
+                high_l = low_l + 9;
+            } else {
+                low_l = high_l - 9;
+            }
+        }
+
         setLowLimit(low_l);
         setHighLimit(high_l);
     }
@@ -103,15 +115,30 @@ export const OperatiiSettings = () => {
                 {contextHolder}
                 <h4>Configurare interval numeric</h4>
                 <div className="inputs">
-                    <InputNumber value={lowLimit} onChange={(val) => setLowLimit(val)}
+                    <InputNumber value={lowLimit} onChange={(val) => {
+                        if (!val || !highLimit) return;
+                        if (highLimit - val < 9) {
+                            val = highLimit - 9;
+                        }
+                        setLowLimit(val)
+                    }
+                    } min={1} max={100}
                                  step={1} style={{marginRight: '10px'}}/>
                     <Slider range value={[lowLimit ?? 0, highLimit ?? 0]}
                             onChange={handleRangeChange} tooltip={{open: true}}
-                            min={0} max={100} step={1}
+                            min={1} max={100} step={1}
                             className="slider"
                     />
-                    <InputNumber value={highLimit} onChange={(val) => setHighLimit(val)}
-                                 step={1} style={{marginLeft: '10px'}}/>
+                    <InputNumber value={highLimit} onChange={(val) => {
+                        if (!val || !lowLimit) return;
+                        if (val - lowLimit < 9) {
+                            val = lowLimit + 9;
+                        }
+                        setHighLimit(val)
+                    }}
+                                 step={1} style={{marginLeft: '10px'}}
+                                 min={1} max={100}
+                    />
                 </div>
             </div>
             <Spacer y={2}/>
