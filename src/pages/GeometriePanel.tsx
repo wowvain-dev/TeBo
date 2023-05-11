@@ -32,7 +32,7 @@ export function GeometriePanel() {
 
                     <Grid.Container gap={3}>
                         <Grid sm={6} justify='center'>
-                            <ProgressExerciseCard level={1} color='purple' type='cool'
+                            <ProgressExerciseCard level={1}
                                                   to='/geometrie/culori'
                                                   exercise='Recunoaşterea Culorilor'
                                                   current={progress.value.level1.matematica
@@ -41,19 +41,8 @@ export function GeometriePanel() {
                                                       .parts.get('geometrie')?.parts.get('culori')?.total as number}
                             />
                         </Grid>
-                        {/*<Grid sm={6} justify='center'>*/}
-                        {/*    <ProgressExerciseCard level={2} color='purple' type='cool'*/}
-                        {/*                          disabled*/}
-                        {/*                          to='/geometrie/regula_sirului'*/}
-                        {/*                          exercise='Regula Şirului de Forme'*/}
-                        {/*                          current={progress.value.level1.matematica*/}
-                        {/*                              .parts.get('geometrie')?.parts.get('regula_sirului')?.current as number}*/}
-                        {/*                          total={progress.value.level1.matematica*/}
-                        {/*                              .parts.get('geometrie')?.parts.get('regula_sirului')?.total as number}*/}
-                        {/*    />*/}
-                        {/*</Grid>*/}
                         <Grid sm={6} justify='center'>
-                            <ProgressExerciseCard level={1} color='purple' type='cool'
+                            <ProgressExerciseCard level={1}
                                 // disabled
                                                   to='/geometrie/comparare'
                                                   exercise='Comparare Figuri'
@@ -64,7 +53,7 @@ export function GeometriePanel() {
                             />
                         </Grid>
                         <Grid sm={6} justify='center'>
-                            <ProgressExerciseCard level={3} color='purple' type='cool'
+                            <ProgressExerciseCard level={3}
                                 // disabled
                                                   progressLess={true}
                                                   to='/geometrie/desenare_figuri'

@@ -3,6 +3,7 @@ import {Card, Progress} from "@nextui-org/react";
 import {CiRuler} from "react-icons/ci";
 import {useNavigate} from 'react-router-dom';
 import {DifficultyLevel} from './DifficultyLevel';
+import {useSettingsContext} from "@/services/context";
 
 interface ProgressExerciseCardProps {
     to: string
@@ -11,8 +12,8 @@ interface ProgressExerciseCardProps {
     total: number,
     disabled?: boolean,
     level: number,
-    color: "purple" | "pink" | "blue" | "green" | "yellow",
-    type: "cool" | "nerd",
+    // color: "purple" | "pink" | "blue" | "green" | "yellow",
+    // type: "cool" | "nerd",
     progressLess?: boolean
 }
 
@@ -23,11 +24,14 @@ export function ProgressExerciseCard({
                                          total,
                                          disabled,
                                          level,
-                                         type,
-                                         color,
                                          progressLess
                                      }: ProgressExerciseCardProps) {
     const navigate = useNavigate();
+    const settings = useSettingsContext();
+
+    const type = settings.value.settings.avatar.type;
+    const color = settings.value.settings.avatar.color;
+
     return (
         <div className="progress-card progress-exercise-card" style={{opacity: disabled === true ? '40%' : '100%'}}>
             <Card css={{height: "150px"}} isHoverable={!disabled} isPressable={!disabled}

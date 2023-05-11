@@ -16,6 +16,7 @@ import {
     IconBrandTypescript,
     IconBrandVite
 } from "@tabler/icons-react";
+import {useSettingsContext} from "@/services/context";
 
 interface TechBadgeProps {
     label: string,
@@ -55,11 +56,12 @@ const TechBadge = ({
 
 
 export const AboutSettings = () => {
+    const settings = useSettingsContext();
     return (
         <div className="settings-about">
             <div className="top-row">
                 <div className="header">
-                    <Image src={body_full_blue} width={120} height={180} withPlaceholder
+                    <Image src={settings.value.settings.avatar.getBody()} width={120} height={180} withPlaceholder
                     />
                     <span className="title">LiMa {VERSION_NUMBER}</span>
                     <span className="authors">by <Link target="_blank"

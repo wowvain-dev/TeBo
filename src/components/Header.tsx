@@ -6,13 +6,14 @@ import {useLocation, useNavigate, Link} from 'react-router-dom';
 import {ReactElement} from 'react';
 import AnimatedPage from '@/components/AnimatedPage';
 import {Book1, Medal, ShoppingBag} from 'iconsax-react';
-import {useProgressContext} from '@/services/context';
+import {useProgressContext, useSettingsContext} from '@/services/context';
 import {HomeOutlined} from '@ant-design/icons';
 import {RxSlash} from 'react-icons/rx';
-import {Breadcrumb} from 'antd';
+import {Breadcrumb, Image} from 'antd';
 import type {ItemType} from 'antd/es/breadcrumb/Breadcrumb';
 import type {BreadcrumbItemProps} from 'antd/es/breadcrumb';
 import logo from '../assets/HEAD-LLAMA-cool-blue.png';
+import {Avatar} from "@/services/SettingsManager";
 
 export type CrumbPath = {
     name: string,
@@ -165,6 +166,8 @@ function Header() {
             />);
     };
 
+    const settings = useSettingsContext();
+    const avatar: Avatar = settings.value.settings.avatar;
 
     return (
         // <AnimatedPage>
@@ -195,36 +198,11 @@ function Header() {
                     fontFamily: 'DM Sans', fontSize: '30px', display: 'flex',
                     justifyContent: 'center', alignItems: 'center'
                 }}>
-                    LiMa
+                    <Image src={
+                        avatar.getHead()
+                    } height={50} width={50}/>
+                    {/*LiMa*/}
                 </div>
-                {/* <Dropdown>
-                        <Dropdown.Button light
-                            css={{ fontFamily: "DM Sans", fontSize: '20px' }}
-                        >
-                            {location.pathname.includes('levels/1')
-                                ? 'Învăţăcel'
-                                : location.pathname.includes('levels/2')
-                                    ? 'Cunoscător'
-                                    : 'Expert'
-                            }
-                        </Dropdown.Button>
-                        <Dropdown.Menu
-                            disabledKeys={
-                                [location.pathname.includes('levels/1') ? "level1"
-                                    : location.pathname.includes('levels/2') ? "level2"
-                                        : "level3"]
-                            }
-                            css={{ fontFamily: "DM Sans" }}
-                        >
-                            <Dropdown.Item key="level1">
-                                <div className="dropdown-link" onClick={() => navigate('/levels/1')}>Învăţăcel</div></Dropdown.Item>
-                            <Dropdown.Item key="level2">
-                                <div className="dropdown-link" onClick={() => navigate('/levels/2')}>Cunoscător</div></Dropdown.Item>
-                            <Dropdown.Item key="level3">
-                                <div className="dropdown-link" onClick={() => navigate('/levels/3')}>Expert</div>
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown> */}
             </div>
 
             <div className="header-progress">

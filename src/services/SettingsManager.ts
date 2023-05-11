@@ -7,7 +7,7 @@ import {llama} from "@/services/StorageManager";
 export type AvatarColor = "yellow" | "purple" | "pink" | "blue" | "green";
 export type AvatarType = "cool" | "nerd";
 
-class Avatar {
+export class Avatar {
     type: AvatarType;
     color: AvatarColor;
 
@@ -17,11 +17,11 @@ class Avatar {
         this.color = color;
     }
 
-    getWarning(): string {
+    getWarning() {
         return llama.nerd.wrong_llama.red;
     }
 
-    getAlgebra(graduated: boolean): string {
+    getAlgebra(graduated: boolean) {
         if (graduated) {
             switch (this.color) {
                 case "purple":
@@ -51,7 +51,7 @@ class Avatar {
         }
     }
 
-    getGeometrie(graduated: boolean): string {
+    getGeometrie(graduated: boolean) {
         if (graduated) {
             switch (this.color) {
                 case "purple":
@@ -81,7 +81,7 @@ class Avatar {
         }
     }
 
-    getRomana(graduated: boolean): string {
+    getRomana(graduated: boolean) {
         if (graduated) {
             switch (this.color) {
                 case "purple":
@@ -111,7 +111,7 @@ class Avatar {
         }
     }
 
-    getStick(): string {
+    getStick() {
         if (this.type === "cool") {
             switch (this.color) {
                 case "purple":
@@ -142,7 +142,7 @@ class Avatar {
 
     }
 
-    getHead(): string {
+    getHead() {
         if (this.type === "cool") {
             switch (this.color) {
                 case "purple":
@@ -172,7 +172,7 @@ class Avatar {
         }
     }
 
-    getBody(): string {
+    getBody() {
         if (this.type === "cool") {
             switch (this.color) {
                 case "purple":
@@ -253,7 +253,15 @@ export class SettingsManager {
         let settingsFile = readFileSync(join(homedir(), 'lima', 'settings.json'), {
             encoding: 'utf-8', flag: 'r'
         });
-        this.settings = JSON.parse(settingsFile);
+
+        let settingsJson = JSON.parse(settingsFile);
+
+        let avatar = new Avatar(settingsJson.avatar.type,
+            settingsJson.avatar.color
+        );
+
+        this.settings.background = settingsJson.background;
+        this.settings.avatar = avatar;
     }
 
     stergere() {

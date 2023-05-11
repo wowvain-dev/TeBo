@@ -2,7 +2,7 @@ import './AritmeticaPanel.scss';
 import {ProgressExerciseCard} from '../components/ProgressExerciseCard';
 import {Button, Grid} from '@nextui-org/react';
 import AnimatedPage from '../components/AnimatedPage';
-import {useProgressContext} from '../services/context';
+import {useProgressContext, useSettingsContext} from '../services/context';
 import {useNavigate} from 'react-router-dom';
 import {BsArrowLeft} from 'react-icons/bs';
 import {ExpressionNode, ExpressionTree, Operator} from '../types/ExpressionTree';
@@ -16,6 +16,9 @@ export function AritmeticaPanel() {
     const navigate = useNavigate();
 
     const [page, setPage] = useState<number>(1);
+
+    const settings = useSettingsContext();
+    const avatar = settings.value.settings.avatar;
 
     return (
         <AnimatedPage>
@@ -34,43 +37,43 @@ export function AritmeticaPanel() {
                         <AnimatedPage>
                             <Grid.Container gap={3}>
                                 <Grid sm={6} justify='center'>
-                                    <ProgressExerciseCard level={2} color='green' type='nerd'
-                                        to='/aritmetica/operatii'
-                                        exercise="Operaţii"
-                                        current={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('operatii')?.current as number}
-                                        total={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('operatii')?.total as number}
+                                    <ProgressExerciseCard level={2}
+                                                          to='/aritmetica/operatii'
+                                                          exercise="Operaţii"
+                                                          current={progress.value.level1.matematica.parts
+                                                              .get('aritmetica')?.parts.get('operatii')?.current as number}
+                                                          total={progress.value.level1.matematica.parts
+                                                              .get('aritmetica')?.parts.get('operatii')?.total as number}
                                     />
                                 </Grid>
                                 <Grid sm={6} justify='center'>
-                                    <ProgressExerciseCard level={2} color='green' type='nerd'
-                                        to='/aritmetica/fractii'
-                                        exercise="Fracţii"
-                                        current={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('fractii')?.current as number}
-                                        total={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('fractii')?.total as number}
+                                    <ProgressExerciseCard level={2}
+                                                          to='/aritmetica/fractii'
+                                                          exercise="Fracţii"
+                                                          current={progress.value.level1.matematica.parts
+                                                              .get('aritmetica')?.parts.get('fractii')?.current as number}
+                                                          total={progress.value.level1.matematica.parts
+                                                              .get('aritmetica')?.parts.get('fractii')?.total as number}
                                     />
                                 </Grid>
                                 <Grid sm={6} justify='center'>
-                                    <ProgressExerciseCard level={1} color='green' type='nerd'
-                                        to='/aritmetica/ordine'
-                                        exercise="Şiruri de numere"
-                                        current={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('ordine')?.current as number}
-                                        total={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('ordine')?.total as number}
+                                    <ProgressExerciseCard level={1}
+                                                          to='/aritmetica/ordine'
+                                                          exercise="Şiruri de numere"
+                                                          current={progress.value.level1.matematica.parts
+                                                              .get('aritmetica')?.parts.get('ordine')?.current as number}
+                                                          total={progress.value.level1.matematica.parts
+                                                              .get('aritmetica')?.parts.get('ordine')?.total as number}
                                     />
                                 </Grid>
                                 <Grid sm={6} justify='center'>
-                                    <ProgressExerciseCard level={1} color='green' type='nerd'
-                                        to='/aritmetica/formare'
-                                        exercise="Formarea Numerelor"
-                                        current={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('formare')?.current as number}
-                                        total={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('formare')?.total as number}
+                                    <ProgressExerciseCard level={1}
+                                                          to='/aritmetica/formare'
+                                                          exercise="Formarea Numerelor"
+                                                          current={progress.value.level1.matematica.parts
+                                                              .get('aritmetica')?.parts.get('formare')?.current as number}
+                                                          total={progress.value.level1.matematica.parts
+                                                              .get('aritmetica')?.parts.get('formare')?.total as number}
                                     />
                                 </Grid>
                             </Grid.Container>
@@ -80,13 +83,13 @@ export function AritmeticaPanel() {
                         <AnimatedPage>
                             <Grid.Container gap={3}>
                                 <Grid sm={6} justify='center'>
-                                    <ProgressExerciseCard level={3} color='green' type='nerd'
-                                        to='/aritmetica/comparatii'
-                                        exercise="Comparatii"
-                                        current={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('comparatii')?.current as number}
-                                        total={progress.value.level1.matematica.parts
-                                            .get('aritmetica')?.parts.get('comparatii')?.total as number}
+                                    <ProgressExerciseCard level={3}
+                                                          to='/aritmetica/comparatii'
+                                                          exercise="Comparatii"
+                                                          current={progress.value.level1.matematica.parts
+                                                              .get('aritmetica')?.parts.get('comparatii')?.current as number}
+                                                          total={progress.value.level1.matematica.parts
+                                                              .get('aritmetica')?.parts.get('comparatii')?.total as number}
                                     />
                                 </Grid>
                             </Grid.Container>
