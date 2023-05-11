@@ -1,13 +1,13 @@
 import './Operatii.scss';
 import stick_llama from '../../.././../assets/stick-LLAMA-nerd-yellow.png';
 import AnimatedPage from '@/components/AnimatedPage';
-import { Button, Card, Input, NormalColors, Spacer, Modal, Tooltip } from '@nextui-org/react';
+import {Button, Card, Input, NormalColors, Spacer, Modal, Tooltip} from '@nextui-org/react';
 import {ArrowLeft, ArrowRight, ArrowRight2, AudioSquare, CloseCircle, Warning2} from "iconsax-react";
-import { useNavigate } from 'react-router-dom';
-import { ExpressionTree } from '@/types/ExpressionTree';
+import {useNavigate} from 'react-router-dom';
+import {ExpressionTree} from '@/types/ExpressionTree';
 import {useEffect, useRef, useState} from "react";
-import { useProgressContext, useDifficultyContext } from '../../../../services/context';
-import { ExerciseProgress, ProgressManager } from '@/services/ProgressManager';
+import {useProgressContext, useDifficultyContext} from '@/services/context';
+import {ExerciseProgress, ProgressManager} from '@/services/ProgressManager';
 import {notification, Tour, TourProps} from "antd";
 import {TryAgainModal} from "@/components/TryAgainModal";
 import {AiOutlineQuestion, HiOutlineSpeakerphone, HiOutlineSpeakerWave} from "react-icons/all";
@@ -72,12 +72,18 @@ export function Operatii() {
     const tourSteps: TourProps['steps'] = [
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                Calculează expresia din stânga egalului
-                <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
-                    <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
-                    <div style={{flex: '1'}}></div>
-                    <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
-                </div>
+                    Calculează expresia din stânga egalului
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'spaceBetween',
+                        alignItems: 'center'
+                    }}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
+                        <div style={{flex: '1'}}></div>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
+                             alt='Llama ajutatoare'/>
+                    </div>
                 </div>
             ),
             target: () => eqRef.current,
@@ -88,10 +94,16 @@ export function Operatii() {
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
                     Introduceţi rezultatul obţinut în câmpul de text
-                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'spaceBetween',
+                        alignItems: 'center'
+                    }}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
                         <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
+                             alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
@@ -106,12 +118,18 @@ export function Operatii() {
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
                     Treceţi peste acest exerciţiu
-                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}
-                            onPress={() => setSkipSound(true)}
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'spaceBetween',
+                        alignItems: 'center'
+                    }}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}
+                                onPress={() => setSkipSound(true)}
                         ></Button>
                         <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
+                             alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
@@ -126,12 +144,18 @@ export function Operatii() {
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
                     Afisaţi răspunsul corect al exerciţiului
-                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}
-                            onPress={() => setCheatSound(true)}
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'spaceBetween',
+                        alignItems: 'center'
+                    }}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}
+                                onPress={() => setCheatSound(true)}
                         ></Button>
                         <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
+                             alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
@@ -146,12 +170,18 @@ export function Operatii() {
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
                     Verificaţi răspunsul introdus
-                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}
-                            onPress={() => setCheckSound(true)}
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'spaceBetween',
+                        alignItems: 'center'
+                    }}>
+                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}
+                                onPress={() => setCheckSound(true)}
                         ></Button>
                         <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
+                             alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
@@ -180,7 +210,7 @@ export function Operatii() {
         return <AnimatedPage>
             <div className="equation-card-holder">
                 <Card
-                    css={{ width: '70%', height: '200px' }}
+                    css={{width: '70%', height: '200px'}}
                 >
                     <Card.Header
                         css={{
@@ -198,7 +228,7 @@ export function Operatii() {
                         justifyCenter: 'center',
                         alignItems: 'center'
                     }}>
-                                        <span ref={eqRef} style={{ fontSize: '2rem' }}>
+                                        <span ref={eqRef} style={{fontSize: '2rem'}}>
                                             {tree.expression}=
                                         </span>
                         <Input
@@ -233,7 +263,7 @@ export function Operatii() {
                                             setHasCheated(false);
                                         } else {
 
-                                            let copy = { ...progress.value };
+                                            let copy = {...progress.value};
                                             let newProgress: ExerciseProgress =
                                                 copy.level1.matematica.parts.get('aritmetica')
                                                     ?.parts.get('operatii') ?? new ExerciseProgress(
@@ -267,27 +297,30 @@ export function Operatii() {
 
     return (
         <AnimatedPage>
-            <ReactHowler src={skip_tour} playing={skipSound} onEnd={() => setSkipSound(false)} />
-            <ReactHowler src={cheat_tour} playing={cheatSound} onEnd={() => setCheatSound(false)} />
-            <ReactHowler src={check_tour} playing={checkSound} onEnd={() => setCheckSound(false)} />
+            <ReactHowler src={skip_tour} playing={skipSound} onEnd={() => setSkipSound(false)}/>
+            <ReactHowler src={cheat_tour} playing={cheatSound} onEnd={() => setCheatSound(false)}/>
+            <ReactHowler src={check_tour} playing={checkSound} onEnd={() => setCheckSound(false)}/>
             <ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)}/>
             <ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)}/>
             <div className="card-holder operatii">
                 <Tour open={tourVisible} onClose={() => setTourVisible(false)} steps={tourSteps}/>
-                <TryAgainModal show={tryAgainVisible} setShow={setTryAgainVisible} />
+                <TryAgainModal show={tryAgainVisible} setShow={setTryAgainVisible}/>
                 <div className="background-card">
                     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                        <Button light auto size='xs' icon={<ArrowLeft size="24" />}
-                                css={{ width: "36px", height: "36px" }}
+                        <Button light auto size='xs' icon={<ArrowLeft size="24"/>}
+                                css={{width: "36px", height: "36px"}}
                                 onPress={() => navigate(-1)}
                         />
-                        <Button light auto size='xs' icon={<AiOutlineQuestion size="24" />}
-                                css={{ width: "36px", height: "36px" }}
-                                onPress={() => {setTourVisible(true)}}
+                        <Button light auto size='xs' icon={<AiOutlineQuestion size="24"/>}
+                                css={{width: "36px", height: "36px"}}
+                                onPress={() => {
+                                    setTourVisible(true)
+                                }}
                         />
 
                     </div>
-                    <h3 style={{ textAlign: 'center',
+                    <h3 style={{
+                        textAlign: 'center',
                         fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: "20px"
                     }}>
                         Operaţii
@@ -296,7 +329,7 @@ export function Operatii() {
                         <AnimatedPage>
                             <div className="equation-card-holder">
                                 <Card
-                                    css={{ width: '70%', height: '200px' }}
+                                    css={{width: '70%', height: '200px'}}
                                 >
                                     <Card.Header
                                         css={{
@@ -314,7 +347,7 @@ export function Operatii() {
                                         justifyCenter: 'center',
                                         alignItems: 'center'
                                     }}>
-                                        <span ref={eqRef} style={{ fontSize: '2rem' }}>
+                                        <span ref={eqRef} style={{fontSize: '2rem'}}>
                                             {tree.expression}=
                                         </span>
                                         <Input
@@ -349,7 +382,7 @@ export function Operatii() {
                                                             setHasCheated(false);
                                                         } else {
 
-                                                            let copy = { ...progress.value };
+                                                            let copy = {...progress.value};
                                                             let newProgress: ExerciseProgress =
                                                                 copy.level1.matematica.parts.get('aritmetica')
                                                                     ?.parts.get('operatii') ?? new ExerciseProgress(
@@ -385,7 +418,7 @@ export function Operatii() {
                         <AnimatedPage>
                             <div className="equation-card-holder">
                                 <Card
-                                    css={{ width: '70%', height: '200px' }}
+                                    css={{width: '70%', height: '200px'}}
                                 >
                                     <Card.Header
                                         css={{
@@ -401,7 +434,7 @@ export function Operatii() {
                                         justifyCenter: 'center',
                                         alignItems: 'center'
                                     }}>
-                                        <span ref={eqRef} style={{ fontSize: '2rem' }}>
+                                        <span ref={eqRef} style={{fontSize: '2rem'}}>
                                             {tree.expression}=
                                         </span>
                                         <Input
@@ -436,7 +469,7 @@ export function Operatii() {
                                                             setHasCheated(false);
                                                         } else {
 
-                                                            let copy = { ...progress.value };
+                                                            let copy = {...progress.value};
                                                             let newProgress: ExerciseProgress =
                                                                 copy.level1.matematica.parts.get('aritmetica')
                                                                     ?.parts.get('operatii') ?? new ExerciseProgress(
@@ -467,88 +500,93 @@ export function Operatii() {
                         </AnimatedPage>)}
                     <div className="buttons-container">
                         <Button ref={skipRef}
-                            size='lg' flat
-                            css={{ fontFamily: 'DM Sans' }}
-                            onPress={() => {
-                                setInputValue('');
-                                regenerteTree();
-                                setHasCheated(false);
-                                setSwap(!swap);
-                            }}
-                        >Treci Peste</Button>
-                        <Spacer x={2} />
-                        <Tooltip contentColor='warning'
-                        placement='top'
-                        shadow 
-                        content={
-                            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                            <Warning2 color='#f5a524'/>
-                            <Spacer x={1}/>
-                            <span>Nu vei mai primi puncte de progres pentru acest exercitiu.</span>
-                            </div>
-                        }>
-                        <Button
-                            ref={cheatRef}
-                            size='lg' flat color="warning"
-                            css={{ fontFamily: 'DM Sans' }}
-                            onPress={() => {
-                                setHasCheated(true);
-                                setInputValue(ExpressionTree.evaluate(tree.root).toString());
-                            }}
-                        >Arată Răspunsul</Button>
-                        </Tooltip>
-                        <Spacer x={2} />
-                        <Button  ref={ansRef}
-                            size='lg' color={verifColor as NormalColors}
-                            css={{ fontFamily: 'DM Sans' }}
-                            onPress={() => {
-                                console.log(hasCheated);
-                                if (parseInt(inputValue) === ExpressionTree.evaluate(tree.root)) {
-                                    setVerifColor('success');
-                                    setTimeout(() => {
-                                        setVerifColor('primary');
-                                    }, 500);
-                                    console.log('CORRECT')
+                                size='lg' flat
+                                css={{fontFamily: 'DM Sans'}}
+                                onPress={() => {
                                     setInputValue('');
                                     regenerteTree();
+                                    setHasCheated(false);
                                     setSwap(!swap);
-                                    setSuccessSound(true);
-                                    if (hasCheated) {
-                                        setHasCheated(false);
-                                    } else {
-                                        let copy = { ...progress.value };
-                                        let newProgress: ExerciseProgress =
-                                            copy.level1.matematica.parts.get('aritmetica')
-                                                ?.parts.get('operatii') ?? new ExerciseProgress(
+                                }}
+                        >Treci Peste</Button>
+                        <Spacer x={2}/>
+                        <Tooltip contentColor='warning'
+                                 placement='top'
+                                 shadow
+                                 content={
+                                     <div style={{
+                                         display: 'flex',
+                                         flexDirection: 'row',
+                                         justifyContent: 'center',
+                                         alignItems: 'center'
+                                     }}>
+                                         <Warning2 color='#f5a524'/>
+                                         <Spacer x={1}/>
+                                         <span>Nu vei mai primi puncte de progres pentru acest exercitiu.</span>
+                                     </div>
+                                 }>
+                            <Button
+                                ref={cheatRef}
+                                size='lg' flat color="warning"
+                                css={{fontFamily: 'DM Sans'}}
+                                onPress={() => {
+                                    setHasCheated(true);
+                                    setInputValue(ExpressionTree.evaluate(tree.root).toString());
+                                }}
+                            >Arată Răspunsul</Button>
+                        </Tooltip>
+                        <Spacer x={2}/>
+                        <Button ref={ansRef}
+                                size='lg' color={verifColor as NormalColors}
+                                css={{fontFamily: 'DM Sans'}}
+                                onPress={() => {
+                                    console.log(hasCheated);
+                                    if (parseInt(inputValue) === ExpressionTree.evaluate(tree.root)) {
+                                        setVerifColor('success');
+                                        setTimeout(() => {
+                                            setVerifColor('primary');
+                                        }, 500);
+                                        console.log('CORRECT')
+                                        setInputValue('');
+                                        regenerteTree();
+                                        setSwap(!swap);
+                                        setSuccessSound(true);
+                                        if (hasCheated) {
+                                            setHasCheated(false);
+                                        } else {
+                                            let copy = {...progress.value};
+                                            let newProgress: ExerciseProgress =
+                                                copy.level1.matematica.parts.get('aritmetica')
+                                                    ?.parts.get('operatii') ?? new ExerciseProgress(
                                                     0, 0
                                                 );
-                                        // @ts-ignore
-                                        newProgress.current += 1;
+                                            // @ts-ignore
+                                            newProgress.current += 1;
 
-                                        copy.level1.matematica.parts.get('aritmetica')
-                                            ?.parts.set('operatii', newProgress);
+                                            copy.level1.matematica.parts.get('aritmetica')
+                                                ?.parts.set('operatii', newProgress);
 
-                                        let newManager: ProgressManager = new ProgressManager();
-                                        newManager.level1 = copy.level1;
-                                        newManager.level2 = copy.level2;
-                                        newManager.level3 = copy.level3;
-                                        progress.setValue(newManager);
-                                        progress.value.scriere();
+                                            let newManager: ProgressManager = new ProgressManager();
+                                            newManager.level1 = copy.level1;
+                                            newManager.level2 = copy.level2;
+                                            newManager.level3 = copy.level3;
+                                            progress.setValue(newManager);
+                                            progress.value.scriere();
+                                        }
+                                    } else {
+                                        console.log('INCORRECT');
+                                        setFailureSound(true);
+                                        setTryAgainVisible(true);
+                                        setTimeout(() => {
+                                            setTryAgainVisible(false);
+                                        }, 1500);
+                                        setVerifColor('error');
+                                        setTimeout(() => {
+                                            setVerifColor('primary');
+                                        }, 500);
                                     }
-                                } else {
-                                    console.log('INCORRECT');
-                                    setFailureSound(true);
-                                    setTryAgainVisible(true);
-                                    setTimeout(() => {
-                                        setTryAgainVisible(false);
-                                    }, 1500);
-                                    setVerifColor('error');
-                                    setTimeout(() => {
-                                        setVerifColor('primary');
-                                    }, 500);
-                                }
 
-                            }}
+                                }}
                         >Verifică</Button>
                     </div>
                 </div>

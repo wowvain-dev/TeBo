@@ -29,6 +29,8 @@ import {VocaleSettings} from "@/pages/settings/VocaleSettings";
 import {LitereSettings} from "@/pages/settings/LitereSettings";
 import {AboutSettings} from "@/pages/settings/AboutSettings";
 import {NotFoundSettings} from "@/pages/settings/NotFoundSettings";
+import {PreferencesSettings} from "@/pages/settings/PreferencesSettings";
+import {useSettingsContext} from "@/services/context";
 
 export function PageLayout() {
     const [showTour, setShowTour] = useState(false);
@@ -116,7 +118,7 @@ export function PageLayout() {
 
         const items: MenuProps['items'] = [
             getItem('Despre', 'about', <IoIosInformationCircleOutline size={20}/>),
-            getItem('Preferinţe', 'preferences', <SlWrench size={20}/>, undefined, undefined, false, true),
+            getItem('Preferinţe', 'preferences', <SlWrench size={20}/>, undefined, undefined, false, false),
             {type: 'divider'},
             getItem('Dificultate', 'sub1', <TbCircuitChangeover size={20}/>, [
                 getItem('Aritmetică', 'aritmetica', <BiMath size={20}/>, [
@@ -162,6 +164,8 @@ export function PageLayout() {
                     return <ComparareSettings/>
                 case "ordine":
                     return <OrdineSettings/>
+                case "preferences":
+                    return <PreferencesSettings/>
                 // case "culori": return <CuloriSettings />
                 // case "forme": return <FormeSettings />
                 // case "comparare_figuri": return <CompFiguriSettings />
@@ -177,7 +181,7 @@ export function PageLayout() {
 
         return <div className="settings-modal"><Modal
             className="settings-modal"
-            preventClose
+            // preventClose
             closeButton
             blur
             aria-labelledby="modal-title"
@@ -229,7 +233,7 @@ export function PageLayout() {
                 {/* SETTINGS BUTTON */}
                 <Button ref={settingsRef}
                         onPress={() => setShowSettings(true)}
-                        auto size='xs' css={{
+                        auto size='xs' shadow color="primary" css={{
                     background: '$normalWhite'
                 }}
                         style={{width: '40px', height: '40px'}}
@@ -244,9 +248,10 @@ export function PageLayout() {
             }}>
                 {/* HELP BUTTON */}
                 <Button
+                    color="primary"
                     // ghost
                     onPress={() => setShowTour(true)}
-                    auto size='xs' css={{
+                    auto size='xs' shadow css={{
                     background: '$normalWhite'
                 }}
                     style={{width: '40px', height: '40px'}}>
@@ -261,10 +266,13 @@ export function PageLayout() {
 }
 
 export function OverallLayout() {
+    const settings = useSettingsContext();
+
     return (
-        <div className="overall-layout"
-        >
-            {/*<Outlet /> */}
+        <div className="overall-layout" style={{
+            background: `url(${settings.value.settings.background})`,
+            // backgroundSize: `100vw 100vh`
+        }}>
             <PageLayout/>
         </div>
     );

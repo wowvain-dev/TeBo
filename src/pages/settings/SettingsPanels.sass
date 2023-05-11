@@ -1,14 +1,54 @@
+.shield-badge
+  display: flex
+  flex-direction: row
+  border-radius: 14px
+  border: 1px solid black
+  justify-content: center
+  align-items: center
+  padding-left: 5px
+  padding-right: 5px
+  transition: all .2s
+
+  &:hover
+    padding-left: 10px
+    padding-right: 10px
+    transition: all .2s
+    border-color: #3486ce !important
+
+    .shield-badge-label
+      color: #3486ce
+
+  &-label
+    font-family: "DM Sans", sans-serif
+    padding: 5px 10px
+    font-weight: 600
+    text-transform: uppercase
+    color: #000
+
+
 .ant-message
   z-index: 9999
 
 .ant-select-open
   z-index: 9999
 
+.ant-radio-button-wrapper:not(:first-child)::before
+  opacity: 0
+
 .settings
   &-save-button
     margin-top: 10px
     margin-left: auto
     margin-right: auto
+
+  &-preferences
+    //.change-bg
+    p
+      font-family: DM Sans, sans-serif
+
+    .bg-grid-option
+      ::before
+        opacity: 0
 
   &-about
     display: flex
@@ -44,18 +84,18 @@
         font-family: "DM Sans", sans-serif
 
       .subtitle
-        font-size: 1.15rem
-        font-weight: 600
+        font-size: 1rem
+        font-weight: 500
 
       .tech-stack
         display: flex
         flex-direction: row
-        //width: 100px
+      //width: 100px
 
       .design-stack
         display: flex
         flex-direction: row
-        //width: 100px
+  //width: 100px
 
 
   &-panel

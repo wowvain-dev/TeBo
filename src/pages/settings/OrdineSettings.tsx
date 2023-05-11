@@ -89,6 +89,7 @@ export const OrdineSettings = () => {
             dif_copy.ordine = orderDifficulty;
 
             context.setValue(dif_copy);
+            context.value.write();
 
             setSaveColor('success');
             setTimeout(() => {

@@ -1,12 +1,13 @@
 {
   "name": "lima-electron",
-  "version": "2.1.1",
-  "productName": "Lima",
+  "version": "2.1.2",
+  "productName": "LiMa",
   "main": "dist-electron/main/index.js",
-  "description": "Electron Vite React boilerplate.",
+  "description": "Culegere educațională pentru copii.",
   "author": "wowvain-dev",
   "license": "MIT",
   "private": true,
+  "homepage": "./",
   "debug": {
     "env": {
       "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
@@ -32,6 +33,9 @@
     "@react-buddy/palette-antd": "^5.3.0",
     "@react-buddy/palette-mantine-core": "^6.0.0",
     "@tabler/icons-react": "^2.17.0",
+    "@tldraw/assets": "^2.0.0-alpha.12",
+    "@tldraw/tldraw": "^2.0.0-alpha.12",
+    "@tldraw/utils": "^2.0.0-alpha.12",
     "@types/react-howler": "^5.2.0",
     "antd": "^5.3.2",
     "axios": "^1.4.0",
@@ -47,6 +51,8 @@
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.9.0",
     "react-simple-keyboard": "^3.5.46",
+    "signia": "^0.1.4",
+    "signia-react": "^0.1.4",
     "use-react-router-breadcrumbs": "^4.0.1"
   },
   "devDependencies": {

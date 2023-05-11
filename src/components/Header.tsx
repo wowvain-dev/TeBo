@@ -6,7 +6,7 @@ import {useLocation, useNavigate, Link} from 'react-router-dom';
 import {ReactElement} from 'react';
 import AnimatedPage from '@/components/AnimatedPage';
 import {Book1, Medal, ShoppingBag} from 'iconsax-react';
-import {useProgressContext} from '../services/context';
+import {useProgressContext} from '@/services/context';
 import {HomeOutlined} from '@ant-design/icons';
 import {RxSlash} from 'react-icons/rx';
 import {Breadcrumb} from 'antd';
@@ -37,6 +37,7 @@ let PathNames: Map<string, CrumbPath> = new Map<string, CrumbPath>([
     ["/geometrie/culori", {name: "Recunoaştere Culori"}],
     ["/geometrie/regula_sirului", {name: "Regula Şirului"}],
     ["/geometrie/comparare", {name: "Comparare de Forme"}],
+    ["/geometrie/desenare_figuri", {name: "Tablă"}],
 ]);
 
 function Header() {
@@ -194,7 +195,7 @@ function Header() {
                     fontFamily: 'DM Sans', fontSize: '30px', display: 'flex',
                     justifyContent: 'center', alignItems: 'center'
                 }}>
-                    Lima
+                    LiMa
                 </div>
                 {/* <Dropdown>
                         <Dropdown.Button light

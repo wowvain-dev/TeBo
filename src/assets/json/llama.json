@@ -1,0 +1,99 @@
+{
+  "nerd": {
+    "head": {
+      "pink": "/src/assets/llama/HEAD-LLAMA-nerd-pink.png",
+      "yellow": "/src/assets/llama/HEAD-LLAMA-nerd-yellow.png",
+      "purple": "/src/assets/llama/HEAD-LLAMA-purple.png",
+      "green": "/src/assets/llama/HEAD-LLAMA-nerd-green.png",
+      "blue": "/src/assets/llama/HEAD-LLAMA-nerd-blue.png"
+    },
+    "body": {
+      "pink": "/src/assets/llama/LLAMA-nerd-pink.png",
+      "yellow": "/src/assets/llama/LLAMA-nerd-yellow.png",
+      "purple": "/src/assets/llama/LLAMA-nerd-purple.png",
+      "green": "/src/assets/llama/LLAMA-nerd-green.png",
+      "blue": "/src/assets/llama/LLAMA-nerd-blue.png"
+    },
+    "stick_llama": {
+      "pink": "/src/assets/llama/stick-LLAMA-nerd-pink.png",
+      "yellow": "/src/assets/llama/stick-LLAMA-nerd-yellow.png",
+      "purple": "/src/assets/llama/stick-LLAMA-nerd-purple.png",
+      "green": "/src/assets/llama/stick-LLAMA-nerd-green.png",
+      "blue": "/src/assets/llama/stick-LLAMA-nerd-blue.png"
+    },
+    "wrong_llama": {
+      "red": "/src/assets/WRONG-LLAMA-red.png"
+    }
+  },
+  "cool": {
+    "head": {
+      "pink": "/src/assets/llama/HEAD-LLAMA-cool-pink.png",
+      "yellow": "/src/assets/llama/HEAD-LLAMA-cool-yellow.png",
+      "purple": "/src/assets/llama/HEAD-LLAMA-cool-purple.png",
+      "green": "/src/assets/llama/HEAD-LLAMA-cool-green.png",
+      "blue": "/src/assets/llama/HEAD-LLAMA-cool-blue.png"
+    },
+    "body": {
+      "pink": "/src/assets/llama/LLAMA-cool-pink.png",
+      "yellow": "/src/assets/llama/LLAMA-cool-yellow.png",
+      "purple": "/src/assets/llama/LLAMA-cool-purple.png",
+      "green": "/src/assets/llama/LLAMA-cool-green.png",
+      "blue": "/src/assets/llama/LLAMA-cool-blue.png"
+    },
+    "stick_llama": {
+      "pink": "/src/assets/llama/stick-LLAMA-cool-pink.png",
+      "yellow": "/src/assets/llama/stick-LLAMA-cool-yellow.png",
+      "purple": "/src/assets/llama/stick-LLAMA-cool-purple.png",
+      "green": "/src/assets/llama/stick-LLAMA-cool-green.png",
+      "blue": "/src/assets/llama/stick-LLAMA-cool-blue.png"
+    }
+  },
+  "cute": {
+    "ungraduated": {
+      "algebra": {
+        "pink": "/src/assets/llama/ALG-LLAMA-cute-pink.png",
+        "yellow": "/src/assets/llama/ALG-LLAMA-cute-yellow.png",
+        "purple": "/src/assets/llama/ALG-LLAMA-cute-purple.png",
+        "green": "/src/assets/llama/ALG-LLAMA-cute-green.png",
+        "blue": "/src/assets/llama/ALG-LLAMA-cute-blue.png"
+      },
+      "geometrie": {
+        "pink": "/src/assets/llama/GEO-LLAMA-cute-pink.png",
+        "yellow": "/src/assets/llama/GEO-LLAMA-cute-yellow.png",
+        "purple": "/src/assets/llama/GEO-LLAMA-cute-purple.png",
+        "green": "/src/assets/llama/GEO-LLAMA-cute-green.png",
+        "blue": "/src/assets/llama/GEO-LLAMA-cute-blue.png"
+      },
+      "romana": {
+        "pink": "/src/assets/llama/LB-LLAMA-cute-pink.png",
+        "yellow": "/src/assets/llama/LB-LLAMA-cute-yellow.png",
+        "purple": "/src/assets/llama/LB-LLAMA-cute-purple.png",
+        "green": "/src/assets/llama/LB-LLAMA-cute-green.png",
+        "blue": "/src/assets/llama/LB-LLAMA-cute-blue.png"
+      }
+    },
+    "graduated": {
+      "algebra": {
+        "pink": "/src/assets/llama/ALG-GRADUATED-LLAMA-cute-pink.png",
+        "yellow": "/src/assets/llama/ALG-GRADUATED-LLAMA-cute-yellow.png",
+        "purple": "/src/assets/llama/ALG-GRADUATED-LLAMA-cute-purple.png",
+        "green": "/src/assets/llama/ALG-GRADUATED-LLAMA-cute-green.png",
+        "blue": "/src/assets/llama/ALG-GRADUATED-LLAMA-cute-blue.png"
+      },
+      "geometrie": {
+        "pink": "/src/assets/llama/GEO-GRADUATED-LLAMA-cute-pink.png",
+        "yellow": "/src/assets/llama/GEO-GRADUATED-LLAMA-cute-yellow.png",
+        "purple": "/src/assets/llama/GEO-GRADUATED-LLAMA-cute-purple.png",
+        "green": "/src/assets/llama/GEO-GRADUATED-LLAMA-cute-green.png",
+        "blue": "/src/assets/llama/GEO-GRADUATED-LLAMA-cute-blue.png"
+      },
+      "romana": {
+        "pink": "/src/assets/llama/LB-GRADUATED-LLAMA-cute-pink.png",
+        "yellow": "/src/assets/llama/LB-GRADUATED-LLAMA-cute-yellow.png",
+        "purple": "/src/assets/llama/LB-GRADUATED-LLAMA-cute-purple.png",
+        "green": "/src/assets/llama/LB-GRADUATED-LLAMA-cute-green.png",
+        "blue": "/src/assets/llama/LB-GRADUATED-LLAMA-cute-blue.png"
+      }
+    }
+  }
+}

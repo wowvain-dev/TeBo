@@ -41,17 +41,17 @@ export function GeometriePanel() {
                                                       .parts.get('geometrie')?.parts.get('culori')?.total as number}
                             />
                         </Grid>
-                        <Grid sm={6} justify='center'>
-                            <ProgressExerciseCard level={2} color='purple' type='cool'
-                                                  disabled
-                                                  to='/geometrie/regula_sirului'
-                                                  exercise='Regula Şirului de Forme'
-                                                  current={progress.value.level1.matematica
-                                                      .parts.get('geometrie')?.parts.get('regula_sirului')?.current as number}
-                                                  total={progress.value.level1.matematica
-                                                      .parts.get('geometrie')?.parts.get('regula_sirului')?.total as number}
-                            />
-                        </Grid>
+                        {/*<Grid sm={6} justify='center'>*/}
+                        {/*    <ProgressExerciseCard level={2} color='purple' type='cool'*/}
+                        {/*                          disabled*/}
+                        {/*                          to='/geometrie/regula_sirului'*/}
+                        {/*                          exercise='Regula Şirului de Forme'*/}
+                        {/*                          current={progress.value.level1.matematica*/}
+                        {/*                              .parts.get('geometrie')?.parts.get('regula_sirului')?.current as number}*/}
+                        {/*                          total={progress.value.level1.matematica*/}
+                        {/*                              .parts.get('geometrie')?.parts.get('regula_sirului')?.total as number}*/}
+                        {/*    />*/}
+                        {/*</Grid>*/}
                         <Grid sm={6} justify='center'>
                             <ProgressExerciseCard level={1} color='purple' type='cool'
                                 // disabled
@@ -61,6 +61,16 @@ export function GeometriePanel() {
                                                       .parts.get('geometrie')?.parts.get('comparare')?.current as number}
                                                   total={progress.value.level1.matematica
                                                       .parts.get('geometrie')?.parts.get('comparare')?.total as number}
+                            />
+                        </Grid>
+                        <Grid sm={6} justify='center'>
+                            <ProgressExerciseCard level={3} color='purple' type='cool'
+                                // disabled
+                                                  progressLess={true}
+                                                  to='/geometrie/desenare_figuri'
+                                                  exercise='Tablă'
+                                                  current={1}
+                                                  total={1}
                             />
                         </Grid>
                     </Grid.Container>

@@ -5,14 +5,54 @@ import {VERSION_NUMBER} from "@/main";
 import {Link} from "react-router-dom";
 import {List} from "@mantine/core";
 import react_icon from '@/assets/icons/icons8-react-30.png';
-import {BsGithub, DiReact, FaReact} from "react-icons/all";
+import {BsGithub, DiReact, FaReact, IoLogoElectron, SiAntdesign, SiElectron} from "react-icons/all";
 import {Spacer, Button} from "@nextui-org/react";
-import {IconBrandGithub} from "@tabler/icons-react";
+import {
+    IconBrandDiscord, IconBrandDiscordFilled,
+    IconBrandGithub,
+    IconBrandNextjs,
+    IconBrandReact,
+    IconBrandSass,
+    IconBrandTypescript,
+    IconBrandVite
+} from "@tabler/icons-react";
 
 interface TechBadgeProps {
     label: string,
-    avatar: JSX.Element
+    avatar: JSX.Element,
+    radiusBottomLeft?: string,
+    radiusBottomRight?: string,
+    radiusTopLeft?: string,
+    radiusTopRight?: string,
+    right: boolean,
+    left: boolean,
+    href: string
 }
+
+const TechBadge = ({
+                       label,
+                       avatar,
+                       radiusBottomLeft,
+                       radiusBottomRight,
+                       radiusTopLeft,
+                       radiusTopRight,
+                       right, left, href
+                   }: TechBadgeProps) => {
+    return <a className="shield-badge" style={{
+        borderBottomLeftRadius: radiusBottomLeft ?? "0",
+        borderBottomRightRadius: radiusBottomRight ?? "0",
+        borderTopLeftRadius: radiusTopLeft ?? "0",
+        borderTopRightRadius: radiusTopRight ?? "0",
+        borderRight: right ? "1px solid black" : "none",
+        borderLeft: left ? "1px solid black" : "none",
+    }}
+              href={href} target="_blank"
+    >
+        {avatar}
+        <span className="shield-badge-label">{label}</span>
+    </a>
+}
+
 
 export const AboutSettings = () => {
     return (
@@ -28,60 +68,66 @@ export const AboutSettings = () => {
                 </div>
             </div>
             <div className="settings-about-content">
-                <span className="subtitle">Construită în:</span>
+                <span className="subtitle">Tech Stack:</span>
                 <div className="tech-stack">
-                    <img alt="react"
-                         style={{borderBottomLeftRadius: 14, borderTopLeftRadius: 14}}
-                        // src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"/>
-                         src="https://img.shields.io/badge/React-000000?style=for-the-badge&logo=react&logoColor=61DAFB"/>
-                    {/*<Spacer x={1}/>*/}
-                    <img alt="electron"
-                        // src="https://img.shields.io/badge/Electron-2B2E3A?style=for-the-badge&logo=electron&logoColor=9FEAF9"/>
-                         src="https://img.shields.io/badge/Electron-000000?style=for-the-badge&logo=electron&logoColor=9FEAF9"/>
-                    {/*<Spacer x={1}/>*/}
-                    <img alt="typescript"
-                        // src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"/>
-                         src="https://img.shields.io/badge/TypeScript-000000?style=for-the-badge&logo=typescript&logoColor=007ACC"/>
-                    {/*<Spacer x={1}/>*/}
-                    <img alt="sass"
-                        // src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white"/>
-                         src="https://img.shields.io/badge/Sass-000000?style=for-the-badge&logo=sass&logoColor=CC6699"/>
-                    {/*<Spacer x={1}/>*/}
-                    <img alt="vite"
-                         style={{borderBottomRightRadius: 14, borderTopRightRadius: 14}}
-                        // src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E"/>
-                         src="https://img.shields.io/badge/Vite-000000?style=for-the-badge&logo=vite&logoColor=FFD62E"/>
+                    <TechBadge href="https://react.dev"
+                               avatar={<IconBrandReact color="#61dafb"/>} label={"React"}
+                               radiusBottomLeft="14px" radiusTopLeft="14px" right={true} left={true}
+                    />
+                    <TechBadge href="https://www.electronjs.org/"
+                               avatar={<SiElectron size={24} color="#9feaf9"/>} label={"Electron"}
+                               right={true} left={false}
+                    />
+                    <TechBadge href="https://www.typescriptlang.org/"
+                               avatar={<IconBrandTypescript color="#007acc"/>} label={"Typescript"}
+                               right={true} left={false}
+                    />
+                    <TechBadge href="https://sass-lang.com/"
+                               avatar={<IconBrandSass color="#cc6699"/>} label={"Sass"}
+                               right={true} left={false}
+                    />
+                    <TechBadge href="https://vitejs.dev/"
+                               avatar={<IconBrandVite color="#ffd62e"/>} label={"Vite"}
+                               radiusBottomRight="14px" radiusTopRight="14px"
+                               right={true} left={false}
+                    />
                 </div>
                 <Spacer y={1}/>
-                <span className="subtitle">folosind librăriile de design:</span>
+                <span className="subtitle">Design Stack:</span>
                 <div className="design-stack">
-                    <img alt="antd"
-                         style={{borderBottomLeftRadius: 14, borderTopLeftRadius: 14}}
-                        // src="https://img.shields.io/badge/Ant%20Design-1890FF?style=for-the-badge&logo=antdesign&logoColor=white"/>
-                         src="https://img.shields.io/badge/Ant%20Design-000000?style=for-the-badge&logo=antdesign&logoColor=1890FF"/>
-                    {/*<Spacer x={1}/>*/}
-                    <img alt="nextui"
-                         style={{borderBottomRightRadius: 14, borderTopRightRadius: 14}}
-                        // src="https://img.shields.io/badge/next%20ui-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"/>
-                         src="https://img.shields.io/badge/next%20ui-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"/>
+                    <TechBadge href="https://ant.design"
+                               avatar={<SiAntdesign color="#1890ff"/>} label={"Ant Design"}
+                               radiusBottomLeft="14px" radiusTopLeft="14px" right={true}
+                               left={true}
+                    />
+                    <TechBadge href="https://nextui.org"
+                               avatar={<IconBrandNextjs color="#000000"/>} label={"Next UI"}
+                               radiusBottomRight="14px" radiusTopRight="14px"
+                               right={true} left={false}
+                    />
+
                 </div>
                 <Spacer y={2}/>
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <span>Pentru a vedea codul sursă intrați pe repository-ul proiectului:</span>
                     <Spacer x={1}/>
-                    <a href="https://github.com/wowvain-dev/lima-electron" target="_blank">
-                        <img alt="GitHub"
-                             style={{borderRadius: 14}}
-                             src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white"/>
-                    </a>
+                    <TechBadge href="https://github.com/wowvain-dev/lima-electron"
+                               avatar={<IconBrandGithub color="#000"/>} label={"GitHub"}
+                               right={true} left={true}
+                               radiusBottomRight="14px" radiusBottomLeft="14px"
+                               radiusTopRight="14px" radiusTopLeft="14px"
+                    />
                 </div>
                 <Spacer y={2}/>
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <span>Pentru contact, vă rog să îmi dați mesaj pe discord: </span>
                     <Spacer x={1}/>
-                    <img alt="!wowvain#3859"
-                         style={{borderRadius: 14}}
-                         src="https://img.shields.io/badge/!wowvain_%233859-000000?style=for-the-badge&logo=discord&logoColor=5865F2"/>
+                    <TechBadge href="https://github.com/wowvain-dev/lima-electron"
+                               avatar={<IconBrandDiscord color="#5865f2"/>} label={"!wovain#3859"}
+                               right={true} left={true}
+                               radiusBottomRight="14px" radiusBottomLeft="14px"
+                               radiusTopRight="14px" radiusTopLeft="14px"
+                    />
                 </div>
             </div>
         </div>

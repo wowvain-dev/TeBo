@@ -51,6 +51,7 @@ export const FractiiSettings = () => {
         dif_copy.fractii = frac_difficulty;
 
         context.setValue(dif_copy);
+        context.value.write();
 
         setSaveColor('success');
         setTimeout(() => {

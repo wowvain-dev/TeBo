@@ -2,7 +2,7 @@
  * @see https://www.electron.build/configuration/configuration
  */
 {
-  "appId": "YourAppID",
+  "appId": "com.electron.lima",
   "directories": {
     "output": "release/${version}"
   },
@@ -10,9 +10,24 @@
     "dist-electron",
     "dist"
   ],
+  "extraFiles": [
+    "fonts/",
+    "icons/",
+    "embed-icons/",
+    "translations",
+    "src/assets/embed-icons",
+    "src/assets/fonts",
+    "src/assets/icons",
+    "src/assets/translations"
+  ],
   "extraResources": [
     "src/assets",
-    "src/assets/audio/letters"
+    "src/assets/audio/letters",
+    "src/assets/json",
+    "src/assets/embed-icons",
+    "src/assets/fonts",
+    "src/assets/llama",
+    "src/assets/translations"
   ],
   "mac": {
     "artifactName": "${productName}_${version}.${ext}",
