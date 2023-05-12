@@ -66,7 +66,7 @@ export function PreferencesSettings() {
         }, {
             image: new Avatar("cool", previewAvatar.color).getHead(),
             value: "cool",
-            label: "Ochlari de Soare"
+            label: "Ochelari de Soare"
         }
     ];
 
@@ -155,44 +155,37 @@ export function PreferencesSettings() {
                 <p style={{fontSize: "1.25rem", marginBottom: '10px'}}>Schimbați fundalul aplicației:</p>
                 <Radio.Group onChange={(e) => {
                     setChosenBackground(e.target.value);
-                    // let copy = {...settings.value};
-                    // let cpy_manager = new SettingsManager();
-                    //
-                    // cpy_manager.settings = copy.settings;
-                    // cpy_manager.settings.background = e.target.value;
-                    //
-                    // settings.setValue(cpy_manager);
-                    // settings.value.write();
-                    //
-                    // console.log(`settings.val: ${settings.value.settings.background}`);
-                    // storage.value.settings.write();
-                }} defaultValue={settings.value.settings.background} style={{
+                }}
+                             className="bg-grid"
+                             defaultValue={settings.value.settings.background} style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(3, minMax(0, 1fr)",
+                    // gridTemplateColumns: "repeat(3, minMax(0, 1fr)",
                 }} optionType={"button"}>
                     {backgrounds.map((val, index, array) => (
-                        <Radio value={val} style={{
-                            width: 186.6,
-                            height: 105,
-                            padding: 10,
-                            paddingTop: 20,
-                            paddingBottom: 20,
-                            borderRadius: "14px",
-                            borderWidth: '1px',
-                            marginBottom: "1rem",
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }} className="bg-grid-option">
-                            <Image
-                                src={val}
-                                preview={false}
-                                style={{
-                                    borderRadius: "14px",
-                                    height: 90, width: 177.7
-                                }}
-                            />
-                        </Radio>
+                        <div>
+                            <Radio value={val} style={{
+                                width: 186.6,
+                                height: 105,
+                                padding: 10,
+                                paddingTop: 20,
+                                paddingBottom: 20,
+                                borderRadius: "14px",
+                                borderWidth: '1px',
+                                marginBottom: "1rem",
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }} className="bg-grid-option">
+                                <Image
+                                    src={val}
+                                    preview={false}
+                                    style={{
+                                        borderRadius: "14px",
+                                        height: 90, width: 177.7
+                                    }}
+                                />
+                            </Radio>
+                        </div>
                     ))}
                 </Radio.Group>
             </div>

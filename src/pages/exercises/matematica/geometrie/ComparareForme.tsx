@@ -7,7 +7,7 @@ import {ArrowLeft, ArrowRight, ArrowRight2, AudioSquare, CloseCircle, Warning2} 
 import {useNavigate} from 'react-router-dom';
 import {ExpressionTree} from '@/types/ExpressionTree';
 import {useEffect, useRef, useState} from "react";
-import {useProgressContext, useDifficultyContext, useStorageContext} from '@/services/context';
+import {useProgressContext, useDifficultyContext, useStorageContext, useSettingsContext} from '@/services/context';
 import {ExerciseProgress, ProgressManager} from '@/services/ProgressManager';
 import {Divider, notification, Tour, TourProps} from "antd";
 import {TryAgainModal} from "@/components/TryAgainModal";
@@ -66,7 +66,8 @@ export function ComparareForme() {
     const [failureSound, setFailureSound] = useState(false);
     const [letterSound, setLetterSound] = useState(false);
 
-    let shapeRef = useRef(null);
+    let shape1Ref = useRef(null);
+    let shape2Ref = useRef(null);
     let choiceRef = useRef(null);
     let skipRef = useRef(null);
     let cheatRef = useRef(null);
@@ -155,44 +156,43 @@ export function ComparareForme() {
         return shapeElement;
     }
 
+    const settings = useSettingsContext();
+    const avatar = settings.value.settings.avatar;
+
     const tourSteps: TourProps['steps'] = [
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Priviţi cu atenţie forma
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'spaceBetween',
-                        alignItems: 'center'
-                    }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
-                    </div>
+                    Priviți forma din stânga
                 </div>
             ),
-            target: () => shapeRef.current,
+            target: () => shape1Ref.current,
+            description: (<div style={{display: 'flex'}}>
+                <div style={{flex: '1'}}>
+                    Observați culoarea, tipul și mărimea formei.
+                </div>
+                <Divider type={"vertical"} style={{height: '100px'}}/>
+                <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                     src={avatar.getStick()} alt='Llama ajutatoare'/>
+            </div>),
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
             },
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Alegeţi din lista de mai jos culoarea formei
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'spaceBetween',
-                        alignItems: 'center'
-                    }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
-                    </div>
+                    Priviți forma din dreapta
                 </div>
             ),
-            target: () => choiceRef.current,
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1'}}>
+                        Observați culoarea, tipul și mărimea formei.
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
+                </div>
+            ),
+            target: () => shape2Ref.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
             },
@@ -203,6 +203,29 @@ export function ComparareForme() {
         },
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
+                    Alegeți răspunsul corect
+                </div>
+            ),
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1'}}>
+                        Comparați proprietățile celor două forme și selectați prin care diferă cele doua forme.
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
+                </div>
+            ),
+            target: () => choiceRef.current,
+            nextButtonProps: {
+                children: <ArrowRight size={25}/>
+            },
+            prevButtonProps: {
+                children: <ArrowLeft size={25}/>
+            }
+        },
+        {
+            title: (<div style={{display: 'flex', flexDirection: 'column'}}>
                     Treceţi peste acest exerciţiu
                     <div style={{
                         display: 'flex',
@@ -210,14 +233,18 @@ export function ComparareForme() {
                         justifyContent: 'spaceBetween',
                         alignItems: 'center'
                     }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
-            description: 'Nu veţi primi puncte de progres dacă treceţi peste exerciţiu',
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1', color: '#F5A524'}}>
+                        Nu vei primi puncte de progres pentru acest exercțiu
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
+                </div>),
             target: () => skipRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -227,21 +254,25 @@ export function ComparareForme() {
             }
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Afisaţi răspunsul corect al exerciţiului
+                    Afișaţi răspunsul corect al exerciţiului
                     <div style={{
                         display: 'flex',
                         flexDirection: 'row',
                         justifyContent: 'spaceBetween',
                         alignItems: 'center'
                     }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
-            description: 'Nu veţi primi puncte de progres dacă afisaţi răspunsul corect',
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1', color: '#F5A524'}}>
+                        Nu vei primi puncte de progres dacă arăți răspunsul corect.
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
+                </div>),
             target: () => cheatRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -251,20 +282,18 @@ export function ComparareForme() {
             }
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Verificaţi răspunsul introdus
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'spaceBetween',
-                        alignItems: 'center'
-                    }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
-                    </div>
+                    Verifică
                 </div>
             ),
+            description: (<div style={{display: 'flex'}}>
+                <div style={{flex: '1'}}>
+                    După ce introduci răspunsul, apasă pe butonul de verificare pentru a vedea cum te-ai descurcat!
+                    Dacă ai greșit, nu te descuraja, poți să mai încerci odată!
+                </div>
+                <Divider type={"vertical"} style={{height: '100px'}}/>
+                <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                     src={avatar.getStick()} alt='Llama ajutatoare'/>
+            </div>),
             target: () => ansRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -295,11 +324,11 @@ export function ComparareForme() {
                     }}>
                         <div>
                             <div style={{height: `${SVG_HEIGHT}px`, display: 'flex'}}>
-                                <svg width={SVG_WIDTH} height={SVG_HEIGHT}>
+                                <svg width={SVG_WIDTH} height={SVG_HEIGHT} ref={shape1Ref}>
                                     {renderShapes(0)}
                                 </svg>
                                 <Divider type="vertical" style={{height: '100%', color: "#000"}}/>
-                                <svg width={SVG_WIDTH} height={SVG_HEIGHT}>
+                                <svg width={SVG_WIDTH} height={SVG_HEIGHT} ref={shape2Ref}>
                                     {renderShapes(1)}
                                 </svg>
                             </div>

@@ -265,9 +265,8 @@ export class SettingsManager {
     }
 
     stergere() {
-        writeFileSync(join(homedir(), 'lima', 'settings.json'), JSON.stringify(new Settings()), {
-            encoding: 'utf-8', flag: 'w'
-        });
+        this.create();
+        this.write();
     }
 
     constructor() {

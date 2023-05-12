@@ -6,6 +6,8 @@ import {Button, PressEvent, Spacer} from "@nextui-org/react";
 import {Operator} from "@/types/ExpressionTree";
 import {Box, Flex, MultiSelect, SelectItemProps, Tooltip} from '@mantine/core';
 import {AiOutlineMinus, AiOutlinePlus, AiOutlineSetting, CiCircleInfo, RiDivideFill, TiTimes} from "react-icons/all";
+import {ExpressionDifficulty} from "@/services/DifficultyManager";
+import {FractionDifficulty} from "@/services/DifficultyManager";
 
 export const FractiiSettings = () => {
     const context = useDifficultyContext();
@@ -16,6 +18,7 @@ export const FractiiSettings = () => {
     const [saveColor, setSaveColor] =
         useState<"primary" | "secondary" | "error" | "success">('primary');
     const [messageApi, contextHolder] = message.useMessage();
+    const [changes, setChanges] = useState<boolean>(false);
 
     const messageSuccess = () => messageApi.success('Setările au fost salvate', 1);
     const messageLoading = () => messageApi.loading('Verificare', .5);
@@ -29,6 +32,7 @@ export const FractiiSettings = () => {
         setLowLimit(frac_difficulty.lowLimit);
         setHighLimit(frac_difficulty.maxLimit);
         setAllowWholes(frac_difficulty.allowWholes);
+        setChanges(false);
     }, []);
 
     const handleRangeChange = ([low_l, high_l]: [number, number]) => {
@@ -40,28 +44,67 @@ export const FractiiSettings = () => {
         setAllowWholes(value);
     }
 
-    const onSave = (e: PressEvent) => {
-        messageLoading().then(() => messageSuccess());
-
-        frac_difficulty.lowLimit = lowLimit ?? 0;
-        frac_difficulty.maxLimit = highLimit ?? 0;
-        frac_difficulty.allowWholes = allowWholes;
-
-        let dif_copy = context.value;
-        dif_copy.fractii = frac_difficulty;
-
-        context.setValue(dif_copy);
-        context.value.write();
-
+    const onSave = () => {
         setSaveColor('success');
         setTimeout(() => {
             setSaveColor('primary');
         }, 500);
+        messageLoading().then(() => {
+            messageSuccess();
+            frac_difficulty.lowLimit = lowLimit ?? 0;
+            frac_difficulty.maxLimit = highLimit ?? 0;
+            frac_difficulty.allowWholes = allowWholes;
+
+            let dif_copy = context.value;
+            dif_copy.fractii = frac_difficulty;
+
+            context.setValue(dif_copy);
+            context.value.write();
+
+            setChanges(false);
+        });
     };
+
+
+    const areThereChanges = (): boolean => {
+        return lowLimit !== frac_difficulty.lowLimit || highLimit !== frac_difficulty.maxLimit
+            || allowWholes !== frac_difficulty.allowWholes;
+    }
+
+    useEffect(() => {
+        setChanges(areThereChanges());
+    }, [areThereChanges, context.value]);
+
 
     return (
         <div className="settings-panel-content">
             <Spacer y={1}/>
+            <div style={{display: 'flex'}}>
+                <div style={{flex: 1}}/>
+                <Button size="sm"
+                        bordered
+                        style={{
+                            fontFamily: 'DM Sans', background: 'rgba(0,0,0,0)',
+                            borderRadius: '6px', color: '#f5212d', borderColor: '#f5212d'
+                        }}
+                        onPress={() => {
+                            let new_dif = new FractionDifficulty();
+
+                            setLowLimit(new_dif.lowLimit);
+                            setHighLimit(new_dif.maxLimit);
+                            setAllowWholes(new_dif.allowWholes);
+                        }} color="error">
+                    Resetați valorile
+                </Button>
+                <Spacer x={1}/>
+                <Button size="sm" style={{fontFamily: 'DM Sans', borderRadius: '6px'}} disabled={!changes}
+                        onClick={() => onSave()} color={saveColor}
+                >
+                    Salvați
+                </Button>
+
+            </div>
+            <div style={{flex: 1}}/>
             <div className="range">
                 {contextHolder}
                 <h4>Configurare interval numeric</h4>
@@ -86,8 +129,6 @@ export const FractiiSettings = () => {
 
             <div style={{flex: 1}}/>
 
-            <Button className="settings-save-button" onPress={onSave} color={saveColor} style={{fontFamily: "DM Sans"}}
-            >Salvează</Button>
         </div>
     );
 };

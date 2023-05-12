@@ -1,11 +1,11 @@
 import './Layout.scss';
 import {Outlet} from 'react-router-dom';
 import Header from "../components/Header";
-import {Button, Modal} from "@nextui-org/react";
+import {Modal} from "@nextui-org/react";
 import {ArrowRight, Candle2, MessageQuestion, ArrowLeft, Setting} from "iconsax-react";
 // @ts-ignore
 import {motion} from 'framer-motion';
-import {Divider, Menu, MenuProps, Tour, TourProps} from "antd";
+import {Divider, Menu, MenuProps, Tour, TourProps, Button, Modal as AModal} from "antd";
 import {useState, useRef, ReactNode, Key, SetStateAction, Dispatch, useEffect} from "react";
 import {
     BiMath, BsBook, GoListOrdered, HiOutlineInformationCircle,
@@ -30,7 +30,10 @@ import {LitereSettings} from "@/pages/settings/LitereSettings";
 import {AboutSettings} from "@/pages/settings/AboutSettings";
 import {NotFoundSettings} from "@/pages/settings/NotFoundSettings";
 import {PreferencesSettings} from "@/pages/settings/PreferencesSettings";
-import {useSettingsContext} from "@/services/context";
+import {useDifficultyContext, useProgressContext, useSettingsContext} from "@/services/context";
+import {DifficultyManager} from "@/services/DifficultyManager";
+import {ProgressManager} from "@/services/ProgressManager";
+import {SettingsManager} from "@/services/SettingsManager";
 
 export function PageLayout() {
     const [showTour, setShowTour] = useState(false);
@@ -57,8 +60,8 @@ export function PageLayout() {
             ),
             description: (<div style={{display: 'flex'}}>
                 <div>
-                    În stânga puteţi găsi o detaliere clară a unde vă aflaţi în aplicaţie <br/>
-                    În dreapta puteţi observa progresul făcut relativ cu ecranul în care vă aflaţi
+                    În stânga puteţi găsi o detaliere clară a meniului în care vă aflaţi.
+                    În dreapta puteţi observa progresul făcut relativ cu ecranul în care vă aflaţi.
                 </div>
                 <Divider type={"vertical"} style={{height: '100px'}}/>
                 <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
@@ -150,7 +153,9 @@ export function PageLayout() {
 
         const [selectedKey, selectKey] = useState<string | null>(null);
 
-        useEffect(() => selectKey('about'), []);
+        useEffect(() => {
+            selectKey('about')
+        }, []);
 
         const onClick: MenuProps['onClick'] = (e) => {
             selectKey(e.key);
@@ -172,17 +177,48 @@ export function PageLayout() {
                     return <OrdineSettings/>
                 case "preferences":
                     return <PreferencesSettings/>
-                // case "culori": return <CuloriSettings />
-                // case "forme": return <FormeSettings />
-                // case "comparare_figuri": return <CompFiguriSettings />
-                // case "vocale": return <VocaleSettings />
-                // case "litere": return <LitereSettings />
                 default:
                     return <NotFoundSettings/>
             }
 
             return <div></div>
 
+        }
+
+        const [totalModal, setTotalModal]
+            = useState<boolean>(false);
+        const [progressModal, setProgressModal]
+            = useState<boolean>(false);
+        const [preferencesModal, setPreferencesModal]
+            = useState<boolean>(false);
+
+        const difficulty = useDifficultyContext();
+        const progress = useProgressContext();
+        const preferences = useSettingsContext();
+
+        useEffect(() => {
+            setTotalModal(false);
+            setProgressModal(false);
+            setPreferencesModal(false);
+        }, []);
+
+        const totalReset = () => {
+            difficulty.value.stergere();
+            progress.value.stergere();
+            preferences.value.stergere();
+            difficulty.setValue(new DifficultyManager());
+            progress.setValue(new ProgressManager());
+            preferences.setValue(new SettingsManager());
+        }
+
+        const progressReset = () => {
+            progress.value.stergere();
+            progress.setValue(new ProgressManager());
+        }
+
+        const preferencesReset = () => {
+            settings.value.stergere();
+            settings.setValue(new SettingsManager());
         }
 
         return <div className="settings-modal"><Modal
@@ -195,22 +231,97 @@ export function PageLayout() {
             onClose={() => setVisible(false)}
             style={{height: '85vh'}}
         >
+            <AModal
+                style={{zIndex: '99999'}}
+                centered
+                title={<span style={{fontFamily: 'DM Sans', fontSize: '1.2rem'}}>Resetare Totală</span>}
+                open={totalModal} onCancel={() => setTotalModal(false)}
+                onOk={() => totalReset()}
+                okText={<span style={{fontFamily: "DM Sans"}}>DA</span>}
+                cancelText={<span style={{fontFamily: "DM Sans"}}>Anulează</span>}
+                cancelButtonProps={{}}
+                okButtonProps={{
+                    danger: true,
+                }}
+            >
+                <span style={{
+                    fontFamily: 'DM Sans',
+                    fontSize: '1.1rem'
+                }}>
+                Ești sigur că vrei sa resetezi tot? Asta include:
+                </span>
+                <ul style={{fontFamily: 'DM Sans'}}>
+                    <li>&bull; progresul</li>
+                    <li>&bull; preferințele</li>
+                    <li>&bull; dificultățile</li>
+                </ul>
+            </AModal>
+            <AModal
+                style={{zIndex: '99999'}}
+                centered
+                title={<span style={{fontFamily: 'DM Sans', fontSize: '1.2rem'}}>Resetare Progres</span>}
+                open={progressModal} onCancel={() => setProgressModal(false)}
+                onOk={() => progressReset()}
+                okText={<span style={{fontFamily: "DM Sans"}}>DA</span>}
+                cancelText={<span style={{fontFamily: "DM Sans"}}>Anulează</span>}
+                okButtonProps={{danger: true}}
+            >
+                <span style={{
+                    fontFamily: 'DM Sans',
+                    fontSize: '1.025rem'
+                }}>
+                    Ești sigur că vrei sa resetezi progresul?
+                </span>
+            </AModal>
+            <AModal
+                style={{zIndex: '99999'}}
+                centered
+                title={<span style={{fontFamily: 'DM Sans', fontSize: '1.2rem'}}>Resetare Preferințe</span>}
+                open={preferencesModal} onCancel={() => setPreferencesModal(false)}
+                onOk={() => preferencesReset()}
+                okText={<span style={{fontFamily: "DM Sans"}}>DA</span>}
+                cancelText={<span style={{fontFamily: "DM Sans"}}>Anulează</span>}
+                okButtonProps={{danger: true}}
+            >
+                <span style={{
+                    fontFamily: 'DM Sans',
+                    fontSize: '1.025rem'
+                }}>
+                    Ești sigur că vrei să resetezi preferințele?
+                </span>
+            </AModal>
             <Modal.Header style={{borderBottom: '1px solid #eee'}}>
                 <h1 style={{fontFamily: "DM Sans", fontSize: '2rem', textAlign: 'start'}}>Setări</h1>
             </Modal.Header>
             <Modal.Body css={{p: 0, display: 'flex', flexDirection: 'row'}} style={{paddingLeft: 0}}>
                 <div className="side-menu-wrapper">
                     <Menu defaultSelectedKeys={["about"]} onClick={onClick}
-                          style={{width: 300, fontFamily: "DM Sans", height: '100%'}} mode="inline" items={items}/>
+                          style={{width: 300, fontFamily: "DM Sans", flex: '1'}} mode="inline" items={items}/>
                 </div>
                 <div className="settings-content modern-scroll" style={{overflow: 'auto'}}>
                     <SettingsContent/>
                 </div>
             </Modal.Body>
-            <Modal.Footer style={{borderTop: '1px solid #eee'}}>
+            <Modal.Footer style={{borderTop: '1px solid #eee', display: 'flex'}}>
+                <Button danger type="primary" onClick={() => setTotalModal(true)}
+                        style={{
+                            fontFamily: 'DM Sans',
+                            marginLeft: '5px', marginRight: '5px'
+                        }}>Resetare Totală</Button>
+                <Button danger onClick={() => setProgressModal(true)}
+                        style={{
+                            fontFamily: 'DM Sans',
+                            marginLeft: '5px', marginRight: '5px'
+                        }}>Resetare Progres</Button>
+                <Button danger onClick={() => setPreferencesModal(true)}
+                        style={{
+                            fontFamily: 'DM Sans',
+                            marginLeft: '5px', marginRight: '5px'
+                        }}>Resetare Preferințe</Button>
+                <div style={{flex: '1'}}/>
                 <span style={{fontFamily: 'DM Sans'}}>
                     {VERSION_NUMBER}, developed by <a target="_blank"
-                                                      href="https://github.com/wowvain-dev"><i>wowvain-dev</i></a>, &copy; MIT License
+                                                      href="https://github.com/wowvain-dev"><i>wowvain-dev</i></a>, designed by ismokepie, &copy; MIT License
                 </span>
             </Modal.Footer>
         </Modal></div>
@@ -238,32 +349,38 @@ export function PageLayout() {
                 }}>
                 {/* SETTINGS BUTTON */}
                 <Button ref={settingsRef}
-                        onPress={() => setShowSettings(true)}
-                        auto size='xs' shadow color="primary" css={{
-                    background: '$normalWhite'
-                }}
-                        style={{width: '40px', height: '40px'}}
+                        onClick={() => setShowSettings(true)}
+                        color="primary"
+                        style={{
+                            width: '40px', height: '40px',
+                            padding: 0,
+                            display: 'flex', justifyContent: 'center', alignItems: 'center'
+                        }}
                 >
                     <Candle2 size="25" color="#2a2b2a"/>
                 </Button>
             </motion.div>
-            <div style={{
-                position: 'absolute',
-                right: '15px',
-                bottom: '15px'
-            }}>
+            <motion.div
+                whileHover={{
+                    scale: 1.1
+                }}
+                style={{
+                    position: 'absolute',
+                    right: '15px',
+                    bottom: '15px'
+                }}>
                 {/* HELP BUTTON */}
                 <Button
                     color="primary"
-                    // ghost
-                    onPress={() => setShowTour(true)}
-                    auto size='xs' shadow css={{
-                    background: '$normalWhite'
-                }}
-                    style={{width: '40px', height: '40px'}}>
+                    onClick={() => setShowTour(true)}
+                    style={{
+                        width: '40px', height: '40px',
+                        padding: 0,
+                        display: 'flex', justifyContent: 'center', alignItems: 'center'
+                    }}>
                     <MessageQuestion size="25" color="#2a2b2a"/>
                 </Button>
-            </div>
+            </motion.div>
             {/* <Footer /> */}
         </div>
     );

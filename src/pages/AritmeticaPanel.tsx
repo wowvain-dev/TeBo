@@ -85,7 +85,7 @@ export function AritmeticaPanel() {
                                 <Grid sm={6} justify='center'>
                                     <ProgressExerciseCard level={3}
                                                           to='/aritmetica/comparatii'
-                                                          exercise="Comparatii"
+                                                          exercise="Comparații"
                                                           current={progress.value.level1.matematica.parts
                                                               .get('aritmetica')?.parts.get('comparatii')?.current as number}
                                                           total={progress.value.level1.matematica.parts

@@ -124,6 +124,9 @@ function App() {
     ]);
 
     useEffect(() => {
+        let settings = new SettingsManager();
+        settings.settings.background = backgrounds[0];
+        setSettingsValue(settings);
     }, []);
 
     return (

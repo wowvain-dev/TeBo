@@ -213,7 +213,7 @@ export function Ordine() {
             }
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Afisaţi răspunsul corect al exerciţiului
+                    Afișaţi răspunsul corect al exerciţiului
                     <div style={{
                         display: 'flex',
                         flexDirection: 'row',
@@ -226,7 +226,7 @@ export function Ordine() {
             description: (
                 <div style={{display: 'flex'}}>
                     <div style={{flex: '1', color: '#F5A524'}}>
-                        Nu vei primi puncte de progres dacă arăți răspunsul corect.
+                        Nu vei primi puncte de progres dacă vizualizezi răspunsul corect.
                     </div>
                     <Divider type={"vertical"} style={{height: '100px'}}/>
                     <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}

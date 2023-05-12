@@ -18,7 +18,8 @@
     "src/assets/embed-icons",
     "src/assets/fonts",
     "src/assets/icons",
-    "src/assets/translations"
+    "src/assets/translations",
+    "src/assets/llama"
   ],
   "extraResources": [
     "src/assets",

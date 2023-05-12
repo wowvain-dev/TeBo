@@ -44,6 +44,13 @@
 
   &-preferences
     //.change-bg
+    .bg-grid
+      grid-template-columns: repeat(3, minMax(0, 1fr))
+
+    @media (max-width: 1290px)
+      .bg-grid
+        grid-template-columns: repeat(2, minMax(0, 1fr))
+
     p
       font-family: DM Sans, sans-serif
 

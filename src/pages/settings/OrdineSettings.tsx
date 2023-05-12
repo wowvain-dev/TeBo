@@ -6,7 +6,7 @@ import {Button, PressEvent, Spacer} from "@nextui-org/react";
 import {Operator} from "@/types/ExpressionTree";
 import {Box, Flex, MultiSelect, SelectItemProps} from '@mantine/core';
 import {AiOutlineMinus, AiOutlinePlus, AiOutlineSetting, RiDivideFill, TiTimes} from "react-icons/all";
-import {Order} from "@/services/DifficultyManager";
+import {ExpressionDifficulty, Order, OrderDifficulty} from "@/services/DifficultyManager";
 
 export const OrdineSettings = () => {
     const context = useDifficultyContext();
@@ -19,6 +19,7 @@ export const OrdineSettings = () => {
         useState<Order[] | null>([]);
     const [messageApi, contextHolder] = message.useMessage();
     const [length, setLength] = useState<number | null>(0);
+    const [changes, setChanges] = useState<boolean>(false);
 
     const orderOptions = [{
         label: 'Crescătoare',
@@ -43,6 +44,7 @@ export const OrdineSettings = () => {
         setHighLimit(orderDifficulty.maxLimit);
         setAllowedOrders(orderDifficulty.allowedOrders);
         setLength(orderDifficulty.length - 1);
+        setChanges(false);
     }, []);
 
     const handleRangeChange = ([low_l, high_l]: [number, number]) => {
@@ -59,7 +61,7 @@ export const OrdineSettings = () => {
         setLength(value);
         console.log(value);
     }
-    const onSave = (e: PressEvent) => {
+    const onSave = () => {
         if (allowedOrders === null || allowedOrders?.length === 0) {
             messageLoading().then(() =>
                 messageApi.error("Alegeti cel puțin o ordine permisă", 1.5)
@@ -73,39 +75,70 @@ export const OrdineSettings = () => {
             setSaveColor("error");
             setTimeout(() => setSaveColor("primary"), 500);
         } else {
-            messageLoading().then(() => messageSuccess());
             setSaveColor('success');
             setTimeout(() => {
                 setSaveColor('primary');
             }, 500);
+            messageLoading().then(() => {
+                messageSuccess();
+                orderDifficulty.lowLimit = lowLimit ?? 0;
+                orderDifficulty.maxLimit = highLimit ?? 0;
+                orderDifficulty.length = (length ?? 0) + 1;
+                orderDifficulty.allowedOrders = allowedOrders ?? [];
 
-            orderDifficulty.lowLimit = lowLimit ?? 0;
-            orderDifficulty.maxLimit = highLimit ?? 0;
-            orderDifficulty.length = (length ?? 0) + 1;
-            orderDifficulty.allowedOrders = allowedOrders ?? [];
 
+                let dif_copy = context.value;
+                dif_copy.ordine = orderDifficulty;
 
-            let dif_copy = context.value;
-            dif_copy.ordine = orderDifficulty;
+                context.setValue(dif_copy);
+                context.value.write();
 
-            context.setValue(dif_copy);
-            context.value.write();
-
-            setSaveColor('success');
-            setTimeout(() => {
-                setSaveColor('primary');
-            }, 500);
+                setChanges(false);
+            });
         }
     }
 
-    // const breadcrumbs: BreadcrumbProps[''] = [
-    //
-    // ];
+    const areThereChanges = (): boolean => {
+        if (!lowLimit || !highLimit || !length || !allowedOrders) return false;
+        return (lowLimit !== orderDifficulty.lowLimit) || (highLimit !== orderDifficulty.maxLimit) ||
+            allowedOrders !== orderDifficulty.allowedOrders || (length + 1) !== orderDifficulty.length;
+    }
+
+    useEffect(() => {
+        setChanges(areThereChanges())
+    }, [areThereChanges, context.value]);
 
     // @ts-ignore
     return (
         <div className="settings-panel-content">
             <Spacer y={1}/>
+            <div style={{display: 'flex'}}>
+                <div style={{flex: 1}}/>
+                <Button size="sm"
+                        bordered
+                        style={{
+                            fontFamily: 'DM Sans', background: 'rgba(0,0,0,0)',
+                            borderRadius: '6px', color: '#f5212d', borderColor: '#f5212d'
+                        }}
+                        onPress={() => {
+                            let new_dif = new OrderDifficulty();
+
+                            setLowLimit(new_dif.lowLimit);
+                            setHighLimit(new_dif.maxLimit);
+                            setLength(new_dif.length - 1);
+                            setAllowedOrders(new_dif.allowedOrders);
+                        }} color="error"
+                >
+                    Resetați valorile
+                </Button>
+                <Spacer x={1}/>
+                <Button size="sm" style={{fontFamily: 'DM Sans', borderRadius: '6px'}} disabled={!changes}
+                        onClick={() => onSave()} color={saveColor}
+                >
+                    Salvați
+                </Button>
+            </div>
+            <div style={{flex: 1}}/>
             <div className="range">
                 {contextHolder}
                 <h4>Configurare interval numeric</h4>
@@ -143,9 +176,6 @@ export const OrdineSettings = () => {
             </div>
 
             <div style={{flex: 1}}/>
-
-            <Button className="settings-save-button" onPress={onSave} color={saveColor} style={{fontFamily: "DM Sans"}}
-            >Salvează</Button>
         </div>
     );
 };

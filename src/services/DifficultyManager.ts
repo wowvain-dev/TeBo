@@ -25,7 +25,7 @@ export class ExpressionDifficulty extends Difficulty {
     allowedOperators: Array<Operator> = [Operator.minus, Operator.plus];
 }
 
-class FractionDifficulty extends Difficulty {
+export class FractionDifficulty extends Difficulty {
     lowLimit: number = 2;
     maxLimit: number = 10;
     allowWholes: boolean = false;
@@ -100,9 +100,8 @@ export class DifficultyManager {
     }
 
     stergere() {
-        writeFileSync(join(homedir(), 'lima', 'difficulty.json'), JSON.stringify(new DifficultyManager()), {
-            encoding: 'utf-8', flag: 'w'
-        });
+        this.create();
+        this.write();
     }
 
     constructor() {

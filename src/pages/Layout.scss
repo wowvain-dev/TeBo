@@ -42,9 +42,19 @@
 
 }
 
+.ant-modal-mask {
+  z-index: 99999 !important;
+}
+
+.ant-modal-wrap {
+  z-index: 99999 !important;
+}
+
 .side-menu-wrapper {
   overflow: auto;
   min-width: 300px;
+  display: flex;
+  flex-direction: column;
 
   &::-webkit-scrollbar-track {
     border: 1px solid #aaa;

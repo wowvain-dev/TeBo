@@ -157,7 +157,7 @@ export function Culori() {
             }
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Afisaţi răspunsul corect al exerciţiului
+                    Afișaţi răspunsul corect al exerciţiului
                     <div style={{
                         display: 'flex',
                         flexDirection: 'row',

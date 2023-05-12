@@ -4,8 +4,8 @@ import AnimatedPage from '../../../../components/AnimatedPage';
 import {Button, Card, Input, NormalColors, Spacer, Modal, Tooltip} from '@nextui-org/react';
 import {ArrowLeft, ArrowRight, ArrowRight2, AudioSquare, Car, CloseCircle, Warning2} from "iconsax-react";
 import {useNavigate} from 'react-router-dom';
-import {useEffect, useRef, useState} from "react";
-import {useProgressContext, useDifficultyContext, useStorageContext} from '@/services/context';
+import React, {useEffect, useRef, useState} from "react";
+import {useProgressContext, useDifficultyContext, useStorageContext, useSettingsContext} from '@/services/context';
 import {ExerciseProgress, ProgressManager} from '@/services/ProgressManager';
 import {Divider, notification, Tour, TourProps} from "antd";
 import {TryAgainModal} from "@/components/TryAgainModal";
@@ -52,23 +52,23 @@ export function Litere() {
         setHasCheated(false);
     }, []);
 
+    const settings = useSettingsContext();
+    const avatar = settings.value.settings.avatar;
+
     const tourSteps: TourProps['steps'] = [
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Apăsaţi pe buton pentru a asculta litera
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'spaceBetween',
-                        alignItems: 'center'
-                    }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
-                    </div>
+                    Ascultați pronunția literei
                 </div>
             ),
+            description: (<div style={{display: 'flex'}}>
+                <div style={{flex: '1'}}>
+                    Apăsați pe acest buton pentru a asculta pronunția literei.
+                </div>
+                <Divider type={"vertical"} style={{height: '100px'}}/>
+                <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                     src={avatar.getStick()} alt='Llama ajutatoare'/>
+            </div>),
             target: () => audioRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -77,20 +77,17 @@ export function Litere() {
         },
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Introduceţi litera pe care aţi auzit-o în mesajul audio
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'spaceBetween',
-                        alignItems: 'center'
-                    }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
-                    </div>
+                    Introduceți răspunsul
                 </div>
             ),
+            description: (<div style={{display: 'flex'}}>
+                <div style={{flex: '1'}}>
+                    Scrieți în câmpul de text litera auzită
+                </div>
+                <Divider type={"vertical"} style={{height: '100px'}}/>
+                <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                     src={avatar.getStick()} alt='Llama ajutatoare'/>
+            </div>),
             target: () => inputRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -108,14 +105,18 @@ export function Litere() {
                         justifyContent: 'spaceBetween',
                         alignItems: 'center'
                     }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
-            description: 'Nu veţi primi puncte de progres dacă treceţi peste exerciţiu',
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1', color: '#F5A524'}}>
+                        Nu vei primi puncte de progres pentru acest exercțiu
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
+                </div>),
             target: () => skipRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -132,14 +133,18 @@ export function Litere() {
                         justifyContent: 'spaceBetween',
                         alignItems: 'center'
                     }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
                     </div>
                 </div>
             ),
-            description: 'Nu veţi primi puncte de progres dacă afisaţi răspunsul corect',
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1', color: '#F5A524'}}>
+                        Nu vei primi puncte de progres dacă arăți răspunsul corect.
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
+                </div>),
             target: () => cheatRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -149,20 +154,18 @@ export function Litere() {
             }
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Verificaţi răspunsul introdus
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'spaceBetween',
-                        alignItems: 'center'
-                    }}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32}/>}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama}
-                             alt='Llama ajutatoare'/>
-                    </div>
+                    Verifică
                 </div>
             ),
+            description: (<div style={{display: 'flex'}}>
+                <div style={{flex: '1'}}>
+                    După ce introduci răspunsul, apasă pe butonul de verificare pentru a vedea cum te-ai descurcat!
+                    Dacă ai greșit, nu te descuraja, poți să mai încerci odată!
+                </div>
+                <Divider type={"vertical"} style={{height: '100px'}}/>
+                <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                     src={avatar.getStick()} alt='Llama ajutatoare'/>
+            </div>),
             target: () => ansRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -171,6 +174,7 @@ export function Litere() {
                 children: <ArrowLeft size={25}/>
             }
         }
+
     ];
 
     const MainContent = () => {

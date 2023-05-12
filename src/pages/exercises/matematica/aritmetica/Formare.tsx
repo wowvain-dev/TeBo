@@ -144,7 +144,7 @@ export function Formare() {
             }
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Afisaţi răspunsul corect al exerciţiului
+                    Afișaţi răspunsul corect al exerciţiului
                     <div style={{
                         display: 'flex',
                         flexDirection: 'row',
@@ -264,7 +264,7 @@ export function Formare() {
                                                     plusCallback={() => setZ(z! + 1 >= 9 ? 9 : z! + 1)}
                                                     minusCallback={() => setZ(z! - 1 <= 0 ? 0 : z! - 1)}/>)}
                                             {(answer?.type ?? 0) >= 1 && <Spacer x={1}/>}
-                                            {(answer?.type ?? 0) >= 1 && (
+                                            {(answer?.type ?? 0) >= 0 && (
                                                 <NumberLine
                                                     label="U"
                                                     value={u}
@@ -323,7 +323,7 @@ export function Formare() {
                                                     plusCallback={() => setZ(z! + 1 >= 9 ? 9 : z! + 1)}
                                                     minusCallback={() => setZ(z! - 1 <= 0 ? 0 : z! - 1)}/>)}
                                             {(answer?.type ?? 0) >= 1 && <Spacer x={1}/>}
-                                            {(answer?.type ?? 0) >= 1 && (
+                                            {(answer?.type ?? 0) >= 0 && (
                                                 <NumberLine
                                                     label="U"
                                                     value={u}

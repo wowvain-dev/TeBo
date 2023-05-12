@@ -7,6 +7,7 @@ import {Operator} from "@/types/ExpressionTree";
 import {Box, Flex, MultiSelect, SelectItemProps} from '@mantine/core';
 import {AiOutlineMinus, AiOutlinePlus, AiOutlineSetting, RiDivideFill, TiTimes} from "react-icons/all";
 import {Warning2} from "iconsax-react";
+import {ExpressionDifficulty} from "@/services/DifficultyManager";
 
 export const ComparareSettings = () => {
     const context = useDifficultyContext();
@@ -19,6 +20,7 @@ export const ComparareSettings = () => {
         useState<Operator[] | null>([]);
     const [messageApi, contextHolder] = message.useMessage();
     const [indentLevel, setIndentLevel] = useState<number | null>(0);
+    const [changes, setChanges] = useState<boolean>(false);
 
     const opOptions = [{
         label: 'Adunare',
@@ -49,6 +51,7 @@ export const ComparareSettings = () => {
         setHighLimit(op_difficulty.maxLimit);
         setAllowedOp(op_difficulty.allowedOperators);
         setIndentLevel(op_difficulty.depth - 1);
+        setChanges(false);
     }, []);
 
     const handleRangeChange = ([low_l, high_l]: [number, number]) => {
@@ -77,7 +80,8 @@ export const ComparareSettings = () => {
         setIndentLevel(value);
         console.log(value);
     }
-    const onSave = (e: PressEvent) => {
+
+    const onSave = () => {
         if (allowedOp === null || allowedOp?.length === 0) {
             messageLoading().then(() =>
                 messageApi.error("Alegeți cel puțin o operație permisă", 1.5)
@@ -85,39 +89,73 @@ export const ComparareSettings = () => {
             setSaveColor("error");
             setTimeout(() => setSaveColor("primary"), 500);
         } else {
-            messageLoading().then(() => messageSuccess());
             setSaveColor("success");
             setTimeout(() => setSaveColor("primary"), 500);
+            messageLoading().then(() => {
+                messageSuccess();
+                op_difficulty.lowLimit = lowLimit ?? 0;
+                op_difficulty.maxLimit = highLimit ?? 0;
+                op_difficulty.depth = (indentLevel ?? 0) + 1;
+                op_difficulty.allowedOperators = allowedOp ?? [];
 
-            op_difficulty.lowLimit = lowLimit ?? 0;
-            op_difficulty.maxLimit = highLimit ?? 0;
-            op_difficulty.depth = (indentLevel ?? 0) + 1;
-            op_difficulty.allowedOperators = allowedOp ?? [];
+                let dif_copy = context.value;
+                dif_copy.operatii = op_difficulty;
 
-            let dif_copy = context.value;
-            dif_copy.operatii = op_difficulty;
+                context.setValue(dif_copy);
+                context.value.write();
 
-            context.setValue(dif_copy);
-            context.value.write();
-
-            console.log(`Current indentLevel is ${context.value.operatii.depth}`);
+                setChanges(false);
+            });
         }
-
     }
 
-    // const breadcrumbs: BreadcrumbProps[''] = [
-    //
-    // ];
+    const areThereChanges = (): boolean => {
+        if (!lowLimit || !highLimit || !indentLevel || !allowedOp) return false;
+        return (lowLimit !== op_difficulty.lowLimit) || (highLimit !== op_difficulty.maxLimit)
+            || (allowedOp !== op_difficulty.allowedOperators) || (indentLevel + 1 !== op_difficulty.depth)
+    };
+
+    useEffect(() => {
+        setChanges(areThereChanges());
+    }, [areThereChanges, context.value]);
 
     return (
         <div className="settings-panel-content">
+            <Spacer y={1}/>
+            <div style={{display: 'flex'}}>
+                <div style={{flex: 1}}/>
+                <Button size="sm"
+                        bordered
+                        style={{
+                            fontFamily: 'DM Sans', background: 'rgba(0,0,0,0)',
+                            borderRadius: '6px', color: '#f5212d', borderColor: '#f5212d'
+                        }}
+                        onPress={() => {
+                            let new_dif = new ExpressionDifficulty();
+
+                            setLowLimit(new_dif.lowLimit);
+                            setHighLimit(new_dif.maxLimit);
+                            setIndentLevel(new_dif.depth - 1);
+                            setAllowedOp(new_dif.allowedOperators);
+                        }} color="error"
+                >
+                    Resetați valorile
+                </Button>
+                <Spacer x={1}/>
+                <Button size="sm" style={{fontFamily: 'DM Sans', borderRadius: '6px'}} disabled={!changes}
+                        onClick={() => onSave()} color={saveColor}
+                >
+                    Salvați
+                </Button>
+            </div>
+            <div style={{flex: 1}}/>
             <div style={{
                 display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
                 color: '#f5a524'
             }}>
                 <Warning2/>
                 <Spacer x={.5}/>
-                <span style={{color: "$warning", fontFamily: "DM Sans", letterSpacing: ".2px", fontSize: '19px'}}>
+                <span style={{color: "$warning", fontFamily: "DM Sans", letterSpacing: ".2px", fontSize: '15px'}}>
 				Aceste setări sunt comune cu cele de la exercițiul <b style={{fontWeight: 600}}>Operații</b>
 			</span>
             </div>
@@ -177,10 +215,6 @@ export const ComparareSettings = () => {
             </div>
 
             <div style={{flex: 1}}/>
-
-            <Button className="settings-save-button" onPress={onSave} color={saveColor}
-                    style={{fontFamily: "DM Sans"}}
-            >Salvează</Button>
         </div>
     );
 };

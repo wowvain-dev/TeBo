@@ -125,7 +125,7 @@ export const AboutSettings = () => {
                     <span>Pentru contact, vă rog să îmi dați mesaj pe discord: </span>
                     <Spacer x={1}/>
                     <TechBadge href="https://github.com/wowvain-dev/lima-electron"
-                               avatar={<IconBrandDiscord color="#5865f2"/>} label={"!wovain#3859"}
+                               avatar={<IconBrandDiscord color="#5865f2"/>} label={"!wowvain#3859"}
                                right={true} left={true}
                                radiusBottomRight="14px" radiusBottomLeft="14px"
                                radiusTopRight="14px" radiusTopLeft="14px"
