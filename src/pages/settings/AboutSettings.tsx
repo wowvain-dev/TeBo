@@ -65,8 +65,8 @@ export const AboutSettings = () => {
                     />
                     <span className="title">LiMa {VERSION_NUMBER}</span>
                     <span className="authors">by <Link target="_blank"
-                                                       to={"https://github.com/wowvain-dev"}>wowvain-dev</Link> & ismokepie</span>
-                    {/*<span className="version">{VERSION_NUMBER}</span>*/}
+                                                       to={"https://github.com/wowvain-dev"}>wowvain-dev</Link> & <Link
+                        target="_blank" to="https://www.behance.net/ismokepie">ismokepie</Link></span>
                 </div>
             </div>
             <div className="settings-about-content">

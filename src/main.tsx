@@ -8,7 +8,7 @@ import {BrowserRouter, HashRouter} from "react-router-dom";
 import {DevSupport} from "@react-buddy/ide-toolbox";
 import {ComponentPreviews, useInitial} from "@/dev";
 
-export const VERSION_NUMBER = 'v2.1.3';
+export const VERSION_NUMBER = 'v2.1.4';
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>

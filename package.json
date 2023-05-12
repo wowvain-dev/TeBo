@@ -1,6 +1,6 @@
 {
   "name": "lima-electron",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "productName": "LiMa",
   "main": "dist-electron/main/index.js",
   "description": "Culegere educațională pentru copii.",

@@ -198,9 +198,11 @@ function Header() {
                     fontFamily: 'DM Sans', fontSize: '30px', display: 'flex',
                     justifyContent: 'center', alignItems: 'center'
                 }}>
-                    <Image src={
-                        avatar.getHead()
-                    } height={50} width={50}/>
+                    <Image
+                        preview={false}
+                        src={
+                            avatar.getHead()
+                        } height={50} width={50}/>
                     {/*LiMa*/}
                 </div>
             </div>

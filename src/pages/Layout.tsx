@@ -321,7 +321,8 @@ export function PageLayout() {
                 <div style={{flex: '1'}}/>
                 <span style={{fontFamily: 'DM Sans'}}>
                     {VERSION_NUMBER}, developed by <a target="_blank"
-                                                      href="https://github.com/wowvain-dev"><i>wowvain-dev</i></a>, designed by ismokepie, &copy; MIT License
+                                                      href="https://github.com/wowvain-dev"><i>wowvain-dev</i></a>, designed by <a
+                    target="_blank" href="https://www.behance.net/ismokepie"><i>ismokepie</i></a>, &copy; MIT License
                 </span>
             </Modal.Footer>
         </Modal></div>
