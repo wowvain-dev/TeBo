@@ -1,7 +1,10 @@
-import { Operator } from '@/types/ExpressionTree';
+import {Operator} from '@/types/ExpressionTree';
+import {existsSync, mkdirSync, readFileSync, writeFileSync} from "fs";
+import {join} from "path";
+import {homedir} from "os";
 
 export enum Order {
-    ascending = 'crescător', 
+    ascending = 'crescător',
     descending = 'descrescător'
 }
 
@@ -12,16 +15,17 @@ export enum FormareType {
     MSZU
 }
 
-class Difficulty {}
+class Difficulty {
+}
 
 export class ExpressionDifficulty extends Difficulty {
-    lowLimit: number = 0;
+    lowLimit: number = 1;
     maxLimit: number = 10;
     depth: number = 2;
     allowedOperators: Array<Operator> = [Operator.minus, Operator.plus];
 }
 
-class FractionDifficulty extends Difficulty {
+export class FractionDifficulty extends Difficulty {
     lowLimit: number = 2;
     maxLimit: number = 10;
     allowWholes: boolean = false;
@@ -43,4 +47,64 @@ export class DifficultyManager {
     fractii: FractionDifficulty = new FractionDifficulty();
     ordine: OrderDifficulty = new OrderDifficulty();
     formare: FormareDifficulty = new FormareDifficulty();
+
+    create() {
+        this.operatii = new ExpressionDifficulty();
+        this.fractii = new FractionDifficulty();
+        this.ordine = new OrderDifficulty();
+        this.formare = new FormareDifficulty();
+
+        this.write();
+    }
+
+    write() {
+        writeFileSync(join(homedir(), 'lima', 'difficulty.json'), JSON.stringify(this), {
+            encoding: 'utf-8', flag: 'w'
+        });
+    }
+
+    initialize() {
+        let directoryPath = join(homedir(), 'lima');
+        let filePath = join(homedir(), 'lima', 'difficulty.json');
+
+        if (!existsSync(join(homedir(), 'lima'))) {
+            mkdirSync(join(homedir(), 'lima'));
+            writeFileSync(join(homedir(), 'lima', 'difficulty.json'), '', {flag: 'w'});
+            return;
+        }
+
+        if (!existsSync(join(homedir(), 'lima', 'difficulty.json'))) {
+            writeFileSync(join(homedir(), 'lima', 'difficulty.json'), '', {flag: 'w'});
+            return
+        }
+
+        if (readFileSync(join(homedir(), 'lima', 'difficulty.json'), {
+            encoding: 'utf-8', flag: 'r'
+        }).length === 0) {
+            this.create();
+            return;
+        }
+
+        console.log('Loading previous difficulties');
+
+        let settingsFile = readFileSync(join(homedir(), 'lima', 'difficulty.json'), {
+            encoding: 'utf-8', flag: 'r'
+        });
+
+        let settingsJson = JSON.parse(settingsFile);
+
+        this.operatii = settingsJson.operatii;
+        this.formare = settingsJson.formare;
+        this.fractii = settingsJson.fractii;
+        this.ordine = settingsJson.ordine;
+    }
+
+    stergere() {
+        this.create();
+        this.write();
+    }
+
+    constructor() {
+        this.initialize();
+    }
 }

@@ -1,10 +1,13 @@
-import { Letter } from "@/types/Letter";
+import {Letter} from "@/types/Letter";
 import litere from "@/assets/json/litere.json";
+import llamas from "@/assets/json/llama.json";
 
 export class Letters {
-    letters: Array<Letter> = new Array();
+    letters: Array<Letter> = [];
 
-    constructor() { this.initialize() }
+    constructor() {
+        this.initialize()
+    }
 
     initialize(): void {
         litere.letters.forEach((val) => {
@@ -19,6 +22,8 @@ export class Letters {
     }
 }
 
+export const llama = llamas;
+
 export class StorageManager {
-    letters: Letters = new Letters(); 
+    letters = new Letters();
 }

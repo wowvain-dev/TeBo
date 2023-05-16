@@ -1,15 +1,15 @@
 import './Fractii.sass';
-import { useDifficultyContext, useProgressContext } from '../../../../services/context';
-import { useNavigate } from 'react-router-dom';
+import {useDifficultyContext, useProgressContext, useSettingsContext} from '../../../../services/context';
+import {useNavigate} from 'react-router-dom';
 import React, {useEffect, useRef, useState} from "react";
 import AnimatedPage from '@/components/AnimatedPage';
-import { Button, Card, Input, Modal, NormalColors, Spacer, Tooltip } from '@nextui-org/react';
+import {Button, Card, Input, Modal, NormalColors, Spacer, Tooltip} from '@nextui-org/react';
 import {ArrowLeft, ArrowRight, Warning2} from "iconsax-react";
 import {Divider, Tour, TourProps} from "antd";
 import Fraction from 'fraction.js';
 import random from 'random';
-import { FractionCanvas } from '@/components/FractionCanvas';
-import { ProgressManager, ExerciseProgress } from '@/services/ProgressManager';
+import {FractionCanvas} from '@/components/FractionCanvas';
+import {ProgressManager, ExerciseProgress} from '@/services/ProgressManager';
 import {TryAgainModal} from "@/components/TryAgainModal";
 import {AiOutlineQuestion, HiOutlineSpeakerWave} from "react-icons/all";
 import stick_llama from "@/assets/stick-LLAMA-nerd-yellow.png";
@@ -46,7 +46,7 @@ export function Fractii() {
         let numarator = random.int(difficulty.value.fractii.lowLimit, difficulty.value.fractii.maxLimit);
         let numitor = random.int(1, difficulty.value.fractii.allowWholes ? (numarator * 2 - 1) : numarator);
         while (numitor === numarator) {
-          numitor = random.int(1, difficulty.value.fractii.allowWholes ? (numarator * 2 - 1) : numarator);
+            numitor = random.int(1, difficulty.value.fractii.allowWholes ? (numarator * 2 - 1) : numarator);
         }
         setFraction(
             {
@@ -62,31 +62,41 @@ export function Fractii() {
     let cheatRef = useRef(null);
     let ansRef = useRef(null);
 
+    const settings = useSettingsContext();
+    const avatar = settings.value.settings.avatar;
+
     const tourSteps: TourProps['steps'] = [
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Priviţi diagrama şi număraţi câte din numărul total de felii sunt colorate.
-                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
-                    </div>
+                    Priviţi diagrama din stânga
                 </div>
             ),
             target: () => diagramRef.current,
+            description: (<div style={{display: 'flex'}}>
+                <div style={{flex: '1'}}>
+                    Numărați câte felii sunt colorate (în toata diagrama) și câte felii sunt în total într-un cerc.
+                </div>
+                <Divider type={"vertical"} style={{height: '100px'}}/>
+                <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                     src={avatar.getStick()} alt='Llama ajutatoare'/>
+            </div>),
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
             },
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Completaţi câmpurile ca să obţineţi o fracţie ce reprezintă desenul anterior
-                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
-                    </div>
+                    Completați câmpurile
                 </div>
             ),
+            description: (<div style={{display: 'flex'}}>
+                <div style={{flex: '1'}}>
+                    Introduceți ca numărător numărul de felii colorate și la numitor numărul de felii dintr-un cerc (un
+                    întreg).
+                </div>
+                <Divider type={"vertical"} style={{height: '100px'}}/>
+                <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                     src={avatar.getStick()} alt='Llama ajutatoare'/>
+            </div>),
             target: () => fractionRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -98,14 +108,24 @@ export function Fractii() {
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
                     Treceţi peste acest exerciţiu
-                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'spaceBetween',
+                        alignItems: 'center'
+                    }}>
                     </div>
                 </div>
             ),
-            description: 'Nu veţi primi puncte de progres dacă treceţi peste exerciţiu',
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1', color: '#F5A524'}}>
+                        Nu vei primi puncte de progres pentru acest exercțiu
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
+                </div>),
             target: () => skipRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -115,15 +135,25 @@ export function Fractii() {
             }
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Afisaţi răspunsul corect al exerciţiului
-                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
+                    Afișaţi răspunsul corect al exerciţiului
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'spaceBetween',
+                        alignItems: 'center'
+                    }}>
                     </div>
                 </div>
             ),
-            description: 'Nu veţi primi puncte de progres dacă afisaţi răspunsul corect',
+            description: (
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: '1', color: '#F5A524'}}>
+                        Nu vei primi puncte de progres dacă arăți răspunsul corect.
+                    </div>
+                    <Divider type={"vertical"} style={{height: '100px'}}/>
+                    <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                         src={avatar.getStick()} alt='Llama ajutatoare'/>
+                </div>),
             target: () => cheatRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -133,14 +163,18 @@ export function Fractii() {
             }
         }, {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Verificaţi răspunsul introdus
-                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'spaceBetween', alignItems: 'center'}}>
-                        <Button auto light color='primary' icon={<HiOutlineSpeakerWave size={32} />}></Button>
-                        <div style={{flex: '1'}}></div>
-                        <img style={{scale: '150%', height: '100px', marginRight: '20px'}} src={stick_llama} alt='Llama ajutatoare'/>
-                    </div>
+                    Verifică
                 </div>
             ),
+            description: (<div style={{display: 'flex'}}>
+                <div style={{flex: '1'}}>
+                    După ce introduci răspunsul, apasă pe butonul de verificare pentru a vedea cum te-ai descurcat!
+                    Dacă ai greșit, nu te descuraja, poți să mai încerci odată!
+                </div>
+                <Divider type={"vertical"} style={{height: '100px'}}/>
+                <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
+                     src={avatar.getStick()} alt='Llama ajutatoare'/>
+            </div>),
             target: () => ansRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
@@ -153,19 +187,19 @@ export function Fractii() {
 
     return (
         <AnimatedPage>
-            <ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)} />
-            <ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)} />
+            <ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)}/>
+            <ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)}/>
             <div className="card-holder fractii">
-                <Tour open={tourVisible} onClose={() => setTourVisible(false)} steps={tourSteps} />
-                <TryAgainModal show={tryAgainVisible} setShow={setTryAgainVisible} />
+                <Tour open={tourVisible} onClose={() => setTourVisible(false)} steps={tourSteps}/>
+                <TryAgainModal show={tryAgainVisible} setShow={setTryAgainVisible}/>
                 <div className="background-card">
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <Button light auto size='xs' icon={<ArrowLeft size="24" />}
-                                css={{ width: "36px", height: "36px" }}
+                        <Button light auto size='xs' icon={<ArrowLeft size="24"/>}
+                                css={{width: "36px", height: "36px"}}
                                 onPress={() => navigate(-1)}
                         />
-                        <Button light auto size='xs' icon={<AiOutlineQuestion size="24" />}
-                                css={{ width: "36px", height: "36px" }}
+                        <Button light auto size='xs' icon={<AiOutlineQuestion size="24"/>}
+                                css={{width: "36px", height: "36px"}}
                                 onPress={() => setTourVisible(true)}
                         />
                     </div>
@@ -177,8 +211,8 @@ export function Fractii() {
                     </h3>
                     {swap && <AnimatedPage>
                         <div className="fraction-card-holder">
-                            <Card css={{ width: '70%', height: '300px' }}>
-                                <Card.Header css={{ fontFamily: 'DM Sans', borderBottom: '1px solid #ccc' }}>
+                            <Card css={{width: '70%', height: '300px'}}>
+                                <Card.Header css={{fontFamily: 'DM Sans', borderBottom: '1px solid #ccc'}}>
                                     Scrieţi fracţia reprezentată în desen
                                 </Card.Header>
                                 <Card.Body css={{
@@ -194,22 +228,23 @@ export function Fractii() {
                                         <div className="canvas-container" ref={diagramRef}>
                                             {/* <canvas></canvas>
                                             lmao */}
-                                            <FractionCanvas nominator={fraction?.numitor ?? 0} denominator={fraction?.numarator ?? 0} />
+                                            <FractionCanvas nominator={fraction?.numitor ?? 0}
+                                                            denominator={fraction?.numarator ?? 0}/>
                                         </div>
-                                        <Divider type="vertical" style={{ height: '100%' }} />
+                                        <Divider type="vertical" style={{height: '100%'}}/>
                                         <div className="fraction-container">
                                             <div className="fraction-input" ref={fractionRef}>
                                                 <Input
                                                     placeholder='?'
                                                     value={a}
                                                     onChange={e => setA(e.target.value)}
-                                                    style={{ textAlign: 'center', width: '100px' }} size='lg' />
-                                                <Divider type="horizontal" />
+                                                    style={{textAlign: 'center', width: '100px'}} size='lg'/>
+                                                <Divider type="horizontal"/>
                                                 <Input
                                                     placeholder='?'
                                                     value={b}
                                                     onChange={e => setB(e.target.value)}
-                                                    style={{ textAlign: 'center', width: '100px' }} size='lg' />
+                                                    style={{textAlign: 'center', width: '100px'}} size='lg'/>
                                             </div>
                                         </div>
                                     </div>
@@ -220,50 +255,51 @@ export function Fractii() {
                     }
                     {!swap && <AnimatedPage>
                         <div className="fraction-card-holder">
-                          <Card css={{ width: '70%', height: '300px' }}>
-                              <Card.Header css={{ fontFamily: 'DM Sans', borderBottom: '1px solid #ccc' }}>
-                                  Scrieţi fracţia reprezentată în desen
-                              </Card.Header>
-                              <Card.Body css={{
-                                  fontFamily: 'DM Sans',
-                                  justifyContent: 'center',
-                                  textAlign: 'center',
-                                  display: 'flex',
-                                  flexDirection: 'row',
-                                  justifyCenter: 'center',
-                                  alignItems: 'center'
-                              }}>
-                                  <div className="fraction-content">
-                                      <div className="canvas-container" ref={diagramRef}>
-                                          {/* <canvas></canvas>
+                            <Card css={{width: '70%', height: '300px'}}>
+                                <Card.Header css={{fontFamily: 'DM Sans', borderBottom: '1px solid #ccc'}}>
+                                    Scrieţi fracţia reprezentată în desen
+                                </Card.Header>
+                                <Card.Body css={{
+                                    fontFamily: 'DM Sans',
+                                    justifyContent: 'center',
+                                    textAlign: 'center',
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    justifyCenter: 'center',
+                                    alignItems: 'center'
+                                }}>
+                                    <div className="fraction-content">
+                                        <div className="canvas-container" ref={diagramRef}>
+                                            {/* <canvas></canvas>
                                             lmao */}
-                                          <FractionCanvas nominator={fraction?.numitor ?? 0} denominator={fraction?.numarator ?? 0} />
-                                      </div>
-                                      <Divider type="vertical" style={{ height: '100%' }} />
-                                      <div className="fraction-container">
-                                          <div className="fraction-input" ref={fractionRef}>
-                                              <Input
-                                                placeholder='?'
-                                                value={a}
-                                                onChange={e => setA(e.target.value)}
-                                                style={{ textAlign: 'center', width: '100px' }} size='lg' />
-                                              <Divider type="horizontal" />
-                                              <Input
-                                                placeholder='?'
-                                                value={b}
-                                                onChange={e => setB(e.target.value)}
-                                                style={{ textAlign: 'center', width: '100px' }} size='lg' />
-                                          </div>
-                                      </div>
-                                  </div>
-                              </Card.Body>
-                          </Card>
-                      </div>
-                        </AnimatedPage>
+                                            <FractionCanvas nominator={fraction?.numitor ?? 0}
+                                                            denominator={fraction?.numarator ?? 0}/>
+                                        </div>
+                                        <Divider type="vertical" style={{height: '100%'}}/>
+                                        <div className="fraction-container">
+                                            <div className="fraction-input" ref={fractionRef}>
+                                                <Input
+                                                    placeholder='?'
+                                                    value={a}
+                                                    onChange={e => setA(e.target.value)}
+                                                    style={{textAlign: 'center', width: '100px'}} size='lg'/>
+                                                <Divider type="horizontal"/>
+                                                <Input
+                                                    placeholder='?'
+                                                    value={b}
+                                                    onChange={e => setB(e.target.value)}
+                                                    style={{textAlign: 'center', width: '100px'}} size='lg'/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </div>
+                    </AnimatedPage>
                     }
                     <div className="buttons-container">
                         <Button size='lg' flat ref={skipRef}
-                            css={{ fontFamily: 'DM Sans' }}
+                                css={{fontFamily: 'DM Sans'}}
                                 onPress={() => {
                                     setHasCheated(false);
                                     setA('');
@@ -274,95 +310,100 @@ export function Fractii() {
                                         numitor = random.int(1, difficulty.value.fractii.allowWholes ? (numarator * 2 - 1) : numarator);
                                     }
                                     setFraction(
-                                      {
-                                          numarator: numarator,
-                                          numitor: numitor
-                                      }
-                                    );
-                                    setSwap(!swap);
-                                }}
-                        >
-                            Treci Peste
-                        </Button>
-                        <Spacer x={2} />
-                        <Tooltip contentColor='warning'
-                            placement='top'
-                            shadow
-                            content={
-                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Warning2 color='#f5a524' />
-                                    <Spacer x={1} />
-                                    <span>Nu vei mai primi puncte de progres pentru acest exercitiu.</span>
-                                </div>
-                            }
-                        >
-                            <Button size='lg' flat color="warning" ref={cheatRef}
-                                css={{ fontFamily: 'DM Sans' }}
-                                onPress={() => {
-                                    setHasCheated(true);
-                                    setA(fraction?.numitor.toString() ?? '');
-                                    setB(fraction?.numarator.toString() ?? '');
-                                }}
-                            >Arată Răspunsul</Button>
-                        </Tooltip>
-                        <Spacer x={2} />
-                        <Button size='lg' color={verifColor as NormalColors} ref={ansRef}
-                            css={{ fontFamily: 'DM Sans' }}
-                            onPress={() => {
-                                if (new Fraction(`${fraction?.numitor ?? 0}/${fraction?.numarator ?? 0}`)
-                                        .equals(new Fraction(`${Number.isNaN(parseInt(a)) ? 0 : parseInt(a)}/${Number.isNaN(parseInt(b)) ? 1 : parseInt(b)}`))) {
-                                    setVerifColor('success');
-                                    setTimeout(() => {
-                                        setVerifColor('primary');
-                                    }, 500);
-                                    setA('');
-                                    setB('');
-                                    let numarator = random.int(difficulty.value.fractii.lowLimit, difficulty.value.fractii.maxLimit);
-                                    let numitor = random.int(1, numarator * 2);
-                                    setFraction(
                                         {
                                             numarator: numarator,
                                             numitor: numitor
                                         }
                                     );
                                     setSwap(!swap);
-                                    setSuccessSound(true);
-                                    console.log('correct');
-                                    if (hasCheated) {
-                                        setHasCheated(false);
-                                    } else {
-                                        let copy = { ...progress.value };
-                                        let newProgress: ExerciseProgress =
-                                            copy.level1.matematica.parts.get('aritmetica')
-                                                ?.parts.get('fractii') ?? new ExerciseProgress(
+                                }}
+                        >
+                            Treci Peste
+                        </Button>
+                        <Spacer x={2}/>
+                        <Tooltip contentColor='warning'
+                                 placement='top'
+                                 shadow
+                                 content={
+                                     <div style={{
+                                         display: 'flex',
+                                         flexDirection: 'row',
+                                         justifyContent: 'center',
+                                         alignItems: 'center'
+                                     }}>
+                                         <Warning2 color='#f5a524'/>
+                                         <Spacer x={1}/>
+                                         <span>Nu vei mai primi puncte de progres pentru acest exercitiu.</span>
+                                     </div>
+                                 }
+                        >
+                            <Button size='lg' flat color="warning" ref={cheatRef}
+                                    css={{fontFamily: 'DM Sans'}}
+                                    onPress={() => {
+                                        setHasCheated(true);
+                                        setA(fraction?.numitor.toString() ?? '');
+                                        setB(fraction?.numarator.toString() ?? '');
+                                    }}
+                            >Arată Răspunsul</Button>
+                        </Tooltip>
+                        <Spacer x={2}/>
+                        <Button size='lg' color={verifColor as NormalColors} ref={ansRef}
+                                css={{fontFamily: 'DM Sans'}}
+                                onPress={() => {
+                                    if (new Fraction(`${fraction?.numitor ?? 0}/${fraction?.numarator ?? 0}`)
+                                        .equals(new Fraction(`${Number.isNaN(parseInt(a)) ? 0 : parseInt(a)}/${Number.isNaN(parseInt(b)) ? 1 : parseInt(b)}`))) {
+                                        setVerifColor('success');
+                                        setTimeout(() => {
+                                            setVerifColor('primary');
+                                        }, 500);
+                                        setA('');
+                                        setB('');
+                                        let numarator = random.int(difficulty.value.fractii.lowLimit, difficulty.value.fractii.maxLimit);
+                                        let numitor = random.int(1, numarator * 2);
+                                        setFraction(
+                                            {
+                                                numarator: numarator,
+                                                numitor: numitor
+                                            }
+                                        );
+                                        setSwap(!swap);
+                                        setSuccessSound(true);
+                                        console.log('correct');
+                                        if (hasCheated) {
+                                            setHasCheated(false);
+                                        } else {
+                                            let copy = {...progress.value};
+                                            let newProgress: ExerciseProgress =
+                                                copy.level1.matematica.parts.get('aritmetica')
+                                                    ?.parts.get('fractii') ?? new ExerciseProgress(
                                                     0, 0
                                                 );
-                                        // @ts-ignore
-                                        newProgress.current += 1;
+                                            // @ts-ignore
+                                            newProgress.current += 1;
 
-                                        copy.level1.matematica.parts.get('aritmetica')
-                                            ?.parts.set('fractii', newProgress);
+                                            copy.level1.matematica.parts.get('aritmetica')
+                                                ?.parts.set('fractii', newProgress);
 
-                                        let newManager: ProgressManager = new ProgressManager();
-                                        newManager.level1 = copy.level1;
-                                        newManager.level2 = copy.level2;
-                                        newManager.level3 = copy.level3;
-                                        progress.setValue(newManager);
-                                        progress.value.scriere();
+                                            let newManager: ProgressManager = new ProgressManager();
+                                            newManager.level1 = copy.level1;
+                                            newManager.level2 = copy.level2;
+                                            newManager.level3 = copy.level3;
+                                            progress.setValue(newManager);
+                                            progress.value.scriere();
+                                        }
+                                    } else {
+                                        setFailureSound(true);
+                                        console.log('INCORRECT');
+                                        setTryAgainVisible(true);
+                                        setTimeout(() => {
+                                            setTryAgainVisible(false);
+                                        }, 1500);
+                                        setVerifColor('error');
+                                        setTimeout(() => {
+                                            setVerifColor('primary');
+                                        }, 500);
                                     }
-                                } else {
-                                    setFailureSound(true);
-                                    console.log('INCORRECT');
-                                    setTryAgainVisible(true);
-                                    setTimeout(() => {
-                                        setTryAgainVisible(false);
-                                    }, 1500);
-                                    setVerifColor('error');
-                                    setTimeout(() => {
-                                        setVerifColor('primary');
-                                    }, 500);
-                                }
-                            }}
+                                }}
                         >
                             Verifică
                         </Button>

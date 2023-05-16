@@ -5,9 +5,9 @@ import {NextUIProvider} from '@nextui-org/react';
 import {AnimatePresence} from 'framer-motion';
 import MainMenu from './pages/MainMenu';
 import {PageLayout, OverallLayout} from './pages/Layout';
-import {ProgressContext, DifficultyContext, StorageContext} from './services/context';
+import {ProgressContext, DifficultyContext, StorageContext, SettingsContext} from './services/context';
 import {ProgressManager} from './services/ProgressManager';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {AritmeticaPanel} from './pages/AritmeticaPanel';
 import {createTheme} from '@nextui-org/react';
 import {Operatii} from './pages/exercises/matematica/aritmetica/Operatii';
@@ -16,36 +16,24 @@ import {Ordine} from './pages/exercises/matematica/aritmetica/Ordine';
 import {Fractii} from './pages/exercises/matematica/aritmetica/Fractii';
 import {Formare} from "@/pages/exercises/matematica/aritmetica/Formare";
 import {Comparatii} from "@/pages/exercises/matematica/aritmetica/Comparatii";
-import { RomanaPanel } from './pages/RomanaPanel';
-import { Litere } from './pages/exercises/comunicare/romana/RecunoastereLitere';
-import { StorageManager } from './services/StorageManager';
-import { Vocale } from './pages/exercises/comunicare/romana/Vocale';
-import { GeometriePanel } from './pages/GeometriePanel';
-import { Culori } from './pages/exercises/matematica/geometrie/Culori';
+import {RomanaPanel} from './pages/RomanaPanel';
+import {Litere} from './pages/exercises/comunicare/romana/RecunoastereLitere';
+import {StorageManager} from './services/StorageManager';
+import {Vocale} from './pages/exercises/comunicare/romana/Vocale';
+import {GeometriePanel} from './pages/GeometriePanel';
+import {Culori} from './pages/exercises/matematica/geometrie/Culori';
+import {ComparareForme} from "@/pages/exercises/matematica/geometrie/ComparareForme";
+import {backgrounds} from "./services/context";
+import {SettingsManager} from "@/services/SettingsManager";
+import {DesenareFiguri} from "@/pages/exercises/matematica/geometrie/DesenareFiguri";
+import LineDrawingCanvas from "@/components/LineDrawingCanvas";
+import {ConfigProvider, theme as ATheme} from "antd";
 
 const theme = createTheme({
-    type: "light", // it could be "light" or "dark"
+    type: "light",
     theme: {
         colors: {
-            // // brand colors
-            // primaryLight: '$green200',
-            // primaryLightHover: '$green300',
-            // primaryLightActive: '$green400',
-            // primaryLightContrast: '$green600',
-            // primary: '#4ADE7B',
-            // primaryBorder: '$green500',
-            // primaryBorderHover: '$green600',
-            // primarySolidHover: '$green700',
-            // primarySolidContrast: '$white',
-            // primaryShadow: '$green500',
-
-            // gradient: 'linear-gradient(112deg, $blue100 -25%, $pink500 -10%, $purple500 80%)',
-            // link: '#5E1DAD',
-
-            // you can also create your own color
             normalWhite: '#fefefe'
-
-            // ...  more colors
         },
         space: {},
         fonts: {
@@ -58,42 +46,42 @@ function App() {
     const [progressValue, setProgressValue] = useState(
         new ProgressManager()
     );
+    const [settingsValue, setSettingsValue] =
+        useState(new SettingsManager());
     const [difficultyValue, setDifficultyValue] = useState(
         new DifficultyManager()
     );
     const [storageValue, setStorageValue] = useState(new StorageManager());
 
-    // progressValue.initialize();
-
     const router = createHashRouter([
         {
             path: "/",
-            element: <OverallLayout />,
+            element: <OverallLayout/>,
             children: [
                 {
                     index: true,
-                    element: <MainMenu />
+                    element: <MainMenu/>
                 }, {
                     path: 'aritmetica',
                     children: [
                         {
                             index: true,
-                            element: <AritmeticaPanel />
+                            element: <AritmeticaPanel/>
                         }, {
                             path: 'operatii',
-                            element: <Operatii />
+                            element: <Operatii/>
                         }, {
                             path: 'ordine',
-                            element: <Ordine />
+                            element: <Ordine/>
                         }, {
                             path: 'fractii',
-                            element: <Fractii />
+                            element: <Fractii/>
                         }, {
                             path: 'formare',
-                            element: <Formare />
+                            element: <Formare/>
                         }, {
                             path: 'comparatii',
-                            element: <Comparatii />
+                            element: <Comparatii/>
                         }
                     ]
                 }, {
@@ -101,16 +89,19 @@ function App() {
                     children: [
                         {
                             index: true,
-                            element: <GeometriePanel />
+                            element: <GeometriePanel/>
                         }, {
                             path: 'culori',
-                            element: <Culori />
+                            element: <Culori/>
                         }, {
                             path: 'regula_sirului',
-                            element: <Litere />
+                            element: <Litere/>
                         }, {
                             path: 'comparare',
-                            element: <Litere />
+                            element: <ComparareForme/>
+                        }, {
+                            path: 'desenare_figuri',
+                            element: <DesenareFiguri/>
                         }
                     ]
                 }, {
@@ -118,13 +109,13 @@ function App() {
                     children: [
                         {
                             index: true,
-                            element: <RomanaPanel />
+                            element: <RomanaPanel/>
                         }, {
                             path: 'vocale',
-                            element: <Vocale />
+                            element: <Vocale/>
                         }, {
                             path: 'litere',
-                            element: <Litere />
+                            element: <Litere/>
                         }
                     ]
                 }
@@ -132,42 +123,28 @@ function App() {
         }
     ]);
 
+    useEffect(() => {
+        let settings = new SettingsManager();
+        settings.settings.background = backgrounds[0];
+        setSettingsValue(settings);
+    }, []);
+
     return (
         <div className='App'>
             <StorageContext.Provider value={{value: storageValue, setValue: setStorageValue}}>
-            <ProgressContext.Provider value={{value: progressValue, setValue: setProgressValue}}>
-                <DifficultyContext.Provider value={{value: difficultyValue, setValue: setDifficultyValue}}>
-                    <NextUIProvider theme={theme}>
-                        <AnimatePresence mode="wait">
-                            <RouterProvider router={router} />
-                            {/*<Routes key={location.pathname} location={location}>*/}
-                            {/*    <Route path="/" element={<OverallLayout/>}>*/}
-                            {/*        <Route index element={<MainMenu/>}/>*/}
-                            {/*        <Route path="aritmetica">*/}
-                            {/*            <Route index element={<AritmeticaPanel/>}/>*/}
-                            {/*            <Route path="operatii" element={<Operatii/>}/>*/}
-                            {/*            <Route path="ordine" element={<Ordine/>}/>*/}
-                            {/*            <Route path="fractii" element={<Fractii/>}/>*/}
-                            {/*            <Route path="formare" element={<Formare/>}/>*/}
-                            {/*            <Route path="comparatii" element={<Comparatii/>}/>*/}
-                            {/*        </Route>*/}
-                            {/*        <Route path="romana">*/}
-                            {/*            <Route index element={<RomanaPanel/>}/>*/}
-                            {/*            <Route path="vocale" element={<Vocale/>}/>*/}
-                            {/*            <Route path="litere" element={<Litere/>}/>*/}
-                            {/*        </Route>*/}
-                            {/*        <Route path="geometrie">*/}
-                            {/*            <Route index element={<GeometriePanel/>}/>*/}
-                            {/*            <Route path="culori" element={<Culori />}/>*/}
-                            {/*            <Route path="regula_sirului" element={<Litere/>}/>*/}
-                            {/*            <Route path="comparare" element={<Litere/>}/>*/}
-                            {/*        </Route>*/}
-                            {/*    </Route>*/}
-                            {/*</Routes>*/}
-                        </AnimatePresence>
-                    </NextUIProvider>
-                </DifficultyContext.Provider>
-            </ProgressContext.Provider>
+                <ProgressContext.Provider value={{value: progressValue, setValue: setProgressValue}}>
+                    <DifficultyContext.Provider value={{value: difficultyValue, setValue: setDifficultyValue}}>
+                        <SettingsContext.Provider value={{value: settingsValue, setValue: setSettingsValue}}>
+                            <ConfigProvider>
+                                <NextUIProvider theme={theme}>
+                                    <AnimatePresence mode="wait">
+                                        <RouterProvider router={router}/>
+                                    </AnimatePresence>
+                                </NextUIProvider>
+                            </ConfigProvider>
+                        </SettingsContext.Provider>
+                    </DifficultyContext.Provider>
+                </ProgressContext.Provider>
             </StorageContext.Provider>
         </div>
     )

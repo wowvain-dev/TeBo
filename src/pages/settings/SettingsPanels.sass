@@ -1,8 +1,40 @@
+.shield-badge
+  display: flex
+  flex-direction: row
+  border-radius: 14px
+  border: 1px solid black
+  justify-content: center
+  align-items: center
+  padding-left: 5px
+  padding-right: 5px
+  transition: all .2s
+
+  &:hover
+    padding-left: 10px
+    padding-right: 10px
+    transition: all .2s
+    border-color: #3486ce !important
+
+    .shield-badge-label
+      color: #3486ce
+
+  &-label
+    font-family: "DM Sans", sans-serif
+    padding: 5px 10px
+    font-weight: 600
+    text-transform: uppercase
+    color: #000
+
+
 .ant-message
   z-index: 9999
 
 .ant-select-open
   z-index: 9999
+
+//.chagne-bg
+.ant-radio-button-wrapper:not(:first-child)::before
+  opacity: 0
 
 .settings
   &-save-button
@@ -10,45 +42,74 @@
     margin-left: auto
     margin-right: auto
 
+  &-preferences
+    //.change-bg
+    .bg-grid
+      grid-template-columns: repeat(3, minMax(0, 1fr))
+
+    @media (max-width: 1290px)
+      .bg-grid
+        grid-template-columns: repeat(2, minMax(0, 1fr))
+
+    p
+      font-family: DM Sans, sans-serif
+
+    .bg-grid-option
+      ::before
+        opacity: 0
+
+    .avatar-config
+      height: 200px
+      display: flex
+      flex-direction: row
+      justify-content: space-evenly
+
   &-about
+    display: flex
+    flex-direction: column
 
     .top-row
       display: flex
       justify-content: center
       align-items: center
       margin-bottom: 50px
-      .header
-        display: flex
-        flex-direction: column
-        align-items: center
-        .title
-          font-family: "DM Sans", sans-serif
-          font-weight: 600
-          font-size: 2rem
-        .authors
-          font-family: "DM Sans", sans-serif
-          font-size: 0.8rem
-          text-align: end
-        .version
-          font-family: "DM Sans", sans-serif
-          font-size: 1rem
+
+    .header
+      display: flex
+      flex-direction: column
+      align-items: center
+
+      .title
+        font-family: "DM Sans", sans-serif
+        font-weight: 600
+        font-size: 2rem
+
+      .authors
+        font-family: "DM Sans", sans-serif
+        font-size: 0.8rem
+        text-align: end
+
+      .version
+        font-family: "DM Sans", sans-serif
+        font-size: 1rem
 
     &-content
       span
-        font-family: "DM Sans", sans
+        font-family: "DM Sans", sans-serif
 
       .subtitle
-        font-size: 1.15rem
-        font-weight: 600
+        font-size: 1rem
+        font-weight: 500
 
       .tech-stack
         display: flex
         flex-direction: row
+      //width: 100px
 
       .design-stack
         display: flex
         flex-direction: row
-
+  //width: 100px
 
 
   &-panel
@@ -64,6 +125,7 @@
 
       .range
         width: 100%
+
         .inputs
           display: flex
           flex-direction: row
