@@ -310,7 +310,7 @@ export function Ordine() {
                                         display: 'flex',
                                         flexDirection: 'row',
                                         justifyCenter: 'center',
-                                        alignItems: 'center'
+                                        alignItems: 'center',
                                     }}>
                                         <DndContext
                                             sensors={sensors}

@@ -11,26 +11,30 @@ import {
     useDifficultyContext,
     useStorageContext,
     useSettingsContext
-} from '../../../../services/context';
+} from '@/services/context';
 import {ExerciseProgress, ProgressManager} from '@/services/ProgressManager';
 import {Divider, notification, Tour, TourProps} from "antd";
 import {TryAgainModal} from "@/components/TryAgainModal";
-import {AiOutlineQuestion, HiOutlineSpeakerphone, HiOutlineSpeakerWave} from "react-icons/all";
+import {AiOutlineQuestion, GoAlert, HiOutlineSpeakerphone, HiOutlineSpeakerWave} from "react-icons/all";
 import success_sound from '@/assets/audio/sfx/success_sound.aac';
 import failure_sound from '@/assets/audio/sfx/failure_sound.aac';
 import ReactHowler from 'react-howler';
 import random from 'random';
 import React from 'react';
+import {shuffle} from "@/utils/ShuffleArray";
 
 enum Colors {
-    red = '#E03131',
-    blue = '#4096ff',
-    green = '#73d13d',
+    red = '#e51126',
+    blue = '#0072f5',
+    green = '#17c964',
     yellow = '#fff566',
-    purple = '#b37feb',
-    pink = '#f759ab',
-    gray = '#8c8c8c'
+    purple = '#681fc0',
+    pink = '#ff69c9',
+    gray = '#706e6e'
 };
+
+const SVG_HEIGHT = 160;
+const SVG_WIDTH = 300;
 
 export function Culori() {
     const difficulty = useDifficultyContext();
@@ -44,6 +48,7 @@ export function Culori() {
     const [tourVisible, setTourVisible] = useState(false);
     const [chosenColor, setChosenColor] = useState<Colors | null>(null);
     const [answerColor, setAnswerColor] = useState<Colors | null>(null);
+    const [chosenShape, setChosenShape] = useState<"triangle" | "square" | "circle">("circle");
 
     const [successSound, setSuccessSound] = useState(false);
     const [failureSound, setFailureSound] = useState(false);
@@ -54,6 +59,7 @@ export function Culori() {
     let skipRef = useRef(null);
     let cheatRef = useRef(null);
     let ansRef = useRef(null);
+
 
     const getRandomColor = () => {
         let x = random.int(0, 7);
@@ -78,15 +84,210 @@ export function Culori() {
         return Colors.blue;
     }
 
+    const getRandomShape = () => {
+        let a = random.int(0, 2);
+        console.log("a: ", a);
+        switch (a) {
+            case 0:
+                return "square";
+            case 1:
+                return "triangle";
+            case 2:
+                return "circle";
+            default:
+                return "circle";
+        }
+    }
+
     useEffect(() => {
         setVerifColor('primary');
         setChosenColor(getRandomColor());
         setHasCheated(false);
+        setChosenShape(getRandomShape());
     }, []);
+
 
     const settings = useSettingsContext();
     const avatar = settings.value.settings.avatar;
-
+    const AlbastruButton = (
+        {answerColor, setAnswerColor}: {
+            answerColor: Colors | null,
+            setAnswerColor: (val: Colors | null) => void
+        }
+    ) => {
+        return (<div>
+            <Button
+                size='sm'
+                flat={!(answerColor === Colors.blue)}
+                onPress={() => {
+                    if (answerColor === Colors.blue) {
+                        setAnswerColor(null);
+                        return;
+                    }
+                    setAnswerColor(Colors.blue);
+                    return;
+                }}
+            >Albastru</Button>
+        </div>);
+    }
+    const GriButton = (
+        {answerColor, setAnswerColor}: {
+            answerColor: Colors | null,
+            setAnswerColor: (val: Colors | null) => void
+        }
+    ) => {
+        return (<div>
+            <Button
+                size='sm'
+                flat={!(answerColor === Colors.gray)}
+                css={
+                    answerColor !== Colors.gray ? {} : {
+                        bg: "#706e6e",
+                        color: "#fff"
+                    }
+                }
+                onPress={() => {
+                    if (answerColor === Colors.gray) {
+                        setAnswerColor(null);
+                        return;
+                    }
+                    setAnswerColor(Colors.gray);
+                    return;
+                }}
+            >Gri</Button>
+        </div>)
+    }
+    const VerdeButton = (
+        {answerColor, setAnswerColor}: {
+            answerColor: Colors | null,
+            setAnswerColor: (val: Colors | null) => void
+        }
+    ) => {
+        return (<div>
+            <Button
+                size='sm'
+                flat={!(answerColor === Colors.green)}
+                color={answerColor === Colors.green ? 'success' : 'primary'}
+                onPress={() => {
+                    if (answerColor === Colors.green) {
+                        setAnswerColor(null);
+                        return;
+                    }
+                    setAnswerColor(Colors.green);
+                    return;
+                }}
+            >Verde</Button>
+        </div>)
+    }
+    const RozButton = (
+        {answerColor, setAnswerColor}: {
+            answerColor: Colors | null,
+            setAnswerColor: (val: Colors | null) => void
+        }
+    ) => {
+        return (<div>
+                <Button
+                    size='sm'
+                    flat={!(answerColor === Colors.pink)}
+                    css={
+                        answerColor !== Colors.pink ? {} : {
+                            bg: "#ff69c9",
+                            color: "#fff"
+                        }
+                    }
+                    onPress={() => {
+                        if (answerColor === Colors.pink) {
+                            setAnswerColor(null);
+                            return;
+                        }
+                        setAnswerColor(Colors.pink);
+                        return;
+                    }}
+                >Roz</Button>
+            </div>
+        )
+    }
+    const PurpleButton = (
+        {answerColor, setAnswerColor}: {
+            answerColor: Colors | null,
+            setAnswerColor: (val: Colors | null) => void
+        }
+    ) => {
+        return (<div>
+            <Button
+                size='sm'
+                flat={!(answerColor === Colors.purple)}
+                css={
+                    answerColor !== Colors.purple ? {} : {
+                        bg: "#681fc0",
+                        color: "#fff"
+                    }
+                }
+                onPress={() => {
+                    if (answerColor === Colors.purple) {
+                        setAnswerColor(null);
+                        return;
+                    }
+                    setAnswerColor(Colors.purple);
+                    return;
+                }}
+            >Mov</Button>
+        </div>);
+    }
+    const RosuButton = (
+        {answerColor, setAnswerColor}: {
+            answerColor: Colors | null,
+            setAnswerColor: (val: Colors | null) => void
+        }
+    ) => {
+        return (<div>
+            <Button
+                size='sm'
+                flat={!(answerColor === Colors.red)}
+                css={
+                    answerColor !== Colors.red ? {} : {
+                        bg: "#e51126",
+                        color: "#fff"
+                    }
+                }
+                onPress={() => {
+                    if (answerColor === Colors.red) {
+                        setAnswerColor(null);
+                        return;
+                    }
+                    setAnswerColor(Colors.red);
+                    return;
+                }}
+            >Roşu</Button>
+        </div>);
+    }
+    const GalbenButton = (
+        {answerColor, setAnswerColor}: {
+            answerColor: Colors | null,
+            setAnswerColor: (val: Colors | null) => void
+        }
+    ) => {
+        return (<div>
+            <Button
+                size='sm'
+                flat={!(answerColor === Colors.yellow)}
+                css={
+                    answerColor !== Colors.yellow ? {} : {
+                        bg: "#fff566",
+                        color: "#000"
+                    }
+                }
+                onPress={() => {
+                    if (answerColor === Colors.yellow) {
+                        setAnswerColor(null);
+                        return;
+                    }
+                    setAnswerColor(Colors.yellow);
+                    return;
+                }}
+            >Galben</Button>
+        </div>)
+    }
     const tourSteps: TourProps['steps'] = [
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
@@ -208,10 +409,53 @@ export function Culori() {
 
     ];
 
+    // @ts-ignore
+    const [buttons, setButtons]
+        = useState<Array<(
+        {answerColor, setAnswerColor}: {
+            answerColor: Colors | null,
+            setAnswerColor: (val: Colors | null) => void
+        }
+    ) => JSX.Element>>([
+        AlbastruButton, GriButton, VerdeButton, RozButton, PurpleButton, RosuButton, GalbenButton
+    ]);
+
+    const renderShape = ({size, shape}: {
+        size: number, shape: "triangle" | "circle" | "square"
+    }) => {
+        let shapeElement = <></>;
+        if (shape === "circle") {
+            shapeElement = (
+                <circle cx={SVG_WIDTH / 2} cy={SVG_HEIGHT / 2}
+                        r={size / 2} fill={chosenColor ?? '#000'}
+                />
+            )
+        } else if (shape === "square") {
+            shapeElement = (
+                <rect x={SVG_WIDTH / 2 - size / 2} y={SVG_HEIGHT / 2 - size / 2}
+                      width={size} height={size}
+                      fill={chosenColor ?? "#000"}/>
+            );
+        } else if (shape === "triangle") {
+            let triangleHeight = (size * Math.sqrt(3)) / 2;
+            shapeElement = (
+                <polygon
+                    points={`${SVG_WIDTH / 2 - (size / 2)},${SVG_HEIGHT / 2 + triangleHeight / 3} ${SVG_WIDTH / 2},${SVG_HEIGHT / 2 - 2 * triangleHeight / 3} ${SVG_WIDTH / 2 + (size) / 2},${SVG_HEIGHT / 2 + triangleHeight / 3}`}
+                    fill={chosenColor ?? "#000"}
+                />
+            );
+        }
+
+        return shapeElement;
+    }
+
+    useEffect(() => setButtons(shuffle(buttons)), []);
+
     const MainContent = () => {
+
         return (
             <div className="culori-card-holder">
-                <Card css={{width: '70%', height: '300px'}}>
+                <Card css={{width: '70%', height: '360px'}}>
                     <Card.Header css={{fontFamily: 'DM Sans', borderBottom: '1px solid #ccc'}}>
                         Alegeţi opţiunea corectă
                     </Card.Header>
@@ -224,120 +468,33 @@ export function Culori() {
                         justifyCenter: 'center',
                         alignItems: 'center',
                     }}>
-                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
-                             ref={shapeRef}
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" className="svg-triangle" width='100'
-                                 height='100'
-                                 fill={chosenColor?.toString()}
-                            >
-                                <path d="M 50,10 90,90 10,90 z"/>
+                        <div style={{
+                            display: 'flex', justifyContent: 'center', alignItems: 'center'
+                        }}>
+                            <svg width={SVG_WIDTH} height={SVG_HEIGHT} ref={shapeRef}>
+                                {renderShape({
+                                    size: 80, shape: chosenShape
+                                })}
                             </svg>
                         </div>
                         <Divider type='horizontal' style={{width: '100px', marginTop: '0'}}/>
                         <div ref={choiceRef}>
                             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                <Button
-                                    size='sm'
-                                    flat={!(answerColor === Colors.blue)}
-                                    color={answerColor === Colors.blue ? 'success' : 'primary'}
-                                    onPress={() => {
-                                        if (answerColor === Colors.blue) {
-                                            setAnswerColor(null);
-                                            return;
-                                        }
-                                        setAnswerColor(Colors.blue);
-                                        return;
-                                    }}
-                                >Albastru</Button>
+                                {buttons[0]({answerColor, setAnswerColor})}
                                 <Spacer x={1}/>
-                                <Button
-                                    size='sm'
-                                    flat={!(answerColor === Colors.gray)}
-                                    color={answerColor === Colors.gray ? 'success' : 'primary'}
-                                    onPress={() => {
-                                        if (answerColor === Colors.gray) {
-                                            setAnswerColor(null);
-                                            return;
-                                        }
-                                        setAnswerColor(Colors.gray);
-                                        return;
-                                    }}
-                                >Gri</Button>
+                                {buttons[1]({answerColor, setAnswerColor})}
                                 <Spacer x={1}/>
-                                <Button
-                                    size='sm'
-                                    flat={!(answerColor === Colors.green)}
-                                    color={answerColor === Colors.green ? 'success' : 'primary'}
-                                    onPress={() => {
-                                        if (answerColor === Colors.green) {
-                                            setAnswerColor(null);
-                                            return;
-                                        }
-                                        setAnswerColor(Colors.green);
-                                        return;
-                                    }}
-                                >Verde</Button>
+                                {buttons[2]({answerColor, setAnswerColor})}
                                 <Spacer x={1}/>
-                                <Button
-                                    size='sm'
-                                    flat={!(answerColor === Colors.pink)}
-                                    color={answerColor === Colors.pink ? 'success' : 'primary'}
-                                    onPress={() => {
-                                        if (answerColor === Colors.pink) {
-                                            setAnswerColor(null);
-                                            return;
-                                        }
-                                        setAnswerColor(Colors.pink);
-                                        return;
-                                    }}
-                                >Roz</Button>
+                                {buttons[3]({answerColor, setAnswerColor})}
                             </div>
                             <Spacer y={1}/>
                             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                {buttons[4]({answerColor, setAnswerColor})}
                                 <Spacer x={1}/>
-                                <Button
-                                    size='sm'
-                                    flat={!(answerColor === Colors.purple)}
-                                    color={answerColor === Colors.purple ? 'success' : 'primary'}
-                                    onPress={() => {
-                                        if (answerColor === Colors.purple) {
-                                            setAnswerColor(null);
-                                            return;
-                                        }
-                                        setAnswerColor(Colors.purple);
-                                        return;
-                                    }}
-                                >Mov</Button>
-
+                                {buttons[5]({answerColor, setAnswerColor})}
                                 <Spacer x={1}/>
-                                <Button
-                                    size='sm'
-                                    flat={!(answerColor === Colors.red)}
-                                    color={answerColor === Colors.red ? 'success' : 'primary'}
-                                    onPress={() => {
-                                        if (answerColor === Colors.red) {
-                                            setAnswerColor(null);
-                                            return;
-                                        }
-                                        setAnswerColor(Colors.red);
-                                        return;
-                                    }}
-                                >Roşu</Button>
-                                <Spacer x={1}/>
-                                <Button
-                                    size='sm'
-                                    flat={!(answerColor === Colors.yellow)}
-                                    color={answerColor === Colors.yellow ? 'success' : 'primary'}
-                                    onPress={() => {
-                                        if (answerColor === Colors.yellow) {
-                                            setAnswerColor(null);
-                                            return;
-                                        }
-                                        setAnswerColor(Colors.yellow);
-                                        return;
-                                    }}
-                                >Galben</Button>
+                                {buttons[6]({answerColor, setAnswerColor})}
                             </div>
 
                         </div>
@@ -381,6 +538,8 @@ export function Culori() {
                                     setSwap(!swap);
                                     setChosenColor(getRandomColor());
                                     setAnswerColor(null);
+                                    setChosenShape(getRandomShape());
+                                    setButtons(shuffle(buttons));
                                 }}
                         >
                             Treci Peste
@@ -400,7 +559,7 @@ export function Culori() {
                         }>
                             <Button size='lg' color='warning' flat ref={cheatRef} css={{fontFamily: 'DM Sans'}}
                                     onPress={() => {
-                                        setHasCheated(false);
+                                        setHasCheated(true);
                                         setAnswerColor(chosenColor);
                                     }}
                             >
@@ -409,6 +568,7 @@ export function Culori() {
                         </Tooltip>
                         <Spacer x={2}/>
                         <Button size='lg' ref={ansRef} css={{fontFamily: 'DM Sans'}}
+                                color={verifColor}
                                 onPress={() => {
                                     if (chosenColor === answerColor) {
                                         setVerifColor('success');
@@ -417,6 +577,8 @@ export function Culori() {
                                         }, 500);
                                         setAnswerColor(null);
                                         setChosenColor(getRandomColor());
+                                        setChosenShape(getRandomShape());
+                                        setButtons(shuffle(buttons));
                                         setSwap(!swap);
                                         setSuccessSound(true);
                                         if (hasCheated) {

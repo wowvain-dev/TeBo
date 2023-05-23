@@ -7,6 +7,7 @@ import {List} from "@mantine/core";
 import react_icon from '@/assets/icons/icons8-react-30.png';
 import {BsGithub, DiReact, FaReact, IoLogoElectron, SiAntdesign, SiElectron} from "react-icons/all";
 import {Spacer, Button} from "@nextui-org/react";
+import tldraw from "@/assets/lockup.svg";
 import {
     IconBrandDiscord, IconBrandDiscordFilled,
     IconBrandGithub,
@@ -94,6 +95,13 @@ export const AboutSettings = () => {
                                right={true} left={false}
                     />
                 </div>
+                <Spacer y={.5}/>
+                <span style={{display: 'flex'}}>
+                    Whiteboard-ul a fost implementat folosind <Spacer x={1}/><a
+                    href="https://tldraw.dev"
+                    target="_blank"><img
+                    src={tldraw}/></a>
+                </span>
                 <Spacer y={1}/>
                 <span className="subtitle">Design Stack:</span>
                 <div className="design-stack">

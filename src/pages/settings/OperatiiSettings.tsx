@@ -107,11 +107,18 @@ export const OperatiiSettings = () => {
         }
     }
 
+    console.log(`saved: ${context.value.operatii.depth}; setting" ${indentLevel}`);
+
     const areThereChanges = (): boolean => {
-        if (!lowLimit || !highLimit || !indentLevel || !allowedOp) return false;
+        if (!lowLimit || !highLimit || !allowedOp) return false;
+        // @ts-ignore
         return (lowLimit !== op_difficulty.lowLimit) || (highLimit !== op_difficulty.maxLimit)
+            //@ts-ignore
             || (allowedOp !== op_difficulty.allowedOperators) || (indentLevel + 1 !== op_difficulty.depth)
     };
+
+    // @ts-ignore
+    console.log(`${(indentLevel + 1) !== op_difficulty.depth}`)
 
     useEffect(() => {
         setChanges(areThereChanges());

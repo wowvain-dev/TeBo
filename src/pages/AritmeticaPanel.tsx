@@ -2,7 +2,7 @@ import './AritmeticaPanel.scss';
 import {ProgressExerciseCard} from '../components/ProgressExerciseCard';
 import {Button, Grid} from '@nextui-org/react';
 import AnimatedPage from '../components/AnimatedPage';
-import {useProgressContext, useSettingsContext} from '../services/context';
+import {useProgressContext, useSettingsContext} from '@/services/context';
 import {useNavigate} from 'react-router-dom';
 import {BsArrowLeft} from 'react-icons/bs';
 import {ExpressionNode, ExpressionTree, Operator} from '../types/ExpressionTree';

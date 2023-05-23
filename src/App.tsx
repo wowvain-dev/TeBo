@@ -1,11 +1,11 @@
 import './App.scss'
 import {BrowserRouter, Routes, Route, useLocation, RouterProvider, createHashRouter} from "react-router-dom";
-import {NextUIProvider} from '@nextui-org/react';
+import {Modal, NextUIProvider} from '@nextui-org/react';
 // @ts-ignore
 import {AnimatePresence} from 'framer-motion';
 import MainMenu from './pages/MainMenu';
 import {PageLayout, OverallLayout} from './pages/Layout';
-import {ProgressContext, DifficultyContext, StorageContext, SettingsContext} from './services/context';
+import {ProgressContext, DifficultyContext, StorageContext, SettingsContext, DiplomaContext} from './services/context';
 import {ProgressManager} from './services/ProgressManager';
 import {useEffect, useState} from 'react';
 import {AritmeticaPanel} from './pages/AritmeticaPanel';
@@ -28,6 +28,7 @@ import {SettingsManager} from "@/services/SettingsManager";
 import {DesenareFiguri} from "@/pages/exercises/matematica/geometrie/DesenareFiguri";
 import LineDrawingCanvas from "@/components/LineDrawingCanvas";
 import {ConfigProvider, theme as ATheme} from "antd";
+import {DiplomaManager} from "@/services/DiplomaManager";
 
 const theme = createTheme({
     type: "light",
@@ -51,6 +52,7 @@ function App() {
     const [difficultyValue, setDifficultyValue] = useState(
         new DifficultyManager()
     );
+    const [diplomaValue, setDiplomaValue] = useState(new DiplomaManager());
     const [storageValue, setStorageValue] = useState(new StorageManager());
 
     const router = createHashRouter([
@@ -129,6 +131,12 @@ function App() {
         setSettingsValue(settings);
     }, []);
 
+    const returnFreshDiploma = () => {
+        let a = new DiplomaManager();
+        a.name = diplomaValue.name;
+        return a;
+    }
+
     return (
         <div className='App'>
             <StorageContext.Provider value={{value: storageValue, setValue: setStorageValue}}>
@@ -137,9 +145,53 @@ function App() {
                         <SettingsContext.Provider value={{value: settingsValue, setValue: setSettingsValue}}>
                             <ConfigProvider>
                                 <NextUIProvider theme={theme}>
-                                    <AnimatePresence mode="wait">
-                                        <RouterProvider router={router}/>
-                                    </AnimatePresence>
+                                    <DiplomaContext.Provider value={{value: diplomaValue, setValue: setDiplomaValue}}>
+                                        <AnimatePresence mode="wait">
+                                            <Modal
+                                                closeButton
+                                                aria-labelledby="modal-title"
+                                                open={diplomaValue.openAlgebra}
+                                                onClose={() => {
+                                                    setDiplomaValue(
+                                                        () => returnFreshDiploma()
+                                                    )
+                                                }}
+                                            >
+                                                <Modal.Header>
+                                                    <h1>Algebra Diploma</h1>
+                                                </Modal.Header>
+                                            </Modal>
+                                            <Modal
+                                                closeButton
+                                                aria-labelledby="modal-title"
+                                                open={diplomaValue.openGeometrie}
+                                                onClose={() => {
+                                                    setDiplomaValue(
+                                                        () => returnFreshDiploma()
+                                                    )
+                                                }}
+                                            >
+                                                <Modal.Header>
+                                                    <h1>Felicitări! Ai terminat capitolul de geometrie</h1>
+                                                </Modal.Header>
+                                            </Modal>
+                                            <Modal
+                                                closeButton
+                                                aria-labelledby="modal-title"
+                                                open={diplomaValue.openRomana}
+                                                onClose={() => {
+                                                    setDiplomaValue(
+                                                        () => returnFreshDiploma()
+                                                    )
+                                                }}
+                                            >
+                                                <Modal.Header>
+                                                    <h1>Felicitări! Ai terminat capitolul de română</h1>
+                                                </Modal.Header>
+                                            </Modal>
+                                            <RouterProvider router={router}/>
+                                        </AnimatePresence>
+                                    </DiplomaContext.Provider>
                                 </NextUIProvider>
                             </ConfigProvider>
                         </SettingsContext.Provider>

@@ -14,8 +14,7 @@ export function RomanaPanel() {
         <AnimatedPage>
             <div className="card-holder romana-panel">
                 <div className='background-card'>
-
-                    <Button light auto icon={<ArrowLeft size="24"/>}
+                    <Button light size='xs' auto icon={<ArrowLeft size="24"/>}
                             css={{width: '36px', height: '36px'}}
                             onPress={() => navigate(-1)}
                     />

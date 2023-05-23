@@ -42,7 +42,6 @@ export function Operatii() {
             difficulty.value.operatii.allowedOperators, difficulty.value.operatii.lowLimit,
             difficulty.value.operatii.maxLimit, difficulty.value.operatii.depth
         ));
-        console.log(`depth: ${tree.depth}`);
     }
 
     useEffect(() => {
@@ -51,23 +50,6 @@ export function Operatii() {
         regenerteTree();
         setHasCheated(false);
     }, []);
-
-
-    // useEffect(() => {
-    //     setExercise(<RenderExercise inputValue={inputValue} setInputValue={setInputValue}/>)
-    // }, [tree])
-
-
-    // useEffect(() => {
-    //     setVerifColor('primary');
-    //     console.log(`start: ${difficulty.value.operatii.lowLimit}; end: ${difficulty.value.operatii.maxLimit}`);
-    //     regenerteTree();
-    //     setHasCheated(false);
-    // }, [difficulty]);
-
-
-    // Print out the equation
-    // console.log(tree.root?.infix());
 
     const settings = useSettingsContext();
     const avatar = settings.value.settings.avatar;

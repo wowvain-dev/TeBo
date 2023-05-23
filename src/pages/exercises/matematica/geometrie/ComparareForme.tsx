@@ -32,14 +32,14 @@ type Shape = {
 };
 
 export enum Colors {
-    red = '#ff7875',
-    blue = '#4096ff',
-    green = '#73d13d',
+    red = '#e51126',
+    blue = '#0072f5',
+    green = '#17c964',
     yellow = '#fff566',
-    purple = '#b37feb',
-    pink = '#f759ab',
-    gray = '#8c8c8c'
-}
+    purple = '#681fc0',
+    pink = '#ff69c9',
+    gray = '#706e6e'
+};
 
 export function ComparareForme() {
     const difficulty = useDifficultyContext();
