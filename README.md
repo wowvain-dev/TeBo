@@ -1,6 +1,6 @@
 <img width="150px" src="https://user-images.githubusercontent.com/79089703/228573457-ee265da7-3769-4c42-be53-d8e9180dacb0.png" />
 
-# Lima - Culegerea Interactivă Pentru Copii
+# TeBo - Culegerea Interactivă Pentru Copii
 
 ![GitHub stars](https://img.shields.io/github/stars/wowvain-dev/lima-electron?color=fa6470)
 ![GitHub issues](https://img.shields.io/github/issues/wowvain-dev/lima-electron?color=d8b22d)
@@ -24,15 +24,15 @@
 ## 🛫 Instalare
 
 - #### Folosirea installer-ului:
-  - Intrati pe pagina de [releases](https://github.com/wowvain-dev/lima-electron/releases/tag/alpha) si descarcati ultima versiune: (v0.2.1-alpha)
+  - Intrati pe pagina de [releases](https://gitlab.com/wowvain-dev/TeBo/-/releases) si descarcati ultima versiune: (v0.2.1-alpha)
   - Dezarhivati fisierul descarcat
-  - Rulati `lima-0.2.1.exe` si urmariti pasii installer-ului
+  - Rulati `lima-<VERSIUNE>.exe` si urmariti pasii installer-ului
   - Porniti programul din windows search bar
 
 - #### Rulare din codul sursa:
 
 ```sh
-git clone https://github.com/wowvain-dev/lima-electron
+git clone  https://gitlab.com/wowvain-dev/TeBo.git
 npm install
 npm run dev
 ```
@@ -77,3 +77,5 @@ Pentru fisierele de stil ale aplicaţiei am folosit SASS/SCSS.
 
 - E-Mail: wowvain.dev@gmail.com
 - Discord: !wowvain#3859
+
+## NOTE: Aplicația a trecut printr-un proces de re-branding. Inițial a fost numită lima și era hosted pe github.
