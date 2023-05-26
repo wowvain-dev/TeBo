@@ -194,6 +194,7 @@ export function Formare() {
         }
     ];
 
+
     return (
         <AnimatedPage>
             <ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)}/>
@@ -203,11 +204,11 @@ export function Formare() {
                 <TryAgainModal show={tryAgainVisible} setShow={setTryAgainVisible}/>
                 <div className="background-card">
                     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                        <Button light auto icon={<ArrowLeft size="24"/>}
+                        <Button light auto size="xs" icon={<ArrowLeft size="24"/>}
                                 css={{width: "36px", height: "36px"}}
                                 onPress={() => navigate(-1)}
                         />
-                        <Button light auto icon={<AiOutlineQuestion size="24"/>}
+                        <Button light auto size='xs' icon={<AiOutlineQuestion size="24"/>}
                                 css={{width: "36px", height: "36px"}}
                                 onPress={() => setTourVisible(true)}
                         />

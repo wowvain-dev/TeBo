@@ -2,16 +2,13 @@ import './GemoetriePanel.sass';
 import {ProgressExerciseCard} from '../components/ProgressExerciseCard';
 import {Button, Grid} from '@nextui-org/react';
 import AnimatedPage from '../components/AnimatedPage';
-import {useProgressContext, useSettingsContext} from '../services/context';
+import {useDiplomaContext, useProgressContext, useSettingsContext} from '@/services/context';
 import {useNavigate} from 'react-router-dom';
-import {BsArrowLeft} from 'react-icons/bs';
-import {ExpressionNode, ExpressionTree, Operator} from '../types/ExpressionTree';
-import {Pagination} from '@nextui-org/react';
 import {ArrowLeft} from 'iconsax-react';
-import {useState} from "react";
 import React from 'react';
 import {TbChalkboard} from "react-icons/all";
 import {motion} from "framer-motion";
+import {DiplomaManager} from "@/services/DiplomaManager";
 
 export function GeometriePanel() {
     const progress = useProgressContext();
@@ -20,12 +17,14 @@ export function GeometriePanel() {
     const settings = useSettingsContext();
     const avatar = settings.value.settings.avatar;
 
+    const diploma = useDiplomaContext();
+
     return (
         <AnimatedPage>
             <div className="card-holder geometrie-panel">
                 <div className='background-card'>
 
-                    <Button light auto icon={<ArrowLeft size="24"/>}
+                    <Button light auto size='xs' icon={<ArrowLeft size="24"/>}
                             css={{width: '36px', height: '36px'}}
                             onPress={() => navigate(-1)}
                     />

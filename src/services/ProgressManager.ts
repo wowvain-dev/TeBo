@@ -18,7 +18,6 @@ export class ExerciseProgress {
     percentage() {
         return (this.current > this.total ? this.total : this.current) * 100 / this.total;
     }
-
 }
 
 export class CollectionProgress {
@@ -110,6 +109,16 @@ export class ProgressManager {
     level3: LevelProgress = new LevelProgress();
 
     isThereProgress: boolean = false;
+
+    getField(subject: string, chapter: string, exercise: string) {
+        if (subject === "matematica") {
+            return this.level1.matematica.parts.get(chapter)?.parts.get(exercise) ?? new ExerciseProgress(0, 0);
+        } else if (subject === "comunicare") {
+            return this.level1.comunicare.parts.get(chapter)?.parts.get(exercise) ?? new ExerciseProgress(0, 0);
+        }
+        return new ExerciseProgress(0, 0);
+    }
+
 
     setValue(
         level: number, metasubject: string, subject: string, exercise: string,

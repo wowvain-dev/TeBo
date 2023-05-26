@@ -1,5 +1,5 @@
 import './Ordine.scss';
-import {useDifficultyContext, useProgressContext, useSettingsContext} from "@/services/context";
+import {useDifficultyContext, useDiplomaContext, useProgressContext, useSettingsContext} from "@/services/context";
 import {useNavigate} from "react-router-dom";
 import React, {useEffect, useState, useRef} from 'react';
 import AnimatedPage from '@/components/AnimatedPage';
@@ -31,6 +31,7 @@ import failure_sound from '@/assets/audio/sfx/failure_sound.aac';
 import {Divider, Tour, TourProps} from 'antd';
 import {HiOutlineSpeakerWave, AiOutlineQuestion} from 'react-icons/all';
 import stick_llama from '@/assets/stick-LLAMA-nerd-yellow.png';
+import {DiplomaManager} from "@/services/DiplomaManager";
 
 function generateArray(lowLimit: number, maxLimit: number, length: number): number[] {
     let array: number[] = [];
@@ -97,6 +98,7 @@ export function Ordine() {
     const difficulty = useDifficultyContext();
     const navigate = useNavigate();
     const progress = useProgressContext();
+    const diploma = useDiplomaContext();
     const [verifColor, setVerifColor] = useState('primary');
     const [swap, setSwap] = useState(false);
     const [hasCheated, setHasCheated] = useState(false);
@@ -310,7 +312,7 @@ export function Ordine() {
                                         display: 'flex',
                                         flexDirection: 'row',
                                         justifyCenter: 'center',
-                                        alignItems: 'center'
+                                        alignItems: 'center',
                                     }}>
                                         <DndContext
                                             sensors={sensors}
@@ -464,6 +466,23 @@ export function Ordine() {
                                             newManager.level3 = copy.level3;
                                             progress.setValue(newManager);
                                             progress.value.scriere();
+
+                                            let ordine_progress = progress.value.getField("matematica", "aritmetica", "ordine");
+                                            let operatii_progress = progress.value.getField("matematica", "aritmetica", "operatii");
+                                            let comparare_progress = progress.value.getField("matematica", "aritmetica", "comparatii");
+                                            let fractii_progress = progress.value.getField("matematica", "aritmetica", "fractii");
+                                            let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
+
+                                            if (ordine_progress.current === 50) {
+                                                if (operatii_progress.current >= 50 && comparare_progress.current >= 50 && fractii_progress.current >= 50 && formare_progress.current >= 50) {
+                                                    diploma.setValue(() => {
+                                                        let a = new DiplomaManager();
+                                                        a.name = diploma.value.name;
+                                                        a.openAlgebra = true;
+                                                        return a;
+                                                    });
+                                                }
+                                            }
                                         }
                                     } else {
                                         setFailureSound(true);
