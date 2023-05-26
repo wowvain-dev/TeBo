@@ -26,7 +26,7 @@
 - #### Folosirea installer-ului:
   - Intrati pe pagina de [releases](https://gitlab.com/wowvain-dev/TeBo/-/releases) si descarcati ultima versiune: (v0.2.1-alpha)
   - Dezarhivati fisierul descarcat
-  - Rulati `lima-<VERSIUNE>.exe` si urmariti pasii installer-ului
+  - Rulati `tebo-<VERSIUNE>.exe` si urmariti pasii installer-ului
   - Porniti programul din windows search bar
 
 - #### Rulare din codul sursa:
@@ -78,4 +78,4 @@ Pentru fisierele de stil ale aplicaţiei am folosit SASS/SCSS.
 - E-Mail: wowvain.dev@gmail.com
 - Discord: !wowvain#3859
 
-## NOTE: Aplicația a trecut printr-un proces de re-branding. Inițial a fost numită lima și era hosted pe github.
+## NOTE: Aplicația a trecut printr-un proces de re-branding. Inițial a fost numită `LiMa` și era hosted pe github.
