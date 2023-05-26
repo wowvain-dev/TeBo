@@ -139,7 +139,7 @@ function App() {
     const router = createHashRouter([
         {
             path: "/",
-            element: <OverallLayout/>,
+            element: <OverallLayout setColdStart={setColdStart}/>,
             children: [
                 {
                     index: true,

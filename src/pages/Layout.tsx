@@ -35,7 +35,7 @@ import {DifficultyManager} from "@/services/DifficultyManager";
 import {ProgressManager} from "@/services/ProgressManager";
 import {SettingsManager} from "@/services/SettingsManager";
 
-export function PageLayout() {
+export function PageLayout({setColdStart}: {setColdStart: (a: any)=>void}) {
     const [showTour, setShowTour] = useState(false);
     const [showSettings, setShowSettings] = useState(false);
 
@@ -209,16 +209,22 @@ export function PageLayout() {
             difficulty.setValue(new DifficultyManager());
             progress.setValue(new ProgressManager());
             preferences.setValue(new SettingsManager());
+            setShowSettings(false);
+            setColdStart(true);
         }
 
         const progressReset = () => {
             progress.value.stergere();
             progress.setValue(new ProgressManager());
+            setShowSettings(false);
+            setColdStart(true);
         }
 
         const preferencesReset = () => {
             settings.value.stergere();
             settings.setValue(new SettingsManager());
+            setShowSettings(false);
+            setColdStart(true);
         }
 
         return <div className="settings-modal"><Modal
@@ -389,7 +395,7 @@ export function PageLayout() {
 
 }
 
-export function OverallLayout() {
+export function OverallLayout({setColdStart}: {setColdStart:(a: any) => void}) {
     const settings = useSettingsContext();
 
     return (
@@ -397,7 +403,7 @@ export function OverallLayout() {
             background: `url(${settings.value.settings.background})`,
             // backgroundSize: `100vw 100vh`
         }}>
-            <PageLayout/>
+            <PageLayout setColdStart={setColdStart}/>
         </div>
     );
 }

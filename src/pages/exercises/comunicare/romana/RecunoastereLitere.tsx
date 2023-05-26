@@ -201,7 +201,7 @@ export function Litere() {
                         alignItems: 'center',
                     }}>
                         <Button ref={audioRef}
-                                auto light color="primary" icon={<HiOutlineSpeakerWave size={64}/>}
+                                auto light size='xs' color="primary" icon={<HiOutlineSpeakerWave size={64}/>}
                                 css={{w: '75px', h: '75px'}}
                                 onPress={() => setLetterSound(true)}
                         />
