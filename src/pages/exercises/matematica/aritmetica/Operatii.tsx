@@ -6,7 +6,7 @@ import {ArrowLeft, ArrowRight, ArrowRight2, AudioSquare, CloseCircle, Warning2} 
 import {useNavigate} from 'react-router-dom';
 import {ExpressionTree} from '@/types/ExpressionTree';
 import {useEffect, useRef, useState} from "react";
-import {useProgressContext, useDifficultyContext, useSettingsContext} from '@/services/context';
+import {useProgressContext, useDifficultyContext, useSettingsContext, useDiplomaContext} from '@/services/context';
 import {ExerciseProgress, ProgressManager} from '@/services/ProgressManager';
 import {Divider, notification, Tour, TourProps} from "antd";
 import {TryAgainModal} from "@/components/TryAgainModal";
@@ -17,8 +17,10 @@ import check_tour from '@/assets/audio/ui/check_tour.aac';
 import skip_tour from '@/assets/audio/ui/skip_tour.aac';
 import cheat_tour from '@/assets/audio/ui/cheat_tour.aac';
 import ReactHowler from 'react-howler';
+import {DiplomaManager} from "@/services/DiplomaManager";
 
 export function Operatii() {
+    const diploma = useDiplomaContext();
     let difficulty = useDifficultyContext();
     const navigate = useNavigate();
     const progress = useProgressContext();
@@ -271,6 +273,23 @@ export function Operatii() {
                                             newManager.level3 = copy.level3;
                                             progress.setValue(newManager);
                                             progress.value.scriere();
+
+                                            let ordine_progress = progress.value.getField("matematica", "aritmetica", "ordine");
+                                            let operatii_progress = progress.value.getField("matematica", "aritmetica", "operatii");
+                                            let comparare_progress = progress.value.getField("matematica", "aritmetica", "comparatii");
+                                            let fractii_progress = progress.value.getField("matematica", "aritmetica", "fractii");
+                                            let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
+
+                                            if (operatii_progress.current === 50) {
+                                                if (ordine_progress.current >= 50 && comparare_progress.current >= 50 && fractii_progress.current >= 50 && formare_progress.current >= 50) {
+                                                    diploma.setValue(() => {
+                                                        let a = new DiplomaManager();
+                                                        a.name = diploma.value.name;
+                                                        a.openAlgebra = true;
+                                                        return a;
+                                                    });
+                                                }
+                                            }
                                         }
                                     } else {
                                         console.log('INCORRECT')
@@ -360,12 +379,13 @@ export function Operatii() {
                                                 if (e.key === 'Enter') {
                                                     console.log(hasCheated);
                                                     if (parseInt(inputValue) === ExpressionTree.evaluate(tree.root)) {
+                                                        setVerifColor('success');
+                                                        setTimeout(() => {
+                                                            setVerifColor('primary');
+                                                        }, 500);
                                                         console.log('CORRECT')
                                                         setInputValue('');
-                                                        setTree(ExpressionTree.random(
-                                                            difficulty.value.operatii.allowedOperators, difficulty.value.ordine.lowLimit,
-                                                            difficulty.value.ordine.maxLimit, difficulty.value.operatii.depth
-                                                        ));
+                                                        regenerteTree();
                                                         setSwap(!swap);
                                                         setSuccessSound(true);
                                                         if (hasCheated) {
@@ -390,6 +410,23 @@ export function Operatii() {
                                                             newManager.level3 = copy.level3;
                                                             progress.setValue(newManager);
                                                             progress.value.scriere();
+
+                                                            let ordine_progress = progress.value.getField("matematica", "aritmetica", "ordine");
+                                                            let operatii_progress = progress.value.getField("matematica", "aritmetica", "operatii");
+                                                            let comparare_progress = progress.value.getField("matematica", "aritmetica", "comparatii");
+                                                            let fractii_progress = progress.value.getField("matematica", "aritmetica", "fractii");
+                                                            let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
+
+                                                            if (operatii_progress.current === 50) {
+                                                                if (ordine_progress.current >= 50 && comparare_progress.current >= 50 && fractii_progress.current >= 50 && formare_progress.current >= 50) {
+                                                                    diploma.setValue(() => {
+                                                                        let a = new DiplomaManager();
+                                                                        a.name = diploma.value.name;
+                                                                        a.openAlgebra = true;
+                                                                        return a;
+                                                                    });
+                                                                }
+                                                            }
                                                         }
                                                     } else {
                                                         console.log('INCORRECT')
@@ -447,6 +484,10 @@ export function Operatii() {
                                                 if (e.key === 'Enter') {
                                                     console.log(hasCheated);
                                                     if (parseInt(inputValue) === ExpressionTree.evaluate(tree.root)) {
+                                                        setVerifColor('success');
+                                                        setTimeout(() => {
+                                                            setVerifColor('primary');
+                                                        }, 500);
                                                         console.log('CORRECT')
                                                         setInputValue('');
                                                         setTree(ExpressionTree.random(
@@ -477,6 +518,22 @@ export function Operatii() {
                                                             newManager.level3 = copy.level3;
                                                             progress.setValue(newManager);
                                                             progress.value.scriere();
+                                                            let ordine_progress = progress.value.getField("matematica", "aritmetica", "ordine");
+                                                            let operatii_progress = progress.value.getField("matematica", "aritmetica", "operatii");
+                                                            let comparare_progress = progress.value.getField("matematica", "aritmetica", "comparatii");
+                                                            let fractii_progress = progress.value.getField("matematica", "aritmetica", "fractii");
+                                                            let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
+
+                                                            if (operatii_progress.current === 50) {
+                                                                if (ordine_progress.current >= 50 && comparare_progress.current >= 50 && fractii_progress.current >= 50 && formare_progress.current >= 50) {
+                                                                    diploma.setValue(() => {
+                                                                        let a = new DiplomaManager();
+                                                                        a.name = diploma.value.name;
+                                                                        a.openAlgebra = true;
+                                                                        return a;
+                                                                    });
+                                                                }
+                                                            }
                                                         }
                                                     } else {
                                                         console.log('INCORRECT')
@@ -562,6 +619,23 @@ export function Operatii() {
                                             newManager.level3 = copy.level3;
                                             progress.setValue(newManager);
                                             progress.value.scriere();
+
+                                            let ordine_progress = progress.value.getField("matematica", "aritmetica", "ordine");
+                                            let operatii_progress = progress.value.getField("matematica", "aritmetica", "operatii");
+                                            let comparare_progress = progress.value.getField("matematica", "aritmetica", "comparatii");
+                                            let fractii_progress = progress.value.getField("matematica", "aritmetica", "fractii");
+                                            let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
+
+                                            if (operatii_progress.current === 50) {
+                                                if (ordine_progress.current >= 50 && comparare_progress.current >= 50 && fractii_progress.current >= 50 && formare_progress.current >= 50) {
+                                                    diploma.setValue(() => {
+                                                        let a = new DiplomaManager();
+                                                        a.name = diploma.value.name;
+                                                        a.openAlgebra = true;
+                                                        return a;
+                                                    });
+                                                }
+                                            }
                                         }
                                     } else {
                                         console.log('INCORRECT');

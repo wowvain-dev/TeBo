@@ -206,6 +206,7 @@ export class Avatar {
 class Settings {
     background: string = "";
     avatar = new Avatar("cool", "blue");
+    name: string = "";
 }
 
 export class SettingsManager {
@@ -214,7 +215,8 @@ export class SettingsManager {
     create() {
         this.settings = {
             background: backgrounds[0],
-            avatar: new Avatar("cool", "blue")
+            avatar: new Avatar("cool", "blue"),
+            name: ""
         }
 
         this.write();
@@ -262,6 +264,7 @@ export class SettingsManager {
 
         this.settings.background = settingsJson.background;
         this.settings.avatar = avatar;
+        this.settings.name = settingsJson.name;
     }
 
     stergere() {

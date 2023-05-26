@@ -42,7 +42,7 @@ export type SettingsContainer = {
 
 export type DiplomaContainer = {
     value: DiplomaManager,
-    setValue: (val: DiplomaManager) => void
+    setValue: (val: () => DiplomaManager) => void
 }
 
 

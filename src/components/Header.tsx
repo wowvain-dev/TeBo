@@ -117,7 +117,6 @@ function Header() {
                 var currentPath = breadcrumbs[i].match.pathname;
                 var countSlashes = (currentPath.match(/\//g) || []).length;
                 var matchyPath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
-                console.log(`${countSlashes} in ${currentPath}, with a matchy of: ${matchyPath}`);
                 var menuItems = new Array;
                 PathNames.forEach((val, key) => {
                     if ((key.match(/\//g) || []).length == countSlashes) {
@@ -156,7 +155,7 @@ function Header() {
                 );
             }
         }
-        console.log(breadcrumbs[breadcrumbs.length - 1].match.params)
+
         return (
             <Breadcrumb items={crumbs}
                         style={{
@@ -173,27 +172,10 @@ function Header() {
         // <AnimatedPage>
         <div className="header-container">
             <div className="header-breadcrumbs">
-                {/* {breadcrumbs.map(({match, breadcrumb}, index) =>
-                   <div key={match.pathname}>
-                   <Link 
-                   className="link" 
-                   href={match.pathname === '/levels' ? '/' : match.pathname}>
-                        {breadcrumb === "Home" ? <BiHomeAlt2 /> : breadcrumb}
-                    </Link>
-                    {index !== breadcrumbs.length - 1 ? '/' : ''}
-                    </div>
-               )}  */}
-                {/* @ts-ignore */}
                 <Breadcrumbs/>
             </div>
 
             <div className="header-level">
-                {/* <p>{location.pathname.includes('levels/1')
-                    ? 'Învăţăcel'
-                    : location.pathname.includes('levels/2')
-                    ? 'Cunoscător'
-                    : 'Expert'
-                }</p> */}
                 <div style={{
                     fontFamily: 'DM Sans', fontSize: '30px', display: 'flex',
                     justifyContent: 'center', alignItems: 'center'
@@ -210,7 +192,9 @@ function Header() {
             <div className="header-progress">
                 <Progress value=
                               {(PathNames.get(location.pathname)?.progress?.current ?? 0) * 100 / (PathNames.get(location.pathname)?.progress?.total ?? 1)}
-                          color="gradient"/>
+                          color={
+                              (PathNames.get(location.pathname)?.progress?.current ?? 0) === (PathNames.get(location.pathname)?.progress?.total ?? 0) ? "success" : "gradient"
+                          }/>
             </div>
         </div>
         // </AnimatedPage>
