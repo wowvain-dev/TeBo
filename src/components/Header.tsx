@@ -1,6 +1,6 @@
 import './Header.scss';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
-import {Progress, Text, Button, Dropdown} from '@nextui-org/react';
+import {Progress, Text, Button, Dropdown, Spacer} from '@nextui-org/react';
 import {BiHomeAlt2} from 'react-icons/bi';
 import {useLocation, useNavigate, Link} from 'react-router-dom';
 import {ReactElement} from 'react';
@@ -181,6 +181,9 @@ function Header() {
                     justifyContent: 'center', alignItems: 'center'
                 }}>
                     <Image
+                        onClick={() => {
+                            navigate('/')
+                        }}
                         preview={false}
                         src={
                             avatar.getHead()
@@ -190,11 +193,15 @@ function Header() {
             </div>
 
             <div className="header-progress">
+                <span style={{fontFamily: 'DM Sans'}}>{PathNames.get(location.pathname)?.progress?.current}</span>
+                <Spacer x={.5}/>
                 <Progress value=
                               {(PathNames.get(location.pathname)?.progress?.current ?? 0) * 100 / (PathNames.get(location.pathname)?.progress?.total ?? 1)}
                           color={
-                              (PathNames.get(location.pathname)?.progress?.current ?? 0) === (PathNames.get(location.pathname)?.progress?.total ?? 0) ? "success" : "gradient"
+                              (PathNames.get(location.pathname)?.progress?.current ?? 0) >= (PathNames.get(location.pathname)?.progress?.total ?? 0) ? "success" : "gradient"
                           }/>
+                <Spacer x={.5}/>
+                <span style={{fontFamily: 'DM Sans'}}>{PathNames.get(location.pathname)?.progress?.total}</span>
             </div>
         </div>
         // </AnimatedPage>

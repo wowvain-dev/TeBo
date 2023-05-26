@@ -7,7 +7,13 @@ import {ArrowLeft, ArrowRight, ArrowRight2, AudioSquare, CloseCircle, Warning2} 
 import {useNavigate} from 'react-router-dom';
 import {ExpressionTree} from '@/types/ExpressionTree';
 import {useEffect, useRef, useState} from "react";
-import {useProgressContext, useDifficultyContext, useStorageContext, useSettingsContext} from '@/services/context';
+import {
+    useProgressContext,
+    useDifficultyContext,
+    useStorageContext,
+    useSettingsContext,
+    useDiplomaContext
+} from '@/services/context';
 import {ExerciseProgress, ProgressManager} from '@/services/ProgressManager';
 import {Divider, notification, Tour, TourProps} from "antd";
 import {TryAgainModal} from "@/components/TryAgainModal";
@@ -42,6 +48,7 @@ export enum Colors {
 };
 
 export function ComparareForme() {
+    const diploma = useDiplomaContext();
     const difficulty = useDifficultyContext();
     const navigate = useNavigate();
     const progress = useProgressContext();
@@ -478,7 +485,15 @@ export function ComparareForme() {
                                             newManager.level3 = copy.level3;
                                             progress.setValue(newManager);
                                             progress.value.scriere();
-                                        }
+
+                                            let culori_progress = progress.value.getField("matematica", "geometrie", "culori");
+                                            let comparare_progress = progress.value.getField("matematica", "geometrie", "comparare");
+
+                                            if (comparare_progress.current === comparare_progress.total) {
+                                                if (culori_progress.current >= comparare_progress.total)
+                                                    diploma.value.setOpenGeometrie(true);
+                                                }
+                                            }
                                     } else {
                                         setFailureSound(true);
                                         setTryAgainVisible(true);

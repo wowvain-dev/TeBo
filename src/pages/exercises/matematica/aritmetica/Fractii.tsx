@@ -1,5 +1,10 @@
 import './Fractii.sass';
-import {useDifficultyContext, useProgressContext, useSettingsContext} from '../../../../services/context';
+import {
+    useDifficultyContext,
+    useDiplomaContext,
+    useProgressContext,
+    useSettingsContext
+} from '../../../../services/context';
 import {useNavigate} from 'react-router-dom';
 import React, {useEffect, useRef, useState} from "react";
 import AnimatedPage from '@/components/AnimatedPage';
@@ -23,6 +28,7 @@ type Fractie = {
 };
 
 export function Fractii() {
+    const diploma = useDiplomaContext();
     const difficulty = useDifficultyContext();
     const navigate = useNavigate();
     const progress = useProgressContext();
@@ -390,6 +396,24 @@ export function Fractii() {
                                             newManager.level3 = copy.level3;
                                             progress.setValue(newManager);
                                             progress.value.scriere();
+
+                                            let ordine_progress = progress.value.getField("matematica", "aritmetica", "ordine");
+                                            let operatii_progress = progress.value.getField("matematica", "aritmetica", "operatii");
+                                            let comparare_progress = progress.value.getField("matematica", "aritmetica", "comparatii");
+                                            let fractii_progress = progress.value.getField("matematica", "aritmetica", "fractii");
+                                            let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
+
+                                            if (fractii_progress.current === fractii_progress.total) {
+                                                // STIU CA UNA DINTRE COMPARATII E REDUNDANTA, AM INCLUS-o ORICUM CA SA POT COPIA IF-UL LA TOATE EXERCITIILE USOR
+                                                if (ordine_progress.current >= ordine_progress.total &&
+                                                    comparare_progress.current >= comparare_progress.total &&
+                                                    fractii_progress.current >= fractii_progress.total &&
+                                                    formare_progress.current >= formare_progress.total &&
+                                                    operatii_progress.current >= operatii_progress.total
+                                                ) {
+                                                    diploma.value.setOpenAlgebra(true);
+                                                }
+                                            }
                                         }
                                     } else {
                                         setFailureSound(true);

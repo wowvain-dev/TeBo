@@ -5,7 +5,7 @@ import {Add, ArrowLeft, ArrowRight, CloseCircle, Minus, Warning2} from "iconsax-
 import {useNavigate} from "react-router-dom";
 import {ExpressionTree} from "@/types/ExpressionTree";
 import React, {useEffect, useRef, useState} from "react";
-import {useProgressContext, useDifficultyContext, useSettingsContext} from "@/services/context";
+import {useProgressContext, useDifficultyContext, useSettingsContext, useDiplomaContext} from "@/services/context";
 import {ExerciseProgress, ProgressManager} from "@/services/ProgressManager";
 import {DndContext, DragEndEvent, useDraggable, useDroppable, DragOverlay, DragStartEvent} from "@dnd-kit/core";
 import {CSS} from "@dnd-kit/utilities";
@@ -63,6 +63,7 @@ function Draggable({label, id}: DraggableProps) {
 }
 
 export function Comparatii() {
+    const diploma = useDiplomaContext();
     const difficulty = useDifficultyContext();
     const navigate = useNavigate();
     const progress = useProgressContext();
@@ -563,6 +564,25 @@ export function Comparatii() {
                                                 newManager.level3 = copy.level3;
                                                 progress.setValue(newManager);
                                                 progress.value.scriere();
+
+                                                let ordine_progress = progress.value.getField("matematica", "aritmetica", "ordine");
+                                                let operatii_progress = progress.value.getField("matematica", "aritmetica", "operatii");
+                                                let comparare_progress = progress.value.getField("matematica", "aritmetica", "comparatii");
+                                                let fractii_progress = progress.value.getField("matematica", "aritmetica", "fractii");
+                                                let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
+
+                                                if (comparare_progress.current === comparare_progress.total) {
+                                                    // STIU CA UNA DINTRE COMPARATII E REDUNDANTA, AM INCLUS-o ORICUM CA SA POT COPIA IF-UL LA TOATE EXERCITIILE USOR
+                                                    if (ordine_progress.current >= ordine_progress.total &&
+                                                        comparare_progress.current >= comparare_progress.total &&
+                                                        fractii_progress.current >= fractii_progress.total &&
+                                                        formare_progress.current >= formare_progress.total &&
+                                                        operatii_progress.current >= operatii_progress.total
+                                                    ) {
+                                                        diploma.value.setOpenAlgebra(true);
+
+                                                    }
+                                                }
                                             }
                                             return;
                                         }

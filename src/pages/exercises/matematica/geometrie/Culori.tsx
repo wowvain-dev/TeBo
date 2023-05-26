@@ -10,7 +10,7 @@ import {
     useProgressContext,
     useDifficultyContext,
     useStorageContext,
-    useSettingsContext
+    useSettingsContext, useDiplomaContext
 } from '@/services/context';
 import {ExerciseProgress, ProgressManager} from '@/services/ProgressManager';
 import {Divider, notification, Tour, TourProps} from "antd";
@@ -37,6 +37,7 @@ const SVG_HEIGHT = 160;
 const SVG_WIDTH = 300;
 
 export function Culori() {
+    const diploma = useDiplomaContext();
     const difficulty = useDifficultyContext();
     const navigate = useNavigate();
     const progress = useProgressContext();
@@ -567,8 +568,8 @@ export function Culori() {
                             </Button>
                         </Tooltip>
                         <Spacer x={2}/>
-                        <Button size='lg' ref={ansRef} css={{fontFamily: 'DM Sans'}}
-                                color={verifColor}
+                        {/*@ts-ignore*/}
+                        <Button size='lg' ref={ansRef} css={{fontFamily: 'DM Sans'}} color={verifColor}
                                 onPress={() => {
                                     if (chosenColor === answerColor) {
                                         setVerifColor('success');
@@ -602,6 +603,15 @@ export function Culori() {
                                             newManager.level3 = copy.level3;
                                             progress.setValue(newManager);
                                             progress.value.scriere();
+
+                                            let culori_progress = progress.value.getField("matematica", "geometrie", "culori");
+                                            let comparare_progress = progress.value.getField("matematica", "geometrie", "comparare");
+
+                                            if (culori_progress.current === culori_progress.total) {
+                                                if (comparare_progress.current >= culori_progress.total) {
+                                                    diploma.value.setOpenGeometrie(true);
+                                                }
+                                            }
                                         }
                                     } else {
                                         setFailureSound(true);

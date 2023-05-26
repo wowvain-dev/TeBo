@@ -10,7 +10,7 @@ import {
     useProgressContext,
     useDifficultyContext,
     useStorageContext,
-    useSettingsContext
+    useSettingsContext, useDiplomaContext
 } from '../../../../services/context';
 import {ExerciseProgress, ProgressManager} from '@/services/ProgressManager';
 import {Divider, notification, Tour, TourProps} from "antd";
@@ -25,6 +25,7 @@ import {LetterType} from '@/types/Letter';
 
 
 export function Vocale() {
+    const diploma = useDiplomaContext();
     const difficulty = useDifficultyContext();
     const navigate = useNavigate();
     const progress = useProgressContext();
@@ -360,6 +361,18 @@ export function Vocale() {
                                             newManager.level3 = copy.level3;
                                             progress.setValue(newManager);
                                             progress.value.scriere();
+
+                                            let litere_progress = progress.value.getField("comunicare", "romana", "litere");
+                                            let vocale_progress = progress.value.getField("comunicare", "romana", "vocale");
+
+                                            console.log("lp: " + litere_progress);
+                                            console.log("vp: " + vocale_progress);
+
+                                            if (vocale_progress.current === vocale_progress.total) {
+                                                if (litere_progress.current >= litere_progress.total) {
+                                                    diploma.value.setOpenRomana(true);
+                                                }
+                                            }
                                         }
                                     } else {
                                         console.log('INCORRECT');

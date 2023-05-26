@@ -33,6 +33,7 @@ export function Operatii() {
     const [tourVisible, setTourVisible] = useState(false);
     const [exercise, setExercise] = useState<JSX.Element>(<></>);
 
+
     let eqRef = useRef(null);
     let inputRef = useRef(null);
     let skipRef = useRef(null);
@@ -282,12 +283,12 @@ export function Operatii() {
 
                                             if (operatii_progress.current === 50) {
                                                 if (ordine_progress.current >= 50 && comparare_progress.current >= 50 && fractii_progress.current >= 50 && formare_progress.current >= 50) {
-                                                    diploma.setValue(() => {
-                                                        let a = new DiplomaManager();
-                                                        a.name = diploma.value.name;
-                                                        a.openAlgebra = true;
-                                                        return a;
-                                                    });
+                                                    // diploma.setValue(() => {
+                                                    //     let a = new DiplomaManager();
+                                                    //     a.openAlgebra = true;
+                                                    //     return a;
+                                                    // });
+                                                    diploma.value.setOpenAlgebra(true);
                                                 }
                                             }
                                         }
@@ -419,12 +420,7 @@ export function Operatii() {
 
                                                             if (operatii_progress.current === 50) {
                                                                 if (ordine_progress.current >= 50 && comparare_progress.current >= 50 && fractii_progress.current >= 50 && formare_progress.current >= 50) {
-                                                                    diploma.setValue(() => {
-                                                                        let a = new DiplomaManager();
-                                                                        a.name = diploma.value.name;
-                                                                        a.openAlgebra = true;
-                                                                        return a;
-                                                                    });
+                                                                    diploma.value.setOpenAlgebra(true);
                                                                 }
                                                             }
                                                         }
@@ -526,12 +522,7 @@ export function Operatii() {
 
                                                             if (operatii_progress.current === 50) {
                                                                 if (ordine_progress.current >= 50 && comparare_progress.current >= 50 && fractii_progress.current >= 50 && formare_progress.current >= 50) {
-                                                                    diploma.setValue(() => {
-                                                                        let a = new DiplomaManager();
-                                                                        a.name = diploma.value.name;
-                                                                        a.openAlgebra = true;
-                                                                        return a;
-                                                                    });
+                                                                    diploma.value.setOpenAlgebra(true);
                                                                 }
                                                             }
                                                         }
@@ -627,13 +618,14 @@ export function Operatii() {
                                             let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
 
                                             if (operatii_progress.current === 50) {
-                                                if (ordine_progress.current >= 50 && comparare_progress.current >= 50 && fractii_progress.current >= 50 && formare_progress.current >= 50) {
-                                                    diploma.setValue(() => {
-                                                        let a = new DiplomaManager();
-                                                        a.name = diploma.value.name;
-                                                        a.openAlgebra = true;
-                                                        return a;
-                                                    });
+                                                // STIU CA UNA DINTRE COMPARATII E REDUNDANTA, AM INCLUS-o ORICUM CA SA POT COPIA IF-UL LA TOATE EXERCITIILE USOR
+                                                if (ordine_progress.current >= ordine_progress.total &&
+                                                    comparare_progress.current >= comparare_progress.total &&
+                                                    fractii_progress.current >= fractii_progress.total &&
+                                                    formare_progress.current >= formare_progress.total &&
+                                                    operatii_progress.current >= operatii_progress.total
+                                                ) {
+                                                    diploma.value.setOpenAlgebra(true);
                                                 }
                                             }
                                         }

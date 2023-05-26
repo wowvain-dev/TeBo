@@ -42,7 +42,6 @@ export type SettingsContainer = {
 
 export type DiplomaContainer = {
     value: DiplomaManager,
-    setValue: (val: () => DiplomaManager) => void
 }
 
 
@@ -82,8 +81,6 @@ export const StorageContext = createContext<StorageContainer>(
 export const DiplomaContext = createContext<DiplomaContainer>(
     {
         value: new DiplomaManager(),
-        setValue: () => {
-        }
     }
 )
 

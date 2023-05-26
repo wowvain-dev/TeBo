@@ -1,5 +1,5 @@
 import './App.scss'
-import styles from './diploma.module.scss';
+import styles from './diploma.scss';
 import {BrowserRouter, Routes, Route, useLocation, RouterProvider, createHashRouter} from "react-router-dom";
 import {Button, Modal, NextUIProvider, Spacer} from '@nextui-org/react';
 // @ts-ignore
@@ -42,6 +42,7 @@ import {TiUserOutline} from "react-icons/all";
 import {existsSync, readFileSync} from "fs";
 import {join} from "path";
 import {homedir} from "os";
+import {Diploma} from "@/components/Diploma";
 
 const theme = createTheme({
     type: "light",
@@ -69,35 +70,69 @@ function App() {
     const [diplomaValue, setDiplomaValue] = useState(new DiplomaManager());
     const [storageValue, setStorageValue] = useState(new StorageManager());
 
+    const [openAlgebra, setOpenAlgebra] = useState<boolean>(false);
+    const [openGeometrie, setOpenGeometrie] = useState<boolean>(false);
+    const [openRomana, setOpenRomana] = useState<boolean>(false);
+
     useEffect(() => {
+        setDiplomaValue({
+            openRomana, openAlgebra, openGeometrie,
+            setOpenAlgebra,
+            setOpenGeometrie,
+            setOpenRomana
+        });
         setColdStart(false);
         if (!existsSync(join(homedir(), 'TeBo', 'storage'))) {
-            setColdStart(true);
-        } else if (existsSync(join(homedir(), 'TeBo', 'storage', 'progress.json'))) {
-            let p_file = readFileSync(join(homedir(), 'TeBo', 'storage', 'progress.json'), {
+           setColdStart(true);
+           return;
+        }
+        if (existsSync(join(homedir(), 'TeBo', 'storage', 'settings.json'))) {
+            let s_file = readFileSync(join(homedir(), 'TeBo', 'storage', 'settings.json'), {
                 encoding: 'utf-8', flag: 'r'
             });
-            if (p_file.length === 0) {
+            if (s_file.length === 0) {
                 setColdStart(true);
-            } else {
-                let p_json = JSON.parse(p_file);
-
-                let level = p_json.levels[0];
-
-                if (level.comunicare.romana.litere[0] === 0 &&
-                    level.comunicare.romana.vocale[0] === 0 &&
-                    level.matematica.aritmetica.operatii[0] === 0 &&
-                    level.matematica.aritmetica.ordine[0] === 0 &&
-                    level.matematica.aritmetica.fractii[0] === 0 &&
-                    level.matematica.aritmetica.formare[0] === 0 &&
-                    level.matematica.aritmetica.comparatii[0] === 0 &&
-                    level.matematica.geometrie.culori[0] === 0 &&
-                    level.matematica.geometrie.comparare[0] === 0
-                ) {
-                    setColdStart(true);
-                }
+                return;
+            }
+            let s_json = JSON.parse(s_file);
+            if (s_json.name === "") {
+                setColdStart(true);
+                return;
             }
         }
+        // if (!existsSync(join(homedir(), 'TeBo', 'storage'))) {
+        //     setColdStart(true);
+        // } else if (existsSync(join(homedir(), 'TeBo', 'storage', 'progress.json')) && existsSync(join(homedir(), 'TeBo', 'storage', 'settings.json'))) {
+        //     let p_file = readFileSync(join(homedir(), 'TeBo', 'storage', 'progress.json'), {
+        //         encoding: 'utf-8', flag: 'r'
+        //     });
+        //     if (p_file.length === 0 || s_file.length === 0) {
+        //         setColdStart(true);
+        //     } else {
+        //         let s_json = JSON.parse(s_file);
+        //         if (s_json.name === "") {
+        //             setColdStart(true);
+        //             let p_json = JSON.parse(p_file);
+        //
+        //             let level = p_json.levels[0];
+        //
+        //             if (level.comunicare.romana.litere[0] === 0 &&
+        //                 level.comunicare.romana.vocale[0] === 0 &&
+        //                 level.matematica.aritmetica.operatii[0] === 0 &&
+        //                 level.matematica.aritmetica.ordine[0] === 0 &&
+        //                 level.matematica.aritmetica.fractii[0] === 0 &&
+        //                 level.matematica.aritmetica.formare[0] === 0 &&
+        //                 level.matematica.aritmetica.comparatii[0] === 0 &&
+        //                 level.matematica.geometrie.culori[0] === 0 &&
+        //                 level.matematica.geometrie.comparare[0] === 0
+        //             ) {
+        //                 setColdStart(true);
+        //             }
+        //         } else {
+        //             setColdStart (false);
+        //         }
+        //     }
+        // }
 
     }, []);
 
@@ -177,12 +212,6 @@ function App() {
         setSettingsValue(settings);
     }, []);
 
-    const returnFreshDiploma = () => {
-        let a = new DiplomaManager();
-        a.name = diplomaValue.name;
-        return a;
-    }
-
     const settings = useSettingsContext();
     const avatar = settings.value.settings.avatar;
 
@@ -201,9 +230,10 @@ function App() {
                         <SettingsContext.Provider value={{value: settingsValue, setValue: setSettingsValue}}>
                             <ConfigProvider>
                                 <NextUIProvider theme={theme}>
-                                    <DiplomaContext.Provider value={{value: diplomaValue, setValue: setDiplomaValue}}>
+                                    <DiplomaContext.Provider value={{value: diplomaValue}}>
                                         <AnimatePresence mode="wait">
                                             <Modal aria-labelledby="modal-title"
+                                                   blur
                                                    preventClose
                                                    open={IS_COLD_START}
                                                    onClose={() => {
@@ -211,7 +241,9 @@ function App() {
                                                    }}
                                                    className="welcome"
                                             >
-                                                <Modal.Header>
+                                                <Modal.Header css={{
+                                                    borderBottom: '2px solid #ccc'
+                                                }}>
                                                     <h2 className="welcome-header"> Salut! Bine ai venit la
                                                         TeBo!</h2>
                                                 </Modal.Header>
@@ -237,13 +269,13 @@ function App() {
                                                                        prefix={<TiUserOutline size={24}/>}
                                                                        onChange={(e) => {
                                                                            setNameVal(e.target.value);
-
                                                                        }}
                                                                 />
                                                             </div>
                                                         </div>
+                                                        <Spacer x={2}/>
                                                         <div>
-                                                            <Image src={avatar.getBody()} width={200} height={320}
+                                                            <Image src={avatar.getBody()} width={150} height={200}
                                                                    preview={false}/>
                                                         </div>
                                                     </div>
@@ -253,6 +285,11 @@ function App() {
                                                             setLetsStart(true);
                                                             setTimeout(() => {
                                                                 setLetsStart(false);
+                                                                let new_settings = new SettingsManager();
+                                                                new_settings.settings = settingsValue.settings;
+                                                                new_settings.settings.name = nameVal;
+                                                                setSettingsValue(new_settings);
+                                                                settingsValue.write();
                                                             }, 2000);
                                                         }}
                                                                 disabled={nameVal.length <= 2}
@@ -260,7 +297,7 @@ function App() {
                                                     </div>
                                                 </Modal.Body>
                                             </Modal>
-                                            <Modal open={letsStart}>
+                                            <Modal open={letsStart} blur>
                                                 <Modal.Body>
                                                     <Spacer y={2}/>
                                                     <h2 style={{
@@ -271,61 +308,9 @@ function App() {
                                                     <Spacer y={2}/>
                                                 </Modal.Body>
                                             </Modal>
-                                            <Modal
-                                                closeButton
-                                                aria-labelledby="modal-title"
-                                                open={diplomaValue.openAlgebra}
-                                                onClose={() => {
-                                                    setDiplomaValue(
-                                                        () => returnFreshDiploma()
-                                                    )
-                                                }}
-                                            >
-                                                <Modal.Header style={{fontFamily: 'DM Sans'}}>
-                                                    <h3>Ai terminat capitolul de algebră!</h3>
-                                                </Modal.Header>
-                                                <Modal.Body>
-                                                    <div className={styles.diploma}>
-                                                        <div className={styles.diplomaContent}>
-                                                            <h2>Felicitări {diplomaValue.name}!</h2>
-                                                            <p>Ai terminat tot capitolul de algebră. Ține-o tot așa!</p>
-                                                        </div>
-                                                        <div className={styles.diplomaAvatar}>
-                                                            <Image preview={false} width={150} height={250}
-                                                                   src={avatar.getAlgebra(true)}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </Modal.Body>
-                                            </Modal>
-                                            <Modal
-                                                closeButton
-                                                aria-labelledby="modal-title"
-                                                open={diplomaValue.openGeometrie}
-                                                onClose={() => {
-                                                    setDiplomaValue(
-                                                        () => returnFreshDiploma()
-                                                    )
-                                                }}
-                                            >
-                                                <Modal.Header>
-                                                    <h1>Felicitări! Ai terminat capitolul de geometrie</h1>
-                                                </Modal.Header>
-                                            </Modal>
-                                            <Modal
-                                                closeButton
-                                                aria-labelledby="modal-title"
-                                                open={diplomaValue.openRomana}
-                                                onClose={() => {
-                                                    setDiplomaValue(
-                                                        () => returnFreshDiploma()
-                                                    )
-                                                }}
-                                            >
-                                                <Modal.Header>
-                                                    <h1>Felicitări! Ai terminat capitolul de română</h1>
-                                                </Modal.Header>
-                                            </Modal>
+                                            <Diploma subject="aritmetică" open={openAlgebra} setClose={(a) => setOpenAlgebra(a)} />
+                                            <Diploma subject="geometrie" open={openGeometrie} setClose={(a) => setOpenGeometrie(a)}/>
+                                            <Diploma subject="română" open={openRomana} setClose={(a) => setOpenRomana(a)}/>
                                             <RouterProvider router={router}/>
                                         </AnimatePresence>
                                     </DiplomaContext.Provider>

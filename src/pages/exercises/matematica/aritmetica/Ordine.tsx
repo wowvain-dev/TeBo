@@ -473,14 +473,15 @@ export function Ordine() {
                                             let fractii_progress = progress.value.getField("matematica", "aritmetica", "fractii");
                                             let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
 
-                                            if (ordine_progress.current === 50) {
-                                                if (operatii_progress.current >= 50 && comparare_progress.current >= 50 && fractii_progress.current >= 50 && formare_progress.current >= 50) {
-                                                    diploma.setValue(() => {
-                                                        let a = new DiplomaManager();
-                                                        a.name = diploma.value.name;
-                                                        a.openAlgebra = true;
-                                                        return a;
-                                                    });
+                                            if (ordine_progress.current === ordine_progress.total) {
+                                                // STIU CA UNA DINTRE COMPARATII E REDUNDANTA, AM INCLUS-o ORICUM CA SA POT COPIA IF-UL LA TOATE EXERCITIILE USOR
+                                                if (ordine_progress.current >= ordine_progress.total &&
+                                                    comparare_progress.current >= comparare_progress.total &&
+                                                    fractii_progress.current >= fractii_progress.total &&
+                                                    formare_progress.current >= formare_progress.total &&
+                                                    operatii_progress.current >= operatii_progress.total
+                                                ) {
+                                                    diploma.value.setOpenAlgebra(true);
                                                 }
                                             }
                                         }

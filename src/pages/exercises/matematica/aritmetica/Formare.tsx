@@ -3,7 +3,7 @@ import '../../../../components/Tour.scss';
 import AnimatedPage from "@/components/AnimatedPage";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {useDifficultyContext, useProgressContext, useSettingsContext} from "@/services/context";
+import {useDifficultyContext, useDiplomaContext, useProgressContext, useSettingsContext} from "@/services/context";
 import random from "random";
 import {FormareType} from "@/services/DifficultyManager";
 import {Button, Card, Modal, NormalColors, Spacer, Tooltip} from "@nextui-org/react";
@@ -42,6 +42,7 @@ function generateFormareNumber(type: FormareType) {
 }
 
 export function Formare() {
+    const diploma = useDiplomaContext();
     const difficulty = useDifficultyContext();
     const navigate = useNavigate();
     const progress = useProgressContext();
@@ -427,6 +428,24 @@ export function Formare() {
                                             newManager.level3 = copy.level3;
                                             progress.setValue(newManager);
                                             progress.value.scriere();
+
+                                            let ordine_progress = progress.value.getField("matematica", "aritmetica", "ordine");
+                                            let operatii_progress = progress.value.getField("matematica", "aritmetica", "operatii");
+                                            let comparare_progress = progress.value.getField("matematica", "aritmetica", "comparatii");
+                                            let fractii_progress = progress.value.getField("matematica", "aritmetica", "fractii");
+                                            let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
+
+                                            if (formare_progress.current === formare_progress.total) {
+                                                // STIU CA UNA DINTRE COMPARATII E REDUNDANTA, AM INCLUS-o ORICUM CA SA POT COPIA IF-UL LA TOATE EXERCITIILE USOR
+                                                if (ordine_progress.current >= ordine_progress.total &&
+                                                    comparare_progress.current >= comparare_progress.total &&
+                                                    fractii_progress.current >= fractii_progress.total &&
+                                                    formare_progress.current >= formare_progress.total &&
+                                                    operatii_progress.current >= operatii_progress.total
+                                                ) {
+                                                    diploma.value.setOpenAlgebra(true);
+                                                }
+                                            }
                                         }
                                     } else {
                                         setFailureSound(true);

@@ -1,0 +1,89 @@
+.diploma {
+  font-family: "DM Sans", sans-serif;
+
+
+  &-body {
+    padding: 2rem;
+    padding-bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &-content {
+    flex: 1;
+
+    &-header {
+      font-weight: 600;
+      font-size: 1.5rem !important;
+    }
+
+    p {
+      font-size: 1.2rem;
+      font-family: "DM Sans", sans-serif;
+    }
+  }
+
+  &-avatar {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+$nextBlue: rgba(0, 114, 245, 0.5);
+$nextYellow: rgba(245, 165, 36, 0.5);
+$nextPurple: rgba(151, 80, 221, 0.5);
+$nextPink: $nextPurple;
+$nextGreen: rgba(23, 201, 100, 0.5);
+
+.nextui-modal {
+  &-close-icon {
+    color: #999 !important;
+    padding: .5rem !important;
+    background: #fff !important;
+    border-radius: 14px !important;
+    border: 2px solid #999 !important;
+  }
+
+  &.blue {
+    box-shadow: 0 1px 2px $nextBlue,
+    0 2px 4px $nextBlue,
+    0 4px 8px $nextBlue,
+    0 8px 16px $nextBlue !important;
+  }
+
+  &.green {
+    box-shadow: 0 1px 2px $nextGreen,
+    0 2px 4px $nextGreen,
+    0 4px 8px $nextGreen,
+    0 8px 16px $nextGreen !important;
+  }
+
+  &.pink {
+    box-shadow: 0 1px 2px $nextPink,
+    0 2px 4px $nextPink,
+    0 4px 8px $nextPink,
+    0 8px 16px $nextPink !important;
+  }
+
+  &.purple {
+    box-shadow: 0 1px 2px $nextPink,
+    0 2px 4px $nextPink,
+    0 4px 8px $nextPink,
+    0 8px 16px $nextPink !important;
+  }
+
+  &.yellow {
+    box-shadow: 0 1px 2px $nextYellow,
+    0 2px 4px $nextYellow,
+    0 4px 8px $nextYellow,
+    0 8px 16px $nextYellow !important;
+  }
+}
+
+
+
+.nextui-backdrop-layer {
+  background: rgba(0,0,0,.6)!important;
+}

@@ -1,9 +1,9 @@
 {
   "name": "tebo",
-  "version": "2.1.4",
+  "version": "2.2.0",
   "productName": "TeBo",
   "main": "dist-electron/main/index.js",
-  "description": "Culegere educațională pentru copii.",
+  "description": "Culegere educațională pentru copii cu deficiențe cognitive.",
   "author": "wowvain-dev",
   "license": "MIT",
   "private": true,

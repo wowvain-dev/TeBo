@@ -10,7 +10,7 @@ import {Spacer, Button} from "@nextui-org/react";
 import tldraw from "@/assets/lockup.svg";
 import {
     IconBrandDiscord, IconBrandDiscordFilled,
-    IconBrandGithub,
+    IconBrandGithub, IconBrandGitlab,
     IconBrandNextjs,
     IconBrandReact,
     IconBrandSass,
@@ -122,7 +122,7 @@ export const AboutSettings = () => {
                     <span>Pentru a vedea codul sursă intrați pe repository-ul proiectului:</span>
                     <Spacer x={1}/>
                     <TechBadge href="https://gitlab.com/wowvain-dev/TeBo"
-                               avatar={<IconBrandGithub color="#000"/>} label={"GitHub"}
+                               avatar={<IconBrandGitlab color="#e24329"/>} label={"GitLab"}
                                right={true} left={true}
                                radiusBottomRight="14px" radiusBottomLeft="14px"
                                radiusTopRight="14px" radiusTopLeft="14px"

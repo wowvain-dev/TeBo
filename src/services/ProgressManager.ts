@@ -183,8 +183,8 @@ export class ProgressManager {
         this.level1.matematica.parts.set('geometrie', new CollectionProgress());
         this.level1.matematica.parts.get('geometrie')?.parts
             .set('culori', new ExerciseProgress(0, 50));
-        this.level1.matematica.parts.get('geometrie')?.parts
-            .set('regula_sirului', new ExerciseProgress(0, 50));
+        // this.level1.matematica.parts.get('geometrie')?.parts
+        //     .set('regula_sirului', new ExerciseProgress(0, 50));
         this.level1.matematica.parts.get('geometrie')?.parts
             .set('comparare', new ExerciseProgress(0, 50));
 
@@ -243,7 +243,7 @@ export class ProgressManager {
                 element.matematica.aritmetica.formare[0] != 0 ||
                 element.matematica.aritmetica.comparatii[0] != 0 ||
                 element.matematica.geometrie.culori[0] != 0 ||
-                element.matematica.geometrie.regula_sirului[0] != 0 ||
+                // element.matematica.geometrie.regula_sirului[0] != 0 ||
                 element.matematica.geometrie.comparare[0] != 0) {
                 this.isThereProgress = true;
             }
@@ -290,11 +290,11 @@ export class ProgressManager {
                     element.matematica.geometrie.culori[1]
                 )
             );
-            x.matematica.parts.get('geometrie')?.parts.set('regula_sirului',
-                new ExerciseProgress(element.matematica.geometrie.regula_sirului[0],
-                    element.matematica.geometrie.regula_sirului[1]
-                )
-            );
+            // x.matematica.parts.get('geometrie')?.parts.set('regula_sirului',
+            //     new ExerciseProgress(element.matematica.geometrie.regula_sirului[0],
+            //         element.matematica.geometrie.regula_sirului[1]
+            //     )
+            // );
             x.matematica.parts.get('geometrie')?.parts.set('comparare',
                 new ExerciseProgress(element.matematica.geometrie.comparare[0],
                     element.matematica.geometrie.comparare[1]
@@ -402,7 +402,7 @@ export class ProgressManager {
                         },
                         "geometrie": {
                             "culori": [geometrie1?.parts.get('culori')?.current, geometrie1?.parts.get('culori')?.total],
-                            "regula_sirului": [geometrie1?.parts.get('regula_sirului')?.current, geometrie1?.parts.get('regula_sirului')?.total],
+                            // "regula_sirului": [geometrie1?.parts.get('regula_sirului')?.current, geometrie1?.parts.get('regula_sirului')?.total],
                             "comparare": [geometrie1?.parts.get('comparare')?.current, geometrie1?.parts.get('comparare')?.total],
                         }
                     }

@@ -5,7 +5,13 @@ import {Button, Card, Input, NormalColors, Spacer, Modal, Tooltip} from '@nextui
 import {ArrowLeft, ArrowRight, ArrowRight2, AudioSquare, Car, CloseCircle, Warning2} from "iconsax-react";
 import {useNavigate} from 'react-router-dom';
 import React, {useEffect, useRef, useState} from "react";
-import {useProgressContext, useDifficultyContext, useStorageContext, useSettingsContext} from '@/services/context';
+import {
+    useProgressContext,
+    useDifficultyContext,
+    useStorageContext,
+    useSettingsContext,
+    useDiplomaContext
+} from '@/services/context';
 import {ExerciseProgress, ProgressManager} from '@/services/ProgressManager';
 import {Divider, notification, Tour, TourProps} from "antd";
 import {TryAgainModal} from "@/components/TryAgainModal";
@@ -19,6 +25,7 @@ import random from 'random';
 
 
 export function Litere() {
+    const diploma = useDiplomaContext();
     const difficulty = useDifficultyContext();
     const navigate = useNavigate();
     const progress = useProgressContext();
@@ -311,6 +318,15 @@ export function Litere() {
                                             newManager.level3 = copy.level3;
                                             progress.setValue(newManager);
                                             progress.value.scriere();
+
+                                            let litere_progress = progress.value.getField("comunicare", "romana", "litere");
+                                            let vocale_progress = progress.value.getField("comunicare", "romana", "vocale");
+
+                                            if (litere_progress.current === litere_progress.total) {
+                                                if (vocale_progress.current >= vocale_progress.total) {
+                                                    diploma.value.setOpenRomana(true);
+                                                }
+                                            }
                                         }
                                     } else {
                                         console.log('INCORRECT');
