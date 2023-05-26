@@ -191,7 +191,7 @@ export function PreferencesSettings() {
             </div>
             <Divider type="horizontal"/>
             <div className="change-avatar">
-                <p style={{fontSize: "1.25rem", marginBottom: '10px'}}>Configurați avatarul LiMa:</p>
+                <p style={{fontSize: "1.25rem", marginBottom: '10px'}}>Configurați avatarul <b>Tebo</b>:</p>
                 <Spacer y={2}/>
                 <div className="avatar-config">
                     <div style={{display: 'flex', flexDirection: 'column'}}>

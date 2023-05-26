@@ -1,7 +1,7 @@
 {
-  "name": "lima-electron",
+  "name": "tebo",
   "version": "2.1.4",
-  "productName": "LiMa",
+  "productName": "TeBo",
   "main": "dist-electron/main/index.js",
   "description": "Culegere educațională pentru copii.",
   "author": "wowvain-dev",

@@ -2,7 +2,7 @@
  * @see https://www.electron.build/configuration/configuration
  */
 {
-  "appId": "com.electron.lima",
+  "appId": "com.electron.tebo",
   "directories": {
     "output": "release/${version}"
   },

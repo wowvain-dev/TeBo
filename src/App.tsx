@@ -71,10 +71,10 @@ function App() {
 
     useEffect(() => {
         setColdStart(false);
-        if (!existsSync(join(homedir(), 'lima'))) {
+        if (!existsSync(join(homedir(), 'TeBo', 'storage'))) {
             setColdStart(true);
-        } else if (existsSync(join(homedir(), 'lima', 'progress.json'))) {
-            let p_file = readFileSync(join(homedir(), 'lima', 'progress.json'), {
+        } else if (existsSync(join(homedir(), 'TeBo', 'storage', 'progress.json'))) {
+            let p_file = readFileSync(join(homedir(), 'TeBo', 'storage', 'progress.json'), {
                 encoding: 'utf-8', flag: 'r'
             });
             if (p_file.length === 0) {

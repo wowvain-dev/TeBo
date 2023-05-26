@@ -58,27 +58,27 @@ export class DifficultyManager {
     }
 
     write() {
-        writeFileSync(join(homedir(), 'lima', 'difficulty.json'), JSON.stringify(this), {
+        writeFileSync(join(homedir(), 'TeBo', 'storage', 'difficulty.json'), JSON.stringify(this), {
             encoding: 'utf-8', flag: 'w'
         });
     }
 
     initialize() {
-        let directoryPath = join(homedir(), 'lima');
-        let filePath = join(homedir(), 'lima', 'difficulty.json');
+        let directoryPath = join(homedir(), 'TeBo', 'storage');
+        let filePath = join(homedir(), 'TeBo', 'storage', 'difficulty.json');
 
-        if (!existsSync(join(homedir(), 'lima'))) {
-            mkdirSync(join(homedir(), 'lima'));
-            writeFileSync(join(homedir(), 'lima', 'difficulty.json'), '', {flag: 'w'});
+        if (!existsSync(join(homedir(), 'TeBo', 'storage'))) {
+            mkdirSync(join(homedir(), 'TeBo', 'storage'));
+            writeFileSync(join(homedir(), 'TeBo', 'storage', 'difficulty.json'), '', {flag: 'w'});
             return;
         }
 
-        if (!existsSync(join(homedir(), 'lima', 'difficulty.json'))) {
-            writeFileSync(join(homedir(), 'lima', 'difficulty.json'), '', {flag: 'w'});
+        if (!existsSync(join(homedir(), 'TeBo', 'storage', 'difficulty.json'))) {
+            writeFileSync(join(homedir(), 'TeBo', 'storage', 'difficulty.json'), '', {flag: 'w'});
             return
         }
 
-        if (readFileSync(join(homedir(), 'lima', 'difficulty.json'), {
+        if (readFileSync(join(homedir(), 'TeBo', 'storage', 'difficulty.json'), {
             encoding: 'utf-8', flag: 'r'
         }).length === 0) {
             this.create();
@@ -87,7 +87,7 @@ export class DifficultyManager {
 
         console.log('Loading previous difficulties');
 
-        let settingsFile = readFileSync(join(homedir(), 'lima', 'difficulty.json'), {
+        let settingsFile = readFileSync(join(homedir(), 'TeBo', 'storage', 'difficulty.json'), {
             encoding: 'utf-8', flag: 'r'
         });
 

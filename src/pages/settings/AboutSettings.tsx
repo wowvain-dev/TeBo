@@ -64,7 +64,7 @@ export const AboutSettings = () => {
                 <div className="header">
                     <Image src={settings.value.settings.avatar.getBody()} width={120} height={180} withPlaceholder
                     />
-                    <span className="title">LiMa {VERSION_NUMBER}</span>
+                    <span className="title">TeBo {VERSION_NUMBER}</span>
                     <span className="authors">by <Link target="_blank"
                                                        to={"https://github.com/wowvain-dev"}>wowvain-dev</Link> & <Link
                         target="_blank" to="https://www.behance.net/ismokepie">ismokepie</Link></span>
@@ -121,7 +121,7 @@ export const AboutSettings = () => {
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <span>Pentru a vedea codul sursă intrați pe repository-ul proiectului:</span>
                     <Spacer x={1}/>
-                    <TechBadge href="https://github.com/wowvain-dev/lima-electron"
+                    <TechBadge href="https://gitlab.com/wowvain-dev/TeBo"
                                avatar={<IconBrandGithub color="#000"/>} label={"GitHub"}
                                right={true} left={true}
                                radiusBottomRight="14px" radiusBottomLeft="14px"
@@ -132,7 +132,7 @@ export const AboutSettings = () => {
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <span>Pentru contact, vă rog să îmi dați mesaj pe discord: </span>
                     <Spacer x={1}/>
-                    <TechBadge href="https://github.com/wowvain-dev/lima-electron"
+                    <TechBadge href="https://gitlab.com/wowvain-dev/TeBo"
                                avatar={<IconBrandDiscord color="#5865f2"/>} label={"!wowvain#3859"}
                                right={true} left={true}
                                radiusBottomRight="14px" radiusBottomLeft="14px"

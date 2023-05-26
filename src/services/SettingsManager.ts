@@ -223,27 +223,27 @@ export class SettingsManager {
     }
 
     write() {
-        writeFileSync(join(homedir(), 'lima', 'settings.json'), JSON.stringify(this.settings), {
+        writeFileSync(join(homedir(), 'TeBo', 'storage', 'settings.json'), JSON.stringify(this.settings), {
             encoding: 'utf-8', flag: 'w'
         })
     }
 
     initialize() {
-        let directoryPath = join(homedir(), 'lima');
-        let filePath = join(homedir(), 'lima', 'progress.json');
+        let directoryPath = join(homedir(), 'TeBo', 'storage');
+        let filePath = join(homedir(), 'TeBo', 'storage', 'progress.json');
 
-        if (!existsSync(join(homedir(), 'lima'))) {
-            mkdirSync(join(homedir(), 'lima'));
-            writeFileSync(join(homedir(), 'lima', 'settings.json'), '', {flag: 'w'});
+        if (!existsSync(join(homedir(), 'TeBo', 'storage'))) {
+            mkdirSync(join(homedir(), 'TeBo', 'storage'));
+            writeFileSync(join(homedir(), 'TeBo', 'storage', 'settings.json'), '', {flag: 'w'});
             return;
         }
 
-        if (!existsSync(join(homedir(), 'lima', 'settings.json'))) {
-            writeFileSync(join(homedir(), 'lima', 'settings.json'), '', {flag: 'w'});
+        if (!existsSync(join(homedir(), 'TeBo', 'storage', 'settings.json'))) {
+            writeFileSync(join(homedir(), 'TeBo', 'storage', 'settings.json'), '', {flag: 'w'});
             return
         }
 
-        if (readFileSync(join(homedir(), 'lima', 'settings.json'), {
+        if (readFileSync(join(homedir(), 'TeBo', 'storage', 'settings.json'), {
             encoding: 'utf-8', flag: 'r'
         }).length === 0) {
             this.create();
@@ -252,7 +252,7 @@ export class SettingsManager {
 
         console.log('Loading previous settings');
 
-        let settingsFile = readFileSync(join(homedir(), 'lima', 'settings.json'), {
+        let settingsFile = readFileSync(join(homedir(), 'TeBo', 'storage', 'settings.json'), {
             encoding: 'utf-8', flag: 'r'
         });
 

@@ -192,28 +192,28 @@ export class ProgressManager {
     }
 
     initialize() {
-        let directoryPath = join(homedir(), 'lima');
-        let filePath = join(homedir(), 'lima', 'progress.json');
+        let directoryPath = join(homedir(), 'TeBo', 'storage');
+        let filePath = join(homedir(), 'TeBo', 'storage', 'progress.json');
 
         console.log(`directoryPath2: ${directoryPath}`);
         console.log(`filePath: ${filePath}`);
 
 
-        if (!existsSync(join(homedir(), 'lima'))) {
+        if (!existsSync(join(homedir(), 'TeBo', 'storage'))) {
             console.log(`existsSync passed`);
-            mkdirSync(join(homedir(), 'lima'));
+            mkdirSync(join(homedir(), 'TeBo', 'storage'));
             console.log(`mkdirSync passed`);
-            writeFileSync(join(homedir(), 'lima', 'progress.json'), '', {flag: 'w'});
+            writeFileSync(join(homedir(), 'TeBo', 'storage', 'progress.json'), '', {flag: 'w'});
             console.log(`writeFileSync passed`);
             return;
         }
-        if (!existsSync(join(homedir(), 'lima', 'progress.json'))) {
-            // console.log(`'${join(homedir(), 'lima', 'progress.json')}'does not already exist`);
-            writeFileSync(join(homedir(), 'lima', 'progress.json'), '', {flag: 'w'});
+        if (!existsSync(join(homedir(), 'TeBo', 'storage', 'progress.json'))) {
+            // console.log(`'${join(homedir(), 'TeBo', 'storage', 'progress.json')}'does not already exist`);
+            writeFileSync(join(homedir(), 'TeBo', 'storage', 'progress.json'), '', {flag: 'w'});
             return;
         }
 
-        if (readFileSync(join(homedir(), 'lima', 'progress.json'), {
+        if (readFileSync(join(homedir(), 'TeBo', 'storage', 'progress.json'), {
                 encoding: 'utf-8', flag: 'r'
             }
         ).length === 0) {
@@ -224,7 +224,7 @@ export class ProgressManager {
         console.log('Loading Progress Storage');
 
 
-        let progressFile = readFileSync(join(homedir(), 'lima', 'progress.json'), {
+        let progressFile = readFileSync(join(homedir(), 'TeBo', 'storage', 'progress.json'), {
             encoding: 'utf-8', flag: 'r'
         });
         let progressJson = JSON.parse(progressFile);
@@ -373,7 +373,7 @@ export class ProgressManager {
             ]
         }
 
-        writeFileSync(join(homedir(), 'lima', 'progress.json'), JSON.stringify(progressMap), {
+        writeFileSync(join(homedir(), 'TeBo', 'storage', 'progress.json'), JSON.stringify(progressMap), {
             encoding: 'utf-8', flag: 'w'
         });
     }
@@ -410,7 +410,7 @@ export class ProgressManager {
             ]
         }
 
-        writeFileSync(join(homedir(), 'lima', 'progress.json'), JSON.stringify(progressMap), {
+        writeFileSync(join(homedir(), 'TeBo', 'storage', 'progress.json'), JSON.stringify(progressMap), {
             encoding: 'utf-8', flag: 'w'
         });
 
