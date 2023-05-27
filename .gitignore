@@ -7,6 +7,8 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+README.zh-CN.md
+
 .fleet
 .idea
 .vscode
@@ -14,7 +16,7 @@ node_modules
 dist
 dist-ssr
 dist-electron
-release
+release/*/win-unpacked
 *.local
 
 # Editor directories and files

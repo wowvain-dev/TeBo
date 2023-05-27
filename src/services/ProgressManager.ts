@@ -290,11 +290,6 @@ export class ProgressManager {
                     element.matematica.geometrie.culori[1]
                 )
             );
-            // x.matematica.parts.get('geometrie')?.parts.set('regula_sirului',
-            //     new ExerciseProgress(element.matematica.geometrie.regula_sirului[0],
-            //         element.matematica.geometrie.regula_sirului[1]
-            //     )
-            // );
             x.matematica.parts.get('geometrie')?.parts.set('comparare',
                 new ExerciseProgress(element.matematica.geometrie.comparare[0],
                     element.matematica.geometrie.comparare[1]
