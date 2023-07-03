@@ -1,0 +1,79 @@
+{
+  "name": "tebo",
+  "version": "2.2.0",
+  "productName": "TeBo",
+  "main": "dist-electron/main/index.js",
+  "description": "Culegere educațională pentru copii cu deficiențe cognitive.",
+  "author": "wowvain-dev",
+  "license": "MIT",
+  "private": true,
+  "homepage": "./",
+  "debug": {
+    "env": {
+      "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && electron-builder",
+    "preview": "vite preview",
+    "pree2e": "vite build --mode=test",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "@dnd-kit/accessibility": "^3.0.1",
+    "@dnd-kit/core": "^6.0.8",
+    "@dnd-kit/modifiers": "^6.0.1",
+    "@dnd-kit/sortable": "^7.0.2",
+    "@dnd-kit/utilities": "^3.2.1",
+    "@fontsource/dm-sans": "^4.5.9",
+    "@mantine/core": "^6.0.9",
+    "@nextui-org/react": "^1.0.0-beta.12",
+    "@react-buddy/ide-toolbox": "^2.3.1",
+    "@react-buddy/palette-antd": "^5.3.0",
+    "@react-buddy/palette-mantine-core": "^6.0.0",
+    "@tabler/icons-react": "^2.17.0",
+    "@tldraw/assets": "^2.0.0-alpha.12",
+    "@tldraw/tldraw": "^2.0.0-alpha.12",
+    "@tldraw/utils": "^2.0.0-alpha.12",
+    "@types/react-howler": "^5.2.0",
+    "antd": "^5.3.2",
+    "axios": "^1.4.0",
+    "electron-updater": "^5.3.0",
+    "fraction.js": "^4.2.0",
+    "framer-motion": "^10.9.1",
+    "iconsax-react": "^0.0.8",
+    "localforage": "^1.10.0",
+    "maths.ts": "^0.0.8",
+    "openai": "^3.2.1",
+    "random": "^4.1.0",
+    "react-howler": "^5.2.0",
+    "react-icons": "^4.8.0",
+    "react-router-dom": "^6.9.0",
+    "react-simple-keyboard": "^3.5.46",
+    "signia": "^0.1.4",
+    "signia-react": "^0.1.4",
+    "use-react-router-breadcrumbs": "^4.0.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.32.1",
+    "@rollup/plugin-dynamic-import-vars": "^2.0.3",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^3.1.0",
+    "dotenv": "^16.0.3",
+    "electron": "^23.1.1",
+    "electron-builder": "^24.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.58.3",
+    "typescript": "^4.9.5",
+    "vite": "^4.2.1",
+    "vite-electron-plugin": "^0.8.2",
+    "vite-plugin-electron": "^0.11.1",
+    "vite-plugin-electron-renderer": "^0.12.1"
+  },
+  "engines": {
+    "node": "^14.18.0 || >=16.0.0"
+  }
+}

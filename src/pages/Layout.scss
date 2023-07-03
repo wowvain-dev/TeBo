@@ -1,0 +1,79 @@
+.page-layout {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.overall-layout {
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  //background: url("../assets/background-5.jpg") !important;
+  background-attachment: fixed !important;
+  background-position: center;
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.settings-content {
+  padding: 1rem;
+  min-width: 50vh;
+  width: 100%;
+}
+
+.modern-scroll {
+  &::-webkit-scrollbar-track {
+    border: 1px solid #aaa;
+    border-radius: 14px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 14px;
+    background-color: #aaa;
+  }
+
+}
+
+.ant-modal-mask {
+  z-index: 99999 !important;
+}
+
+.ant-modal-wrap {
+  z-index: 99999 !important;
+}
+
+.side-menu-wrapper {
+  overflow: auto;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+
+  &::-webkit-scrollbar-track {
+    border: 1px solid #aaa;
+    border-radius: 14px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 14px;
+    background-color: #aaa;
+  }
+}
+
+.nextui-backdrop-content {
+  max-width: 70vw !important;
+}
+

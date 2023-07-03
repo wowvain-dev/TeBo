@@ -1,0 +1,128 @@
+{
+"letters" : [
+  {
+    "letter": "a",
+    "recording": "audio/letters/A.aac"
+  },
+  {
+    "letter": "ă",
+    "recording": "audio/letters/A_2.aac"
+  },
+  {
+    "letter": "â",
+    "recording": "audio/letters/A_1.aac"
+  },
+  {
+    "letter": "b",
+    "recording": "audio/letters/B.aac"
+  },
+  {
+    "letter": "c",
+    "recording": "audio/letters/C.aac"
+  },
+  {
+    "letter": "d",
+    "recording": "audio/letters/D.aac"
+  },
+  {
+    "letter": "e",
+    "recording": "audio/letters/E.aac"
+  },
+  {
+    "letter": "f",
+    "recording": "audio/letters/f.aac"
+  },
+  {
+    "letter": "g",
+    "recording": "audio/letters/G.aac"
+  },
+  {
+    "letter": "h",
+    "recording": "audio/letters/H.aac"
+  },
+  {
+    "letter": "i",
+    "recording": "audio/letters/i.aac"
+  },
+  {
+    "letter": "j",
+    "recording": "audio/letters/J.aac"
+  },
+  {
+    "letter": "k",
+    "recording": "audio/letters/K.aac"
+  },
+  {
+    "letter": "l",
+    "recording": "audio/letters/L.aac"
+  },
+  {
+    "letter": "m",
+    "recording": "audio/letters/M.aac"
+  },
+  {
+    "letter": "n",
+    "recording": "audio/letters/N.aac"
+  },
+  {
+    "letter": "o",
+    "recording": "audio/letters/O.aac"
+  },
+  {
+    "letter": "p",
+    "recording": "audio/letters/P.aac"
+  },
+  {
+    "letter": "q",
+    "recording": "audio/letters/Q.aac"
+  },
+  {
+    "letter": "r",
+    "recording": "audio/letters/R.aac"
+  },
+  {
+    "letter": "s",
+    "recording": "audio/letters/S.aac"
+  },
+  {
+    "letter": "ş",
+    "recording": "audio/letters/S_1.aac"
+  },
+  {
+    "letter": "t",
+    "recording": "audio/letters/T.aac"
+  },
+  {
+    "letter": "ţ",
+    "recording": "audio/letters/T_1.aac"
+  },
+  {
+    "letter": "r",
+    "recording": "audio/letters/R.aac"
+  },
+  {
+    "letter": "u",
+    "recording": "audio/letters/U.aac"
+  },
+  {
+    "letter": "v",
+    "recording": "audio/letters/V.aac"
+  },
+  {
+    "letter": "w",
+    "recording": "audio/letters/W.aac"
+  },
+  {
+    "letter": "x",
+    "recording": "audio/letters/X.aac"
+  },
+  {
+    "letter": "y",
+    "recording": "audio/letters/Y.aac"
+  },
+  {
+    "letter": "z",
+    "recording": "audio/letters/Z.aac"
+  }
+]
+}

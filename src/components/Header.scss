@@ -1,0 +1,122 @@
+.header-breadcrumbs {
+    &::-webkit-scrollbar {
+        height: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #fefefe;
+        border-top: 1px solid #ccc;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #cacaca;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #bfbfbf;
+        transition: all 1s;
+    }
+}
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .header-breadcrumbs {
+        display: flex;
+        flex-direction: row;
+        background: #fefefe;
+        border-radius: 12px;
+        padding: 10px 5px;
+        // padding-left: 20px;
+        // padding-right: 20px;
+        margin-left: 20px;
+        margin-top: 20px;
+        width: 25vw;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        white-space: nowrap;
+
+        .ant-breadcrumb {
+            ol {
+                display: inline-block;
+                // white-space: nowrap;
+                li {
+                    display: inline-block;
+                }
+            }
+        }
+
+        .link {
+            margin-right: 10px;
+            margin-left: 10px;
+            font-size: calc(max(1vw, 20px));
+        }
+
+        span {
+            font-family: "DM Sans";
+        }
+    }
+
+    .header-level {
+        display: flex;
+        flex-direction: row;
+        background: #fefefe;
+        border-radius: 12px;
+        // padding: 5px 30px;
+        margin-top: 20px;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        width: 15vw;
+
+        p {
+            margin-top: auto;
+            margin-bottom: auto;
+            font-family: "DM Sans";
+            text-align: center;
+            font-weight: bold;
+            font-size: calc(max(1.4vw, 25px));
+        }
+    }
+
+    .header-progress {
+        display: flex;
+        flex-direction: row;
+        background: #fefefe;
+        border-radius: 12px;
+        padding: 10px 25px;
+        margin-top: 20px;
+        margin-right: 20px;
+        width: 25vw;
+        height: 50px;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.test-blackbox {
+    height: 50px;
+    width: 50px;
+    border-radius: 12px;
+    background: #000;
+}
+
+.dropdown-link {
+    width: 100%;
+    text-align: center;
+}
+
+.ant-dropdown-menu-title-content {
+    span {
+        font-family: "DM Sans";
+    }
+}

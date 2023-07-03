@@ -1,0 +1,20 @@
+.level1 {
+    &.card-holder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 90vh;
+    }
+
+    .background-card {
+        padding: 10px;
+        background: #fefefe;
+        // padding: 50px;
+        border-radius: 12px;
+        width: 1000px;
+        max-height: 500px;
+        margin-bottom: 3vh;
+        margin-top: 5vh;
+    }
+}
