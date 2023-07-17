@@ -35,6 +35,7 @@ let PathNames: Map<string, CrumbPath> = new Map<string, CrumbPath>([
     ["/aritmetica/comparatii", {name: "Comparaţii de Expresii"}],
     ["/romana/vocale", {name: "Vocale şi Consoane"}],
     ["/romana/litere", {name: "Recunoaştere Litere"}],
+    ["/romana/adevar", {name: "Adevărat sau Fals"}],
     ["/geometrie/culori", {name: "Recunoaştere Culori"}],
     ["/geometrie/regula_sirului", {name: "Regula Şirului"}],
     ["/geometrie/comparare", {name: "Comparare de Forme"}],
