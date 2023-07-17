@@ -193,7 +193,10 @@ function Header() {
             </div>
 
             <div className="header-progress">
-                <span style={{fontFamily: 'DM Sans'}}>{PathNames.get(location.pathname)?.progress?.current}</span>
+                <span style={{fontFamily: 'DM Sans'}}>{PathNames.get(location.pathname)?.progress?.current > PathNames.get(location.pathname)?.progress?.total
+                    ? PathNames.get(location.pathname)?.progress?.total
+                    : PathNames.get(location.pathname)?.progress?.current
+                }</span>
                 <Spacer x={.5}/>
                 <Progress value=
                               {(PathNames.get(location.pathname)?.progress?.current ?? 0) * 100 / (PathNames.get(location.pathname)?.progress?.total ?? 1)}

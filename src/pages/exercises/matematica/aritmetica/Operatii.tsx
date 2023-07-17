@@ -18,6 +18,7 @@ import skip_tour from '@/assets/audio/ui/skip_tour.aac';
 import cheat_tour from '@/assets/audio/ui/cheat_tour.aac';
 import ReactHowler from 'react-howler';
 import {DiplomaManager} from "@/services/DiplomaManager";
+import ConfettiExplosion from "react-confetti-explosion";
 
 export function Operatii() {
     const diploma = useDiplomaContext();
@@ -32,7 +33,7 @@ export function Operatii() {
     const [tryAgainVisible, setTryAgainVisible] = useState(false);
     const [tourVisible, setTourVisible] = useState(false);
     const [exercise, setExercise] = useState<JSX.Element>(<></>);
-
+    const [isExploding, setIsExploding] = useState(false);
 
     let eqRef = useRef(null);
     let inputRef = useRef(null);
@@ -574,6 +575,7 @@ export function Operatii() {
                             >Arată Răspunsul</Button>
                         </Tooltip>
                         <Spacer x={2}/>
+                        {isExploding && <ConfettiExplosion/>}
                         <Button ref={ansRef}
                                 size='lg' color={verifColor as NormalColors}
                                 css={{fontFamily: 'DM Sans'}}
@@ -617,7 +619,8 @@ export function Operatii() {
                                             let fractii_progress = progress.value.getField("matematica", "aritmetica", "fractii");
                                             let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
 
-                                            if (operatii_progress.current === 50) {
+                                            if (operatii_progress.current === operatii_progress.total) {
+                                                setIsExploding(true);
                                                 // STIU CA UNA DINTRE COMPARATII E REDUNDANTA, AM INCLUS-o ORICUM CA SA POT COPIA IF-UL LA TOATE EXERCITIILE USOR
                                                 if (ordine_progress.current >= ordine_progress.total &&
                                                     comparare_progress.current >= comparare_progress.total &&

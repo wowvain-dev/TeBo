@@ -22,7 +22,7 @@ import ReactHowler from 'react-howler';
 import {Letter} from '@/types/Letter';
 import random from 'random';
 import {LetterType} from '@/types/Letter';
-
+import ConfettiExplosion from "react-confetti-explosion";
 
 export function Vocale() {
     const diploma = useDiplomaContext();
@@ -42,6 +42,8 @@ export function Vocale() {
     const [successSound, setSuccessSound] = useState(false);
     const [failureSound, setFailureSound] = useState(false);
     const [letterSound, setLetterSound] = useState(false);
+
+    const [isExploding, setIsExploding] = useState(false);
 
     let letterRef = useRef(null);
     let choiceRef = useRef(null);
@@ -328,6 +330,7 @@ export function Vocale() {
                             </Button>
                         </Tooltip>
                         <Spacer x={2}/>
+                        {isExploding && <ConfettiExplosion/>}
                         <Button size='lg' color={verifColor as NormalColors} ref={ansRef}
                                 css={{fontFamily: 'DM Sans'}}
                                 onPress={() => {
@@ -369,6 +372,7 @@ export function Vocale() {
                                             console.log("vp: " + vocale_progress);
 
                                             if (vocale_progress.current === vocale_progress.total) {
+                                                setIsExploding(true);
                                                 if (litere_progress.current >= litere_progress.total) {
                                                     diploma.value.setOpenRomana(true);
                                                 }

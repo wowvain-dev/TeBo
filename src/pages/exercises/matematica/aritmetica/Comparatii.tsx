@@ -23,6 +23,7 @@ import failure_sound from '@/assets/audio/sfx/failure_sound.aac';
 import {Divider, Tour, TourProps} from 'antd';
 import stick_llama from '@/assets/stick-LLAMA-nerd-yellow.png';
 import {AiOutlineQuestion} from 'react-icons/all';
+import ConfettiExplosion from "react-confetti-explosion";
 
 export type DroppableProps = {
     label: React.ReactNode,
@@ -74,6 +75,8 @@ export function Comparatii() {
     const [hasCheated, setHasCheated] = useState(false);
     const [tryAgainVisible, setTryAgainVisible] = useState(false);
     const [activeId, setActiveId] = useState<number | null>(null);
+
+    const [isExploding, setIsExploding] = useState(false);
 
     const dropContainerRef = useRef<HTMLDivElement>(null);
 
@@ -447,6 +450,7 @@ export function Comparatii() {
                                 </Button>
                             </Tooltip>
                             <Spacer x={2}/>
+                            {isExploding && <ConfettiExplosion/>}
                             <Button size="lg" color={verifColor as NormalColors} ref={ansRef}
                                     css={{fontFamily: "DM Sans"}}
                                     onPress={() => {
@@ -487,6 +491,26 @@ export function Comparatii() {
                                                 newManager.level2 = copy.level2;
                                                 newManager.level3 = copy.level3;
                                                 progress.setValue(newManager);
+                                                progress.value.scriere();
+                                                let ordine_progress = progress.value.getField("matematica", "aritmetica", "ordine");
+                                                let operatii_progress = progress.value.getField("matematica", "aritmetica", "operatii");
+                                                let comparare_progress = progress.value.getField("matematica", "aritmetica", "comparatii");
+                                                let fractii_progress = progress.value.getField("matematica", "aritmetica", "fractii");
+                                                let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
+
+                                                if (comparare_progress.current === comparare_progress.total) {
+                                                    setIsExploding(true);
+                                                    // STIU CA UNA DINTRE COMPARATII E REDUNDANTA, AM INCLUS-o ORICUM CA SA POT COPIA IF-UL LA TOATE EXERCITIILE USOR
+                                                    if (ordine_progress.current >= ordine_progress.total &&
+                                                        comparare_progress.current >= comparare_progress.total &&
+                                                        fractii_progress.current >= fractii_progress.total &&
+                                                        formare_progress.current >= formare_progress.total &&
+                                                        operatii_progress.current >= operatii_progress.total
+                                                    ) {
+                                                        diploma.value.setOpenAlgebra(true);
+
+                                                    }
+                                                }
                                             }
                                             return;
                                         }
@@ -525,6 +549,26 @@ export function Comparatii() {
                                                 newManager.level2 = copy.level2;
                                                 newManager.level3 = copy.level3;
                                                 progress.setValue(newManager);
+                                                progress.value.scriere();
+                                                let ordine_progress = progress.value.getField("matematica", "aritmetica", "ordine");
+                                                let operatii_progress = progress.value.getField("matematica", "aritmetica", "operatii");
+                                                let comparare_progress = progress.value.getField("matematica", "aritmetica", "comparatii");
+                                                let fractii_progress = progress.value.getField("matematica", "aritmetica", "fractii");
+                                                let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
+
+                                                if (comparare_progress.current === comparare_progress.total) {
+                                                    setIsExploding(true);
+                                                    // STIU CA UNA DINTRE COMPARATII E REDUNDANTA, AM INCLUS-o ORICUM CA SA POT COPIA IF-UL LA TOATE EXERCITIILE USOR
+                                                    if (ordine_progress.current >= ordine_progress.total &&
+                                                        comparare_progress.current >= comparare_progress.total &&
+                                                        fractii_progress.current >= fractii_progress.total &&
+                                                        formare_progress.current >= formare_progress.total &&
+                                                        operatii_progress.current >= operatii_progress.total
+                                                    ) {
+                                                        diploma.value.setOpenAlgebra(true);
+
+                                                    }
+                                                }
                                             }
                                             return;
                                         }
@@ -572,6 +616,7 @@ export function Comparatii() {
                                                 let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
 
                                                 if (comparare_progress.current === comparare_progress.total) {
+                                                    setIsExploding(true);
                                                     // STIU CA UNA DINTRE COMPARATII E REDUNDANTA, AM INCLUS-o ORICUM CA SA POT COPIA IF-UL LA TOATE EXERCITIILE USOR
                                                     if (ordine_progress.current >= ordine_progress.total &&
                                                         comparare_progress.current >= comparare_progress.total &&

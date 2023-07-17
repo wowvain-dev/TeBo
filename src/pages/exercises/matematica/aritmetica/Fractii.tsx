@@ -21,6 +21,7 @@ import stick_llama from "@/assets/stick-LLAMA-nerd-yellow.png";
 import success_sound from '@/assets/audio/sfx/success_sound.aac';
 import failure_sound from '@/assets/audio/sfx/failure_sound.aac';
 import ReactHowler from 'react-howler';
+import ConfettiExplosion from "react-confetti-explosion";
 
 type Fractie = {
     numitor: number;
@@ -42,6 +43,8 @@ export function Fractii() {
     const [fraction, setFraction] = useState<Fractie>();
     const [successSound, setSuccessSound] = useState(false);
     const [failureSound, setFailureSound] = useState(false);
+
+    const [isExploding, setIsExploding] = useState(false);
 
     useEffect(() => {
         setVerifColor('primary');
@@ -353,6 +356,7 @@ export function Fractii() {
                             >Arată Răspunsul</Button>
                         </Tooltip>
                         <Spacer x={2}/>
+                        {isExploding && <ConfettiExplosion/>}
                         <Button size='lg' color={verifColor as NormalColors} ref={ansRef}
                                 css={{fontFamily: 'DM Sans'}}
                                 onPress={() => {
@@ -404,6 +408,7 @@ export function Fractii() {
                                             let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
 
                                             if (fractii_progress.current === fractii_progress.total) {
+                                                setIsExploding(true);
                                                 // STIU CA UNA DINTRE COMPARATII E REDUNDANTA, AM INCLUS-o ORICUM CA SA POT COPIA IF-UL LA TOATE EXERCITIILE USOR
                                                 if (ordine_progress.current >= ordine_progress.total &&
                                                     comparare_progress.current >= comparare_progress.total &&

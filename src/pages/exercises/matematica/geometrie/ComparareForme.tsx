@@ -26,6 +26,8 @@ import ReactHowler from 'react-howler';
 import random from 'random';
 import React from 'react';
 
+import ConfettiExplosion from "react-confetti-explosion";
+
 const SVG_HEIGHT = 160;
 const SVG_WIDTH = 300;
 
@@ -72,6 +74,8 @@ export function ComparareForme() {
     const [successSound, setSuccessSound] = useState(false);
     const [failureSound, setFailureSound] = useState(false);
     const [letterSound, setLetterSound] = useState(false);
+
+    const [isExploding, setIsExploding] = useState(false);
 
     let shape1Ref = useRef(null);
     let shape2Ref = useRef(null);
@@ -453,6 +457,7 @@ export function ComparareForme() {
                             </Button>
                         </Tooltip>
                         <Spacer x={2}/>
+                        {isExploding && <ConfettiExplosion/>}
                         <Button size='lg' ref={ansRef} css={{fontFamily: 'DM Sans'}}
                                 onPress={() => {
                                     if (selectedIndex === differenceIndex) {
@@ -490,6 +495,7 @@ export function ComparareForme() {
                                             let comparare_progress = progress.value.getField("matematica", "geometrie", "comparare");
 
                                             if (comparare_progress.current === comparare_progress.total) {
+                                                setIsExploding(true);
                                                 if (culori_progress.current >= comparare_progress.total)
                                                     diploma.value.setOpenGeometrie(true);
                                                 }

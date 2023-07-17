@@ -22,6 +22,7 @@ import ReactHowler from 'react-howler';
 import random from 'random';
 import React from 'react';
 import {shuffle} from "@/utils/ShuffleArray";
+import ConfettiExplosion from "react-confetti-explosion";
 
 enum Colors {
     red = '#e51126',
@@ -54,6 +55,8 @@ export function Culori() {
     const [successSound, setSuccessSound] = useState(false);
     const [failureSound, setFailureSound] = useState(false);
     const [letterSound, setLetterSound] = useState(false);
+
+    const [isExploding, setIsExploding] = useState(false);
 
     let shapeRef = useRef(null);
     let choiceRef = useRef(null);
@@ -569,6 +572,7 @@ export function Culori() {
                         </Tooltip>
                         <Spacer x={2}/>
                         {/*@ts-ignore*/}
+                        {isExploding && <ConfettiExplosion/>}
                         <Button size='lg' ref={ansRef} css={{fontFamily: 'DM Sans'}} color={verifColor}
                                 onPress={() => {
                                     if (chosenColor === answerColor) {
@@ -608,6 +612,7 @@ export function Culori() {
                                             let comparare_progress = progress.value.getField("matematica", "geometrie", "comparare");
 
                                             if (culori_progress.current === culori_progress.total) {
+                                                setIsExploding(true);
                                                 if (comparare_progress.current >= culori_progress.total) {
                                                     diploma.value.setOpenGeometrie(true);
                                                 }

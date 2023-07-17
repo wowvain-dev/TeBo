@@ -21,6 +21,9 @@ import failure_sound from '../../../../assets/audio/sfx/failure_sound.aac';
 import ReactHowler from 'react-howler';
 import {join} from 'path';
 import {Letter} from '@/types/Letter';
+import  Keyboard from 'react-simple-keyboard';
+import 'react-simple-keyboard/build/css/index.css';
+import ConfettiExplosion from 'react-confetti-explosion'
 import random from 'random';
 
 
@@ -42,8 +45,9 @@ export function Litere() {
 
     const [chosenLetter, setChosenLetter] = useState<Letter | null>(null);
 
-    let storage = useStorageContext();
+    const [isExploding, setIsExploding] = useState<boolean>(false);
 
+    let storage = useStorageContext();
 
     console.log(storage.value.letters.letters)
 
@@ -208,6 +212,7 @@ export function Litere() {
                         <Divider type='vertical' style={{height: '100px'}}/>
                         <Input
                             ref={inputRef}
+                            autoFocus={true}
                             placeholder='?'
                             value={inputValue}
                             onChange={e => setInputValue(e.target.value)}
@@ -222,7 +227,10 @@ export function Litere() {
         <AnimatedPage>
             <ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)}/>
             <ReactHowler src={`../../src/assets/${chosenLetter?.audioPath}`} playing={letterSound}
-                         onEnd={() => setLetterSound(false)}/>
+                         onEnd={() => {
+                             setLetterSound(false);
+                             inputRef.current.focus();
+                         }}/>
             <ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)}/>
             <div className="card-holder litere">
                 <Tour open={tourVisible} onClose={() => setTourVisible(false)} steps={tourSteps}/>
@@ -244,8 +252,28 @@ export function Litere() {
                         Recunoaştere Litere
                     </h3>
                     {/*<RandomSentence />*/}
+
+
                     {swap && <AnimatedPage><MainContent/></AnimatedPage>}
                     {!swap && <AnimatedPage><MainContent/></AnimatedPage>}
+
+                    <Spacer y={.5} />
+
+                    <div style={{marginLeft: "200px", marginRight: "200px"}}>
+                        <Keyboard
+                            theme={"hg-theme-default hg-layout-default keyboardTheme"}
+                            onKeyPress={(button) => {
+                                setInputValue(inputValue+button);
+                                inputRef.current.focus();
+                            }}
+                            layout={{
+                                default: ["ă â ș î ț"],
+                                shift: ["Ă Â Ș Î Ț"]
+                            }}
+                        />
+                    </div>
+
+                    <Spacer y={.5} />
 
                     <div className="buttons-container">
                         <Button size='lg' flat ref={skipRef} css={{fontFamily: 'DM Sans'}}
@@ -282,6 +310,7 @@ export function Litere() {
                             </Button>
                         </Tooltip>
                         <Spacer x={2}/>
+                        {isExploding && <ConfettiExplosion />}
                         <Button size='lg' color={verifColor as NormalColors} ref={ansRef}
                                 css={{fontFamily: 'DM Sans'}}
                                 onPress={() => {
@@ -323,6 +352,7 @@ export function Litere() {
                                             let vocale_progress = progress.value.getField("comunicare", "romana", "vocale");
 
                                             if (litere_progress.current === litere_progress.total) {
+                                                setIsExploding(true);
                                                 if (vocale_progress.current >= vocale_progress.total) {
                                                     diploma.value.setOpenRomana(true);
                                                 }

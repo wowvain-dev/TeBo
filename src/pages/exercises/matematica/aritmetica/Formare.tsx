@@ -19,6 +19,7 @@ import {HiOutlineSpeakerWave} from "react-icons/hi2";
 import {useRef} from 'react';
 import stick_llama from '@/assets/stick-LLAMA-nerd-yellow.png';
 import {AiOutlineQuestion} from 'react-icons/all';
+import ConfettiExplosion from "react-confetti-explosion";
 
 export type FormareNumberType = {
     number: number,
@@ -59,6 +60,7 @@ export function Formare() {
     const [failureSound, setFailureSound] = useState(false);
     const [tourVisible, setTourVisible] = useState(false);
 
+    const [isExploding, setIsExploding] = useState(false);
 
     useEffect(() => {
         setVerifColor("primary");
@@ -391,6 +393,7 @@ export function Formare() {
                             </Button>
                         </Tooltip>
                         <Spacer x={2}/>
+                        {isExploding && <ConfettiExplosion/>}
                         <Button size='lg' color={verifColor as NormalColors} ref={ansRef}
                                 css={{fontFamily: 'DM Sans'}}
                                 onPress={() => {
@@ -436,6 +439,7 @@ export function Formare() {
                                             let formare_progress = progress.value.getField("matematica", "aritmetica", "formare");
 
                                             if (formare_progress.current === formare_progress.total) {
+                                                setIsExploding(true);
                                                 // STIU CA UNA DINTRE COMPARATII E REDUNDANTA, AM INCLUS-o ORICUM CA SA POT COPIA IF-UL LA TOATE EXERCITIILE USOR
                                                 if (ordine_progress.current >= ordine_progress.total &&
                                                     comparare_progress.current >= comparare_progress.total &&
