@@ -1,5 +1,4 @@
 import './Operatii.scss';
-import stick_llama from '../../.././../assets/stick-LLAMA-nerd-yellow.png';
 import AnimatedPage from '@/components/AnimatedPage';
 import {Button, Card, Input, NormalColors, Spacer, Modal, Tooltip} from '@nextui-org/react';
 import {ArrowLeft, ArrowRight, ArrowRight2, AudioSquare, CloseCircle, Warning2} from "iconsax-react";
