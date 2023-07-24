@@ -25,7 +25,7 @@
 ## 🛫 Instalare
 
 - #### Folosirea installer-ului:
-  - Intrati pe pagina de [releases](https://gitlab.com/wowvain-dev/TeBo/-/releases) si descarcati ultima versiune: (v0.2.1-alpha)
+  - Intrati pe pagina de [releases](https://github.com/wowvain-dev/tebo/releases) si descarcati ultima versiune: (v2.3.0-stable)
   - Dezarhivati fisierul descarcat
   - Rulati `tebo-<VERSIUNE>.exe` si urmariti pasii installer-ului
   - Porniti programul din windows search bar
