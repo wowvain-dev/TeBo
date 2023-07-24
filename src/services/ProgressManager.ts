@@ -172,7 +172,7 @@ export class ProgressManager {
         this.level1.comunicare.parts.get('romana')?.parts
             .set('adevar', new ExerciseProgress(0, 31));
         this.level1.comunicare.parts.get('romana')?.parts
-            .set('paragraf', new ExerciseProgress(0, 0));
+            .set('paragraf', new ExerciseProgress(0, 9));
 
 
         this.level1.matematica.parts.set('aritmetica', new CollectionProgress());
