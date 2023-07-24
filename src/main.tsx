@@ -11,7 +11,7 @@ import {homedir} from "os";
 import {existsSync, readFileSync} from "fs";
 import {join} from "path";
 
-export const VERSION_NUMBER = 'v2.2.0';
+export const VERSION_NUMBER = 'v2.3.0';
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>

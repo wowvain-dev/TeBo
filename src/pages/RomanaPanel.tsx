@@ -48,7 +48,7 @@ export function RomanaPanel() {
                         <Grid sm={6} justify='center'>
                             <ProgressExerciseCard level={2}
                                                   to='/romana/adevar'
-                                                  exercise='Adevarat sau Fals'
+                                                  exercise='Recunoaștere Propoziții'
                                                   current={progress.value.level1.comunicare
                                                       .parts.get('romana')?.parts.get('adevar')?.current as number}
                                                   total={progress.value.level1.comunicare
@@ -56,13 +56,13 @@ export function RomanaPanel() {
                             />
                         </Grid>
                         <Grid sm={6} justify='center'>
-                            <ProgressExerciseCard level={2}
-                                                  to='/romana/vocale'
-                                                  exercise='Vocale şi Consoane'
+                            <ProgressExerciseCard level={3}
+                                                  to='/romana/paragraf'
+                                                  exercise='Completarea Paragrafelor'
                                                   current={progress.value.level1.comunicare
-                                                      .parts.get('romana')?.parts.get('vocale')?.current as number}
+                                                      .parts.get('romana')?.parts.get('paragraf')?.current as number}
                                                   total={progress.value.level1.comunicare
-                                                      .parts.get('romana')?.parts.get('vocale')?.total as number}
+                                                      .parts.get('romana')?.parts.get('paragraf')?.total as number}
                             />
                         </Grid>
                     </Grid.Container>

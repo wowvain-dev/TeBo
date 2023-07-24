@@ -1,4 +1,4 @@
-import './Vocale.sass';
+import './CompletareParagraf.sass';
 import stick_llama from '../../.././../assets/stick-LLAMA-nerd-yellow.png';
 import AnimatedPage from '@/components/AnimatedPage';
 import {Button, Card, Input, NormalColors, Spacer, Modal, Tooltip} from '@nextui-org/react';
@@ -10,12 +10,12 @@ import {
     useProgressContext,
     useDifficultyContext,
     useStorageContext,
-    useSettingsContext, useDiplomaContext
+    useSettingsContext, useDiplomaContext, StorageContainer
 } from '../../../../services/context';
 import {ExerciseProgress, ProgressManager} from '@/services/ProgressManager';
 import {Divider, notification, Tour, TourProps} from "antd";
 import {TryAgainModal} from "@/components/TryAgainModal";
-import {AiOutlineQuestion, HiOutlineSpeakerphone, HiOutlineSpeakerWave} from "react-icons/all";
+import {AiOutlineQuestion, CiWarning, HiOutlineSpeakerphone, HiOutlineSpeakerWave} from "react-icons/all";
 import success_sound from '@/assets/audio/sfx/success_sound.aac';
 import failure_sound from '@/assets/audio/sfx/failure_sound.aac';
 import ReactHowler from 'react-howler';
@@ -24,38 +24,45 @@ import random from 'random';
 import {LetterType} from '@/types/Letter';
 import ConfettiExplosion from "react-confetti-explosion";
 
-export function Vocale() {
+export function CompletareParagraf() {
     const diploma = useDiplomaContext();
     const difficulty = useDifficultyContext();
     const navigate = useNavigate();
     const progress = useProgressContext();
     const storage = useStorageContext();
     const [verifColor, setVerifColor] = useState('primary');
-    const [inputValue, setInputValue] = useState('');
     const [swap, setSwap] = useState(false);
     const [hasCheated, setHasCheated] = useState(false);
     const [tryAgainVisible, setTryAgainVisible] = useState(false);
     const [tourVisible, setTourVisible] = useState(false);
-    const [chosenLetter, setChosenLetter] = useState<Letter | null>(null);
-    const [chosenType, setChosenType] = useState<LetterType | null>(null);
 
     const [successSound, setSuccessSound] = useState(false);
     const [failureSound, setFailureSound] = useState(false);
     const [letterSound, setLetterSound] = useState(false);
 
     const [isExploding, setIsExploding] = useState(false);
+    const [paragraphIndex, setParagraphIndex] = useState<number>(0);
+    const [openMaintenanceModal, setOpenMaintenanceModal] = useState<boolean>(true);
 
-    let letterRef = useRef(null);
+    let paragraphRef = useRef(null);
     let choiceRef = useRef(null);
     let skipRef = useRef(null);
     let cheatRef = useRef(null);
     let ansRef = useRef(null);
 
     useEffect(() => {
+        setOpenMaintenanceModal(true);
         setVerifColor('primary');
-        setChosenLetter(storage.value.letters.letters[random.int(0, storage.value.letters.letters.length - 1)]);
         setHasCheated(false);
-    }, []);
+        let paragraf_progress = progress.value.getField("comunicare", "romana", "paragraf");
+        setParagraphIndex(paragraf_progress.current < paragraf_progress.total ?
+            paragraf_progress.current : paragraf_progress.total - 1
+        );
+        // setParagraphIndex(progress.value.level1.comunicare.parts.get("romana")?.parts.get("paragraf")?.current <
+        //     progress.value.level1.comunicare.parts.get("romana")?.parts.get("paragraf").total ?
+        //     progress.value.level1.comunicare.parts.get("romana")?.parts.get("paragraf")?.current :
+        //     progress.value.level1.comunicare.parts.get("romana")?.parts.get("paragraf")?.total
+    },[]);
 
     const settings = useSettingsContext();
     const avatar = settings.value.settings.avatar;
@@ -63,18 +70,18 @@ export function Vocale() {
     const tourSteps: TourProps['steps'] = [
         {
             title: (<div style={{display: 'flex', flexDirection: 'column'}}>
-                    Citiți litera
+                    Citiți paragraful
                 </div>
             ),
             description: <div style={{display: 'flex'}}>
                 <div style={{flex: '1'}}>
-                    Puteți asculta iar fișierul audio dacă apăsați pe literă.
+                    Completați spațiile libere cu răspunsul corect
                 </div>
                 <Divider type={"vertical"} style={{height: '100px'}}/>
                 <img style={{scale: '100%', height: '100px', marginRight: '20px', zIndex: '0'}}
                      src={avatar.getStick()} alt='Llama ajutatoare'/>
             </div>,
-            target: () => letterRef.current,
+            target: () => paragraphRef.current,
             nextButtonProps: {
                 children: <ArrowRight size={25}/>
             },
@@ -179,97 +186,68 @@ export function Vocale() {
                 children: <ArrowLeft size={25}/>
             }
         }
-
     ];
 
     const MainContent = () => {
-        return (
-            <div className="vocale-card-holder">
-                <Card css={{width: '70%', height: '250px'}}>
+        return(
+            <div className="paragraf-card-holder">
+                <Card css={{width: '85%', height: '350px'}}>
                     <Card.Header css={{fontFamily: 'DM Sans', borderBottom: '1px solid #ccc'}}>
-                        Alegeţi opţiunea corectă
+                        Completați textul următor
                     </Card.Header>
-                    <Card.Body css={{
-                        fontFamily: 'DM Sans',
-                        justifyContent: 'center',
+                    <Card.Body
+                        ref={paragraphRef}
+                        css={{
+                        fontFamily: "DM Sans",
                         textAlign: 'center',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyCenter: 'center',
-                        alignItems: 'center',
                     }}>
-                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
-                             ref={letterRef}
-                        >
-                            <Button animated={false}
-                                    auto light css={{w: '75px', h: '75px', fontFamily: 'DM Sans', fontSize: '$4xl'}}
-                                    onPress={() => setLetterSound(true)}
-                            >{chosenLetter?.character}</Button>
-                            <Spacer x={1}/>
-                            <Button
-                                auto light animated={false}
-                                css={{w: '75px', h: '75px', fontFamily: 'DM Sans', fontSize: '$4xl'}}
-                                onPress={() => setLetterSound(true)}
-                            >{chosenLetter?.character?.toUpperCase()}</Button>
+                        <div>
+                            <h2 style={{marginBottom: "1px"}}>{storage.value.paragraphs.paragraphs[paragraphIndex].title}</h2>
+                            <h4 style={{textAlign: "right", marginRight: "20px"}}>de {storage.value.paragraphs.paragraphs[paragraphIndex].author}</h4>
                         </div>
-                        <Divider type='horizontal' style={{width: '100px', marginTop: '0'}}/>
-                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}} ref={choiceRef}>
-                            <Button
-                                size='md'
-                                flat={!(chosenType === LetterType.vowel)}
-                                color={chosenType === LetterType.vowel ? 'success' : 'primary'}
-                                onPress={() => {
-                                    if (chosenType === null) {
-                                        setChosenType(LetterType.vowel);
-                                        return;
-                                    }
-                                    if (chosenType === LetterType.vowel) {
-                                        setChosenType(null);
-                                        return;
-                                    }
-                                    if (chosenType === LetterType.consonant) {
-                                        setChosenType(LetterType.vowel);
-                                        return;
-                                    }
-                                }}
-                            >Vocală</Button>
-                            <Spacer x={2}/>
-                            <Button
-                                size='md'
-                                flat={!(chosenType === LetterType.consonant)}
-                                color={chosenType === LetterType.consonant ? 'success' : 'primary'}
-                                onPress={() => {
-                                    if (chosenType === null) {
-                                        setChosenType(LetterType.consonant);
-                                        return;
-                                    }
-                                    if (chosenType === LetterType.consonant) {
-                                        setChosenType(null);
-                                        return;
-                                    }
-                                    if (chosenType === LetterType.vowel) {
-                                        setChosenType(LetterType.consonant);
-                                        return;
-                                    }
-                                }}
-                            >Consoană</Button>
+                        <div style={{paddingLeft: "25px", paddingRight: "25px"}}>
+                            {storage.value.paragraphs.paragraphs[paragraphIndex].getJSX()}
                         </div>
                     </Card.Body>
                 </Card>
             </div>
         );
-    };
+    }
 
-    return (
+    return(
         <AnimatedPage>
-            <ReactHowler src={`../../src/assets/${chosenLetter?.audioPath}`} playing={letterSound}
-                         onEnd={() => setLetterSound(false)}/>
+            <Modal
+                aria-labelledby={"modal-title"}
+                open={openMaintenanceModal}
+                onClose={() => {
+                    setOpenMaintenanceModal(false)
+                }}
+                style={{padding: "15px"}}
+            >
+                <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <div style={{fontFamily: "DM Sans", textAlign: "left"}}>
+                        <h3>Heads up!</h3> <p style={{fontFamily: "DM Sans", fontSize: "20px"}}>Acest exercițiu este incă work in progress. Sistemul de verificare funcționează dar:</p> <ul>
+                        <li>nu poți da skip la paragrafe;</li>
+                        <li>nu poți primi feedback pe răspunsuri individuale;</li>
+                        <li>poți da bypass la paragraf primind progress chiar dacă apeși pe <i>Arată Răspunsul;</i></li>
+                    </ul>
+                        <p style={{fontFamily: "DM Sans", fontSize: "20px"}}>Din cauza acestora, exercițiul nu e inclus înca în sistemul de diplomă.</p>
+                    </div>
+                    <div>
+                        <CiWarning  size={250} color={"#deac72"}/>
+                    </div>
+                </div>
+                <Button style={{fontFamily: "DM Sans", marginTop: '25px'}}
+                    onPress={() => setOpenMaintenanceModal(false)}
+                >Confirm citirea</Button>
+            </Modal>
             <ReactHowler src={success_sound} playing={successSound} onEnd={() => setSuccessSound(false)}/>
             <ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)}/>
-            <div className="card-holder vocale">
+            <div className="card-holder paragraf">
                 <Tour open={tourVisible} onClose={() => setTourVisible(false)} steps={tourSteps}/>
-                <TryAgainModal show={tryAgainVisible} setShow={setTryAgainVisible}/>
-                <div className='background-card'>
+                <TryAgainModal show={tryAgainVisible} setShow={setTryAgainVisible} />
+
+                <div className="background-card">
                     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                         <Button light auto size='xs' icon={<ArrowLeft size="24"/>}
                                 css={{width: "36px", height: "36px"}}
@@ -282,20 +260,17 @@ export function Vocale() {
                                 }}
                         />
                     </div>
-                    <h3 style={{textAlign: 'center', fontFamily: 'DM Sans', fontWeight: 'normal', fontSize: '20px'}}>
-                        Vocale şi Consoane
-                    </h3>
 
                     {swap && <AnimatedPage><MainContent/></AnimatedPage>}
                     {!swap && <AnimatedPage><MainContent/></AnimatedPage>}
+
+                    <Spacer y={1}/>
 
                     <div className="buttons-container">
                         <Button size='lg' flat ref={skipRef} css={{fontFamily: 'DM Sans'}}
                                 onPress={() => {
                                     setHasCheated(false);
                                     setSwap(!swap);
-                                    setChosenLetter(storage.value.letters.letters[random.int(0, storage.value.letters.letters.length - 1)]);
-                                    setChosenType(null);
                                 }}
                         >
                             Treci Peste
@@ -317,7 +292,17 @@ export function Vocale() {
                                     css={{fontFamily: 'DM Sans'}}
                                     onPress={() => {
                                         setHasCheated(true);
-                                        setChosenType(chosenLetter?.letterType ?? null);
+                                        let new_storage = {...storage} as StorageContainer;
+                                        // new_storage.value.paragraphs.paragraphs[0]
+                                        //     .choices.forEach((val, index, array) => {
+                                        //         val = new_storage.value.paragraphs.paragraphs[0].answers[index].correct;
+                                        // });
+                                        for (let i = 0; i < new_storage.value.paragraphs.paragraphs[paragraphIndex].answers.length; i++) {
+                                            new_storage.value.paragraphs.paragraphs[paragraphIndex].choices[i] =
+                                                storage.value.paragraphs.paragraphs[paragraphIndex].answers[i].correct;
+                                        }
+                                        storage.setValue(new_storage.value);
+                                        setSwap(!swap);
                                     }}
                             >
                                 Arată Răspunsul
@@ -328,13 +313,20 @@ export function Vocale() {
                         <Button size='lg' color={verifColor as NormalColors} ref={ansRef}
                                 css={{fontFamily: 'DM Sans'}}
                                 onPress={() => {
-                                    if (chosenLetter?.letterType === chosenType) {
+                                    // TODO(wowvain-dev): REPLACE
+                                    let is_correct = true;
+
+                                    for (let i = 0; i < storage.value.paragraphs.paragraphs[paragraphIndex].answers.length; i++) {
+                                        if (storage.value.paragraphs.paragraphs[paragraphIndex].choices[i] !==
+                                            storage.value.paragraphs.paragraphs[paragraphIndex].answers[i].correct
+                                        ) is_correct = false;
+                                    }
+
+                                    if (is_correct) {
                                         setVerifColor('success');
                                         setTimeout(() => {
                                             setVerifColor('primary');
                                         }, 500);
-                                        setChosenType(null);
-                                        setChosenLetter(storage.value.letters.letters[random.int(0, storage.value.letters.letters.length - 1)]);
                                         setSwap(!swap);
                                         setSuccessSound(true);
                                         if (hasCheated) {
@@ -343,14 +335,14 @@ export function Vocale() {
                                             let copy = {...progress.value};
                                             let newProgress: ExerciseProgress =
                                                 copy.level1.comunicare.parts.get('romana')
-                                                    ?.parts.get('vocale') ?? new ExerciseProgress(
+                                                    ?.parts.get('paragraf') ?? new ExerciseProgress(
                                                     0, 0
                                                 );
                                             // @ts-ignore
                                             newProgress.current += 1;
 
                                             copy.level1.comunicare.parts.get('romana')
-                                                ?.parts.set('vocale', newProgress);
+                                                ?.parts.set('paragraf', newProgress);
 
                                             let newManager: ProgressManager = new ProgressManager();
                                             newManager.level1 = copy.level1;
@@ -362,15 +354,20 @@ export function Vocale() {
                                             let litere_progress = progress.value.getField("comunicare", "romana", "litere");
                                             let vocale_progress = progress.value.getField("comunicare", "romana", "vocale");
                                             let adevar_progress = progress.value.getField("comunicare", "romana", "adevar");
+                                            let paragraf_progress = progress.value.getField("comunicare", "romana", "paragraf");
 
-                                            if (vocale_progress.current === vocale_progress.total) {
+                                            if (paragraf_progress.current === paragraf_progress.total) {
                                                 setIsExploding(true);
                                                 if (litere_progress.current >= litere_progress.total &&
-                                                    adevar_progress.current >= adevar_progress.total
+                                                    adevar_progress.current >= adevar_progress.total &&
+                                                    vocale_progress.current >= vocale_progress.total
                                                 ) {
                                                     diploma.value.setOpenRomana(true);
                                                 }
                                             }
+                                            setParagraphIndex(paragraf_progress.current < paragraf_progress.total ?
+                                                paragraf_progress.current : paragraf_progress.total - 1
+                                            );
                                         }
                                     } else {
                                         console.log('INCORRECT');

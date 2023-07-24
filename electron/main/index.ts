@@ -56,11 +56,11 @@ async function createWindow() {
             // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
             nodeIntegration: true,
             contextIsolation: false,
-            // devTools: false
+            devTools: false
         },
     })
     // TODO: REMOVE COMMENT IN PROD
-    // win.removeMenu();
+    win.removeMenu();
 
     if (process.env.VITE_DEV_SERVER_URL) { // electron-vite-vue#298
         win.loadURL(url)
