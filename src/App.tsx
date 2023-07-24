@@ -43,6 +43,8 @@ import {existsSync, readFileSync} from "fs";
 import {join} from "path";
 import {homedir} from "os";
 import {Diploma} from "@/components/Diploma";
+import {Adevar} from "@/pages/exercises/comunicare/romana/Adevar";
+import {CompletareParagraf} from "@/pages/exercises/comunicare/romana/CompletareParagraf";
 
 const theme = createTheme({
     type: "light",
@@ -199,6 +201,12 @@ function App() {
                         }, {
                             path: 'litere',
                             element: <Litere/>
+                        }, {
+                            path: 'adevar',
+                            element: <Adevar/>
+                        }, {
+                            path: 'paragraf',
+                            element: <CompletareParagraf/>
                         }
                     ]
                 }

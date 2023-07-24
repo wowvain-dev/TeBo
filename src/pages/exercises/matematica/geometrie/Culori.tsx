@@ -573,6 +573,7 @@ export function Culori() {
                         <Spacer x={2}/>
                         {/*@ts-ignore*/}
                         {isExploding && <ConfettiExplosion/>}
+                        {/*@ts-ignore*/}
                         <Button size='lg' ref={ansRef} css={{fontFamily: 'DM Sans'}} color={verifColor}
                                 onPress={() => {
                                     if (chosenColor === answerColor) {

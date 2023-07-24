@@ -35,7 +35,8 @@ let PathNames: Map<string, CrumbPath> = new Map<string, CrumbPath>([
     ["/aritmetica/comparatii", {name: "Comparaţii de Expresii"}],
     ["/romana/vocale", {name: "Vocale şi Consoane"}],
     ["/romana/litere", {name: "Recunoaştere Litere"}],
-    ["/romana/adevar", {name: "Adevărat sau Fals"}],
+    ["/romana/adevar", {name: "Recunoaștere Propoziții"}],
+    ["/romana/paragraf", {name: "Completarea Paragrafelor"}],
     ["/geometrie/culori", {name: "Recunoaştere Culori"}],
     ["/geometrie/regula_sirului", {name: "Regula Şirului"}],
     ["/geometrie/comparare", {name: "Comparare de Forme"}],
@@ -103,6 +104,14 @@ function Header() {
     PathNames.get('/romana/vocale')!.progress = {
         current: progress.value.level1.comunicare.parts.get('romana')?.parts.get('vocale')?.current ?? 0,
         total: progress.value.level1.comunicare.parts.get('romana')?.parts.get('vocale')?.total ?? 0,
+    }
+    PathNames.get('/romana/adevar')!.progress = {
+        current: progress.value.level1.comunicare.parts.get('romana')?.parts.get('adevar')?.current ?? 0,
+        total: progress.value.level1.comunicare.parts.get('romana')?.parts.get('adevar')?.total ?? 0,
+    }
+    PathNames.get('/romana/paragraf')!.progress = {
+        current: progress.value.level1.comunicare.parts.get('romana')?.parts.get('paragraf')?.current ?? 0,
+        total: progress.value.level1.comunicare.parts.get('romana')?.parts.get('paragraf')?.total ?? 0,
     }
 
     const Breadcrumbs = () => {
@@ -194,7 +203,7 @@ function Header() {
             </div>
 
             <div className="header-progress">
-                <span style={{fontFamily: 'DM Sans'}}>{PathNames.get(location.pathname)?.progress?.current > PathNames.get(location.pathname)?.progress?.total
+                <span style={{fontFamily: 'DM Sans'}}>{PathNames.get(location.pathname)?.progress?.current ?? 0 > (PathNames.get(location.pathname)?.progress?.total ?? 0 )
                     ? PathNames.get(location.pathname)?.progress?.total
                     : PathNames.get(location.pathname)?.progress?.current
                 }</span>

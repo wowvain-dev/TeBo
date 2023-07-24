@@ -229,6 +229,7 @@ export function Litere() {
             <ReactHowler src={`../../src/assets/${chosenLetter?.audioPath}`} playing={letterSound}
                          onEnd={() => {
                              setLetterSound(false);
+                             //@ts-ignore
                              inputRef.current.focus();
                          }}/>
             <ReactHowler src={failure_sound} playing={failureSound} onEnd={() => setFailureSound(false)}/>
@@ -264,6 +265,7 @@ export function Litere() {
                             theme={"hg-theme-default hg-layout-default keyboardTheme"}
                             onKeyPress={(button) => {
                                 setInputValue(inputValue+button);
+                                //@ts-ignore
                                 inputRef.current.focus();
                             }}
                             layout={{
@@ -350,8 +352,11 @@ export function Litere() {
 
                                             let litere_progress = progress.value.getField("comunicare", "romana", "litere");
                                             let vocale_progress = progress.value.getField("comunicare", "romana", "vocale");
+                                            let adevar_progress = progress.value.getField("comunicare", "romana", "adevar");
 
-                                            if (litere_progress.current === litere_progress.total) {
+                                            if (litere_progress.current === litere_progress.total &&
+                                                adevar_progress.current === litere_progress.total
+                                            ) {
                                                 setIsExploding(true);
                                                 if (vocale_progress.current >= vocale_progress.total) {
                                                     diploma.value.setOpenRomana(true);
