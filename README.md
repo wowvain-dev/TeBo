@@ -85,5 +85,3 @@ Pentru fisierele de stil ale aplicaţiei am folosit SASS/SCSS.
 
 - E-Mail: wowvain.dev@gmail.com
 - Discord: !wowvain#3859
-
-## NOTE: Aplicația a trecut printr-un proces de re-branding. Inițial a fost numită `LiMa` și era hosted pe github.
