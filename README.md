@@ -22,7 +22,7 @@
 
 ## 📄 Documentație
 
-#### Puteți găsi o prezentare succintă a ideii din spatele aplicației la: [Google Drive](https://drive.google.com/file/d/1KgF5iCfRQPy91G2mBuxGIG3Oxivo-lXR/view?usp=sharing)
+#### Puteți găsi o prezentare succintă a ideii din spatele aplicației la: [Google Drive](https://drive.google.com/drive/u/3/folders/1Rfc2zRjYuRh1aUbs6fdOkn3DPsTuiWQq)
 #### Puteți găsi documentația oficială a aplicației la: [Google Docs](https://docs.google.com/document/d/1-UaW0o4H4E0m2j9YGnsPfSpCxP_2zXHngUtTnCYW4OQ/edit?usp=sharing)
 
 
