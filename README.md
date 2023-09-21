@@ -65,7 +65,7 @@ Majoritatea aplicaţiei este scrisă în TypeScript (*.ts / *.tsx) pentru a pute
 - ### [![My Skills](https://skillicons.dev/icons?i=scss)](https://skillicons.dev) Syntetically Awesome Stylesheets (Sass)
 Pentru fisierele de stil ale aplicaţiei am folosit SASS/SCSS.
 
-## 🫂 Echipa Nostra
+## 🫂 Echipa Noastra
 
 - Profesor Coordonator: Doamna Profesoară Corina Vinţ
 - Membrii:
