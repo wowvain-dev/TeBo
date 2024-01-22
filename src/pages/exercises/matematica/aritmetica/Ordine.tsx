@@ -32,6 +32,7 @@ import {Divider, Tour, TourProps} from 'antd';
 import {HiOutlineSpeakerWave, AiOutlineQuestion} from 'react-icons/all';
 import stick_llama from '@/assets/stick-LLAMA-nerd-yellow.png';
 import {DiplomaManager} from "@/services/DiplomaManager";
+import ConfettiExplosion from "react-confetti-explosion";
 
 function generateArray(lowLimit: number, maxLimit: number, length: number): number[] {
     let array: number[] = [];
@@ -106,6 +107,8 @@ export function Ordine() {
     const [items, setItems] = useState<number[]>([]);
     const [selectedOrder, setSelectedOrder] = useState<Order>(Order.ascending);
     const [tourVisible, setTourVisible] = useState(false);
+
+    const [isExploding, setIsExploding] = useState(false);
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -429,6 +432,7 @@ export function Ordine() {
                             >Arată Răspunsul</Button>
                         </Tooltip>
                         <Spacer x={2}/>
+                        {isExploding && <ConfettiExplosion/>}
                         <Button size='lg' color={verifColor as NormalColors} ref={ansRef}
                                 css={{fontFamily: 'DM Sans'}}
                                 onPress={() => {
@@ -475,6 +479,7 @@ export function Ordine() {
 
                                             if (ordine_progress.current === ordine_progress.total) {
                                                 // STIU CA UNA DINTRE COMPARATII E REDUNDANTA, AM INCLUS-o ORICUM CA SA POT COPIA IF-UL LA TOATE EXERCITIILE USOR
+                                                setIsExploding(true);
                                                 if (ordine_progress.current >= ordine_progress.total &&
                                                     comparare_progress.current >= comparare_progress.total &&
                                                     fractii_progress.current >= fractii_progress.total &&

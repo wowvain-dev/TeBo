@@ -45,6 +45,26 @@ export function RomanaPanel() {
                                                       .parts.get('romana')?.parts.get('vocale')?.total as number}
                             />
                         </Grid>
+                        <Grid sm={6} justify='center'>
+                            <ProgressExerciseCard level={2}
+                                                  to='/romana/adevar'
+                                                  exercise='Recunoaștere Propoziții'
+                                                  current={progress.value.level1.comunicare
+                                                      .parts.get('romana')?.parts.get('adevar')?.current as number}
+                                                  total={progress.value.level1.comunicare
+                                                      .parts.get('romana')?.parts.get('adevar')?.total as number}
+                            />
+                        </Grid>
+                        <Grid sm={6} justify='center'>
+                            <ProgressExerciseCard level={3}
+                                                  to='/romana/paragraf'
+                                                  exercise='Completarea Paragrafelor'
+                                                  current={progress.value.level1.comunicare
+                                                      .parts.get('romana')?.parts.get('paragraf')?.current as number}
+                                                  total={progress.value.level1.comunicare
+                                                      .parts.get('romana')?.parts.get('paragraf')?.total as number}
+                            />
+                        </Grid>
                     </Grid.Container>
                 </div>
             </div>

@@ -1,0 +1,484 @@
+{
+  "propozitii": [
+    {
+      "string": "Aceasta este o propoziție corectă.",
+      "audio_path": "path/to/audio1.mp3",
+      "answear": true
+    },
+    {
+      "string": "Câinele merge plimbare.",
+      "audio_path": "path/to/audio2.mp3",
+      "answear": false
+    },
+    {
+      "string": "Azi am mers la piata.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Casa mea este foarte mare si frumos.",
+      "audio_path": "path/to/audio3.mp3",
+      "answear": false
+    },
+    {
+      "string": "Mâine mergem la mare!",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Eu vrea să învăț programare.",
+      "audio_path": "path/to/audio4.mp3",
+      "answear": false
+    },
+    {
+      "string": "Cartea este pe masă.",
+      "audio_path": "path/to/audio5.mp3",
+      "answear": true
+    },
+    {
+      "string": "Am intalnit Maria ieri.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Mâncăm cina la restaurant.",
+      "audio_path": "path/to/audio6.mp3",
+      "answear": true
+    },
+    {
+      "string": "Câinele negru aleargă repede.",
+      "audio_path": "path/to/audio7.mp3",
+      "answear": true
+    },
+    {
+      "string": "Ieri am fost la magazin.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Eu nu merge la școală.",
+      "audio_path": "path/to/audio8.mp3",
+      "answear": false
+    },
+    {
+      "string": "Merele și perele este fructe.",
+      "audio_path": "path/to/audio9.mp3",
+      "answear": false
+    },
+    {
+      "string": "Mâine voi cumpăra cartea.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Am fost la film ieri.",
+      "audio_path": "path/to/audio10.mp3",
+      "answear": true
+    },
+    {
+      "string": "Prietenul meu câștig la concurs.",
+      "audio_path": "path/to/audio11.mp3",
+      "answear": false
+    },
+    {
+      "string": "A fost o zi frumos.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Mâncăm pizza pentru cină.",
+      "audio_path": "path/to/audio12.mp3",
+      "answear": true
+    },
+    {
+      "string": "Ea plăti pentru bilet.",
+      "audio_path": "path/to/audio13.mp3",
+      "answear": false
+    },
+    {
+      "string": "Câinele meu drag este vesel.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Merg la școală cu mașina.",
+      "audio_path": "path/to/audio14.mp3",
+      "answear": true
+    },
+    {
+      "string": "Eu avut o zi ocupat.",
+      "audio_path": "path/to/audio15.mp3",
+      "answear": false
+    },
+    {
+      "string": "Azi vremea este frumoasă.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Am citit o carte interesantă.",
+      "audio_path": "path/to/audio16.mp3",
+      "answear": true
+    },
+    {
+      "string": "Mâine plecăm în vacanță.",
+      "audio_path": "path/to/audio17.mp3",
+      "answear": true
+    },
+    {
+      "string": "Noaptea stelele străluci.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Azi eu făcut temele.",
+      "audio_path": "path/to/audio18.mp3",
+      "answear": false
+    },
+    {
+      "string": "Am cântat la pian.",
+      "audio_path": "path/to/audio19.mp3",
+      "answear": true
+    },
+    {
+      "string": "Marți am mers la teatru.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Eu citit o carte bună.",
+      "audio_path": "path/to/audio20.mp3",
+      "answear": false
+    },
+    {
+      "string": "Vreau să mănânc o pizza.",
+      "audio_path": "path/to/audio21.mp3",
+      "answear": true
+    },
+    {
+      "string": "Mâine va fi o zi ocupat.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Am fost la plimbare.",
+      "audio_path": "path/to/audio22.mp3",
+      "answear": true
+    },
+    {
+      "string": "Ea cânta foarte frumos.",
+      "audio_path": "path/to/audio23.mp3",
+      "answear": true
+    },
+    {
+      "string": "Azi am fost la mare.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Eu cumpărat un telefon nou.",
+      "audio_path": "path/to/audio24.mp3",
+      "answear": false
+    },
+    {
+      "string": "A fost un film plictisitor.",
+      "audio_path": "path/to/audio25.mp3",
+      "answear": true
+    },
+    {
+      "string": "Mergem la picnic mâine.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Eu cântat în cor.",
+      "audio_path": "path/to/audio26.mp3",
+      "answear": false
+    },
+    {
+      "string": "Am vizitat un muzeu interesant.",
+      "audio_path": "path/to/audio27.mp3",
+      "answear": true
+    },
+    {
+      "string": "Azi mâncăm la restaurant.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "El avut o zi grea.",
+      "audio_path": "path/to/audio28.mp3",
+      "answear": false
+    },
+    {
+      "string": "Am văzut un cerb în pădure.",
+      "audio_path": "path/to/audio29.mp3",
+      "answear": true
+    },
+    {
+      "string": "Mergem la film sâmbătă.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Eu dansat la petrecere.",
+      "audio_path": "path/to/audio30.mp3",
+      "answear": false
+    },
+    {
+      "string": "Astăzi plouă torențial.",
+      "audio_path": "path/to/audio31.mp3",
+      "answear": true
+    },
+    {
+      "string": "Am fost la medic ieri.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Câinele meu iubit doarme liniștit.",
+      "audio_path": "path/to/audio32.mp3",
+      "answear": true
+    },
+    {
+      "string": "Am cumpărat flori pentru mama.",
+      "audio_path": "path/to/audio33.mp3",
+      "answear": true
+    },
+    {
+      "string": "Mâine mergem la teatru.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Eu jucat fotbal în parc.",
+      "audio_path": "path/to/audio34.mp3",
+      "answear": false
+    },
+    {
+      "string": "Am pregătit o surpriză frumoasă.",
+      "audio_path": "path/to/audio35.mp3",
+      "answear": true
+    },
+    {
+      "string": "Azi am fost la bibliotecă.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Mâine vom merge la plajă.",
+      "audio_path": "path/to/audio36.mp3",
+      "answear": true
+    },
+    {
+      "string": "Eu scris o poezie.",
+      "audio_path": "path/to/audio37.mp3",
+      "answear": false
+    },
+    {
+      "string": "Am văzut un film interesant.",
+      "audio_path": "path/to/audio38.mp3",
+      "answear": true
+    },
+    {
+      "string": "Azi am făcut curățenie.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "El cântă la chitară.",
+      "audio_path": "path/to/audio39.mp3",
+      "answear": true
+    },
+    {
+      "string": "Mergem în excursie mâine.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Eu căutat cheile.",
+      "audio_path": "path/to/audio40.mp3",
+      "answear": false
+    },
+    {
+      "string": "Am mâncat o prăjitură delicioasă.",
+      "audio_path": "path/to/audio41.mp3",
+      "answear": true
+    },
+    {
+      "string": "Azi am fost la parc.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Ea făcut o surpriză.",
+      "audio_path": "path/to/audio42.mp3",
+      "answear": false
+    },
+    {
+      "string": "Am citit o carte captivantă.",
+      "audio_path": "path/to/audio43.mp3",
+      "answear": true
+    },
+    {
+      "string": "Mâine avem test la matematică.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Eu scris o scrisoare.",
+      "audio_path": "path/to/audio44.mp3",
+      "answear": false
+    },
+    {
+      "string": "Am călătorit cu avionul.",
+      "audio_path": "path/to/audio45.mp3",
+      "answear": true
+    },
+    {
+      "string": "Azi am fost la film.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "El învățat pentru examen.",
+      "audio_path": "path/to/audio46.mp3",
+      "answear": false
+    },
+    {
+      "string": "Am vizitat un castel vechi.",
+      "audio_path": "path/to/audio47.mp3",
+      "answear": true
+    },
+    {
+      "string": "Mâine mergem la zoo.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Eu mâncat o salată.",
+      "audio_path": "path/to/audio48.mp3",
+      "answear": false
+    },
+    {
+      "string": "Am făcut o plimbare lungă.",
+      "audio_path": "path/to/audio49.mp3",
+      "answear": true
+    },
+    {
+      "string": "Azi am fost la concert.",
+      "audio_path": "",
+      "answear": true
+    },
+    {
+      "string": "Ea cântă la pian.",
+      "audio_path": "path/to/audio50.mp3",
+      "answear": true
+    },
+    {
+      "string": "Eu vrea să mergem acasă.",
+      "audio_path": "path/to/audio51.mp3",
+      "answear": false
+    },
+    {
+      "string": "A fost o călătorie interesantă.",
+      "audio_path": "path/to/audio52.mp3",
+      "answear": false
+    },
+    {
+      "string": "Cântecul ei preferat e muzică rock.",
+      "audio_path": "",
+      "answear": false
+    },
+    {
+      "string": "Azi am scris o poezie frumoase.",
+      "audio_path": "path/to/audio53.mp3",
+      "answear": false
+    },
+    {
+      "string": "Am vizitat Londra acum un an.",
+      "audio_path": "path/to/audio54.mp3",
+      "answear": false
+    },
+    {
+      "string": "Mâine vom merge la cină.",
+      "audio_path": "",
+      "answear": false
+    },
+    {
+      "string": "Eu dansat toată noaptea.",
+      "audio_path": "path/to/audio55.mp3",
+      "answear": false
+    },
+    {
+      "string": "Azi am cântat la chitară.",
+      "audio_path": "",
+      "answear": false
+    },
+    {
+      "string": "Am văzut un film foarte enervant.",
+      "audio_path": "path/to/audio56.mp3",
+      "answear": false
+    },
+    {
+      "string": "Mergem în vacanță în Antarctica.",
+      "audio_path": "path/to/audio57.mp3",
+      "answear": false
+    },
+    {
+      "string": "Am avut o zi plictisitor.",
+      "audio_path": "path/to/audio58.mp3",
+      "answear": false
+    },
+    {
+      "string": "Azi am fost la birou.",
+      "audio_path": "",
+      "answear": false
+    },
+    {
+      "string": "El câștigat concursul.",
+      "audio_path": "path/to/audio59.mp3",
+      "answear": false
+    },
+    {
+      "string": "Am mâncat o pereche de mere.",
+      "audio_path": "path/to/audio60.mp3",
+      "answear": false
+    },
+    {
+      "string": "Mâine vom merge la film.",
+      "audio_path": "",
+      "answear": false
+    },
+    {
+      "string": "Eu cumpărat un cățel.",
+      "audio_path": "path/to/audio61.mp3",
+      "answear": false
+    },
+    {
+      "string": "A fost o carte interesant.",
+      "audio_path": "path/to/audio62.mp3",
+      "answear": false
+    },
+    {
+      "string": "Azi am fost la picnic.",
+      "audio_path": "",
+      "answear": false
+    },
+    {
+      "string": "Ea vorbit foarte bine la conferință.",
+      "audio_path": "path/to/audio63.mp3",
+      "answear": false
+    },
+    {
+      "string": "Mâine avem examen la istorie.",
+      "audio_path": "",
+      "answear": false
+    },
+    {
+      "string": "Eu făcut o plimbare scurtă.",
+      "audio_path": "path/to/audio64.mp3",
+      "answear": false
+    }
+  ]
+}

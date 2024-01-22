@@ -232,6 +232,7 @@ export function PageLayout({setColdStart}: {setColdStart: (a: any)=>void}) {
             // preventClose
             closeButton
             blur
+            preventClose={true}
             aria-labelledby="modal-title"
             open={visible}
             onClose={() => setVisible(false)}

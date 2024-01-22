@@ -1,6 +1,6 @@
 {
   "name": "tebo",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "productName": "TeBo",
   "main": "dist-electron/main/index.js",
   "description": "Culegere educațională pentru copii cu deficiențe cognitive.",
@@ -47,12 +47,14 @@
     "maths.ts": "^0.0.8",
     "openai": "^3.2.1",
     "random": "^4.1.0",
+    "react-confetti-explosion": "^2.1.2",
     "react-howler": "^5.2.0",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.9.0",
     "react-simple-keyboard": "^3.5.46",
     "signia": "^0.1.4",
     "signia-react": "^0.1.4",
+    "simple-keyboard": "^3.6.31",
     "use-react-router-breadcrumbs": "^4.0.1"
   },
   "devDependencies": {

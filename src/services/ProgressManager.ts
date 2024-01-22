@@ -104,6 +104,8 @@ export class LevelProgress {
 }
 
 export class ProgressManager {
+    // Levels are a redundant idea from a past version of the app.
+    // Haven't had the time to remove the older implementation.
     level1: LevelProgress = new LevelProgress();
     level2: LevelProgress = new LevelProgress();
     level3: LevelProgress = new LevelProgress();
@@ -167,6 +169,11 @@ export class ProgressManager {
             .set('litere', new ExerciseProgress(0, 31));
         this.level1.comunicare.parts.get('romana')?.parts
             .set('vocale', new ExerciseProgress(0, 31));
+        this.level1.comunicare.parts.get('romana')?.parts
+            .set('adevar', new ExerciseProgress(0, 31));
+        this.level1.comunicare.parts.get('romana')?.parts
+            .set('paragraf', new ExerciseProgress(0, 9));
+
 
         this.level1.matematica.parts.set('aritmetica', new CollectionProgress());
         this.level1.matematica.parts.get('aritmetica')?.parts
@@ -240,13 +247,14 @@ export class ProgressManager {
 
             if (element.comunicare.romana.litere[0] != 0 ||
                 element.comunicare.romana.vocale[0] != 0 ||
+                element.comunicare.romana.adevar[0] != 0 ||
+                element.comunicare.romana.paragraf[0] != 0 ||
                 element.matematica.aritmetica.operatii[0] != 0 ||
                 element.matematica.aritmetica.fractii[0] != 0 ||
                 element.matematica.aritmetica.ordine[0] != 0 ||
                 element.matematica.aritmetica.formare[0] != 0 ||
                 element.matematica.aritmetica.comparatii[0] != 0 ||
                 element.matematica.geometrie.culori[0] != 0 ||
-                // element.matematica.geometrie.regula_sirului[0] != 0 ||
                 element.matematica.geometrie.comparare[0] != 0) {
                 this.isThereProgress = true;
             }
@@ -261,6 +269,16 @@ export class ProgressManager {
             x.comunicare.parts.get('romana')?.parts.set('vocale',
                 new ExerciseProgress(element.comunicare.romana.vocale[0],
                     element.comunicare.romana.vocale[1]
+                )
+            );
+            x.comunicare.parts.get('romana')?.parts.set('adevar',
+                new ExerciseProgress(element.comunicare.romana.adevar[0],
+                    element.comunicare.romana.adevar[1]
+                    )
+                );
+            x.comunicare.parts.get('romana')?.parts.set('paragraf',
+                new ExerciseProgress(element.comunicare.romana.paragraf[0],
+                    element.comunicare.romana.paragraf[1]
                 )
             );
             x.matematica.parts.get('aritmetica')?.parts.set('operatii',
@@ -319,6 +337,13 @@ export class ProgressManager {
         romana?.parts.set('vocale',
             new ExerciseProgress(0, romana?.parts.get('litere')?.total ?? 0)
         );
+        romana?.parts.set('adevar',
+            new ExerciseProgress(0, romana?.parts.get('adevar')?.total ?? 0)
+        );
+        romana?.parts.set('paragraf',
+            new ExerciseProgress(0, romana?.parts.get('paragraf')?.total ?? 0)
+        );
+
         aritmetica?.parts.set('operatii',
             new ExerciseProgress(0, aritmetica?.parts.get('operatii')?.total ?? 0)
         );
@@ -334,6 +359,7 @@ export class ProgressManager {
         aritmetica?.parts.set('comparatii',
             new ExerciseProgress(0, aritmetica?.parts.get('comparatii')?.total ?? 0)
         );
+
         geometrie?.parts.set('culori',
             new ExerciseProgress(0, geometrie?.parts.get('culori')?.total ?? 0)
         );
@@ -351,6 +377,8 @@ export class ProgressManager {
                         "romana": {
                             "litere": [0, romana?.parts.get('litere')!.total],
                             "vocale": [0, romana?.parts.get('vocale')!.total],
+                            "adevar": [0, romana?.parts.get('adevar')!.total],
+                            "paragraf": [0, romana?.parts.get('paragraf')!.total],
                         },
                     },
                     "matematica": {
@@ -388,6 +416,8 @@ export class ProgressManager {
                         "romana": {
                             "litere": [romana1?.parts.get('litere')?.current, romana1?.parts.get('litere')!.total],
                             "vocale": [romana1?.parts.get('vocale')!.current, romana1?.parts.get('vocale')!.total],
+                            "adevar": [romana1?.parts.get('adevar')!.current, romana1?.parts.get('adevar')!.total],
+                            "paragraf": [romana1?.parts.get('paragraf')!.current, romana1?.parts.get('paragraf')!.total],
                         },
                     },
                     "matematica": {

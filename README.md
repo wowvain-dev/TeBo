@@ -20,12 +20,19 @@
 
 [![My Skills](https://skillicons.dev/icons?i=ts,react,nodejs,electron,scss)](https://skillicons.dev)  
 
+## 📄 Documentație
+
+#### Puteți găsi o prezentare succintă a ideii din spatele aplicației la: [Google Drive](https://drive.google.com/drive/u/3/folders/1Rfc2zRjYuRh1aUbs6fdOkn3DPsTuiWQq)
+#### Puteți găsi documentația oficială a aplicației la: [Google Docs](https://docs.google.com/document/d/1-UaW0o4H4E0m2j9YGnsPfSpCxP_2zXHngUtTnCYW4OQ/edit?usp=sharing)
+
+
+
 
 
 ## 🛫 Instalare
 
 - #### Folosirea installer-ului:
-  - Intrati pe pagina de [releases](https://gitlab.com/wowvain-dev/TeBo/-/releases) si descarcati ultima versiune: (v0.2.1-alpha)
+  - Intrati pe pagina de [releases](https://github.com/wowvain-dev/tebo/releases) si descarcati ultima versiune: (v2.3.0-stable)
   - Dezarhivati fisierul descarcat
   - Rulati `tebo-<VERSIUNE>.exe` si urmariti pasii installer-ului
   - Porniti programul din windows search bar
@@ -78,5 +85,3 @@ Pentru fisierele de stil ale aplicaţiei am folosit SASS/SCSS.
 
 - E-Mail: wowvain.dev@gmail.com
 - Discord: !wowvain#3859
-
-## NOTE: Aplicația a trecut printr-un proces de re-branding. Inițial a fost numită `LiMa` și era hosted pe github.
